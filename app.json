@@ -2,6 +2,7 @@
   "expo": {
     "name": "app-therapist",
     "slug": "app-therapist",
+    "scheme": "app-therapist",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,8 +24,12 @@
         "backgroundColor": "#ffffff"
       }
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
+    "experiments": {
+      "tsconfigPaths": true,
+      "typedRoutes": true
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }
