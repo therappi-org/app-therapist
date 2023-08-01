@@ -1,7 +1,9 @@
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { Button } from '@/components/Button';
 
 export default function Feedback() {
   const insets = useSafeAreaInsets();
@@ -33,11 +35,9 @@ export default function Feedback() {
 
       <View className="mb-4 items-center">
         <Link href="/(auth)/sign-in" asChild>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            className={`w-80 max-w-full items-center justify-center rounded-full ${'bg-brand'} py-4`}>
-            <Text className={`font-MontserratBold text-base  ${'text-gray-50'}`}>Avançar</Text>
-          </TouchableOpacity>
+          <Button>
+            <Text className={`font-MontserratBold text-base  ${'text-gray-50'}`}>Ok, entendi</Text>
+          </Button>
         </Link>
       </View>
     </View>

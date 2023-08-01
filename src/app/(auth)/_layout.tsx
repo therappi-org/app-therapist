@@ -60,6 +60,24 @@ export default function Layout() {
               title: 'Esqueci minha senha',
             }}
           />
+          <Stack.Screen
+            name="create-account/index"
+            options={{
+              title: 'Criando seu cadastro',
+            }}
+          />
+          <Stack.Screen
+            name="create-account/account-email/[name]"
+            options={{
+              title: 'Criando seu cadastro',
+            }}
+          />
+          <Stack.Screen
+            name="create-account/account-password/[...user]"
+            options={{
+              title: 'Criando seu cadastro',
+            }}
+          />
         </Stack>
       </View>
     </>

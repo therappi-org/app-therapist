@@ -1,37 +1,40 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useSearchParams } from 'expo-router';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { z } from 'zod';
 
+import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import colors from '@/theme/colors';
 
-type SignInFormValues = {
-  email: string;
-  password: string;
-};
+const forgotPasswordSchema = z.object({
+  email: z.string().email({ message: 'O email informado não é válido' }),
+});
+
+type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 
 export default function ForgotPassword() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false);
   const insets = useSafeAreaInsets();
-  const { email } = useSearchParams();
+  const { email } = useSearchParams<{ email: string }>();
 
   const {
     control,
     handleSubmit,
     watch,
-    formState: { errors },
-  } = useForm({
+    formState: { errors, isValid },
+  } = useForm<ForgotPasswordFormValues>({
+    mode: 'all',
     defaultValues: {
       email: email === 'undefined' ? '' : email,
     },
+    resolver: zodResolver(forgotPasswordSchema),
   });
 
   const watchEmailField = watch('email');
 
-  const onSubmit = (values: SignInFormValues) => {
+  const onSubmit = (values: ForgotPasswordFormValues) => {
     console.log(values);
   };
 
@@ -65,19 +68,14 @@ export default function ForgotPassword() {
 
       <View className="mb-4 items-center">
         <Link href="/(auth)/forgot-password/feedback" asChild>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            disabled={isDisabled}
-            className={`w-80 max-w-full items-center justify-center rounded-full ${
-              isDisabled ? 'bg-gray-100' : 'bg-brand'
-            } py-4`}>
+          <Button disabled={!isValid}>
             <Text
-              className={`font-MontserratBold text-base  ${
-                isDisabled ? 'text-feedback-info opacity-40' : 'text-gray-50'
+              className={`font-MontserratBold text-base ${
+                isValid ? 'text-white' : 'text-feedback-info opacity-40'
               }`}>
               Enviar link de recuperação
             </Text>
-          </TouchableOpacity>
+          </Button>
         </Link>
       </View>
     </View>

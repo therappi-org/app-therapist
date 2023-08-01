@@ -1,7 +1,9 @@
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { Button } from '@/components/Button';
 
 export default function Intro() {
   const insets = useSafeAreaInsets();
@@ -30,24 +32,22 @@ export default function Intro() {
           </View>
 
           <Link href="/sign-in" asChild>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              className="w-80 max-w-full items-center justify-center rounded-full bg-brand py-4">
+            <Button>
               <Text className="font-MontserratBold text-base text-gray-50">
                 Utilizar email cadastrado
               </Text>
-            </TouchableOpacity>
+            </Button>
           </Link>
         </View>
 
         <View className="mb-6 w-full items-center space-y-5">
           <Text className="font-MontserratSemiBold text-base">Ainda não tem acesso?</Text>
 
-          <TouchableOpacity
-            activeOpacity={0.6}
-            className="w-80 max-w-full items-center justify-center rounded-full border border-brand py-4">
-            <Text className=" font-MontserratBold text-base text-brand">Criar minha conta</Text>
-          </TouchableOpacity>
+          <Link href="/(auth)/create-account" asChild>
+            <Button variant="outline">
+              <Text className=" font-MontserratBold text-base text-brand">Criar minha conta</Text>
+            </Button>
+          </Link>
         </View>
       </View>
     </View>
