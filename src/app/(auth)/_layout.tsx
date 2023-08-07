@@ -78,6 +78,12 @@ export default function Layout() {
               title: 'Criando seu cadastro',
             }}
           />
+          <Stack.Screen
+            name="create-account/feedback"
+            options={{
+              headerShown: false,
+            }}
+          />
         </Stack>
       </View>
     </>

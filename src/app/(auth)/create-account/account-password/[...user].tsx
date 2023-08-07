@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useSearchParams } from 'expo-router';
+import { Link, useSearchParams } from 'expo-router';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
@@ -13,7 +13,7 @@ import { ProgressBar } from '@/components/ProgressBar';
 
 const passwordAccountSchema = z
   .object({
-    password: z.string().trim(),
+    password: z.string().trim().min(6, { message: 'A senha deve ter no mínimo 6 caracteres' }),
   })
   .required();
 
@@ -75,13 +75,11 @@ export default function PasswordAccount() {
               </Text>
             </Button>
           </View>
-          {/* <Link asChild href={`/(auth)/create-account/account-email/${email}`}> */}
-          <View>
+          <Link asChild href="/(auth)/create-account/feedback">
             <Button disabled={!isValid} variant="rounded">
               <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
             </Button>
-          </View>
-          {/* </Link> */}
+          </Link>
         </View>
       </View>
     </View>
