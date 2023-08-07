@@ -13,6 +13,11 @@ export const SplashScreen = () => (
       />
     </View>
 
-    <Loading />
+    <Loading
+      style={{ bottom: 0 }}
+      source={require('../../assets/animations/loading.json')}
+      autoPlay
+      loop
+    />
   </View>
 );
