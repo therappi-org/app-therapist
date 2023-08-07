@@ -1,14 +1,17 @@
 import { ReactNode, forwardRef } from 'react';
 import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
 
+import { Loading } from '../Loading';
+
 type ButtonProps = TouchableOpacityProps & {
   disabled?: boolean;
   variant?: 'default' | 'outline' | 'rounded' | 'ghost';
   children: ReactNode;
+  isLoading?: boolean;
 };
 
 export const Button = forwardRef<TouchableOpacity, ButtonProps>(
-  ({ disabled, children, variant = 'default', ...props }, ref) => {
+  ({ disabled, children, variant = 'default', isLoading = false, ...props }, ref) => {
     const buttonVariants = {
       default: `w-80 max-w-full items-center justify-center rounded-full ${
         disabled ? 'bg-gray-100' : 'bg-brand'
@@ -27,7 +30,11 @@ export const Button = forwardRef<TouchableOpacity, ButtonProps>(
         activeOpacity={0.8}
         disabled={disabled}
         {...props}>
-        {children}
+        {isLoading ? (
+          <Loading source={require('../../assets/animations/loading.json')} autoPlay loop />
+        ) : (
+          children
+        )}
       </TouchableOpacity>
     );
   }
