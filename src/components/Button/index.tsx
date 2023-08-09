@@ -20,7 +20,7 @@ export const Button = forwardRef<TouchableOpacity, ButtonProps>(
       rounded: `h-14 w-14 items-center justify-center rounded-full bg-brand ${
         disabled ? 'opacity-40' : 'bg-brand'
       }`,
-      ghost: `w-80 max-w-full items-center justify-center rounded-full py-4`,
+      ghost: `max-w-full items-center justify-center rounded-full py-4`,
     };
 
     return (
