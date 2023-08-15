@@ -26,11 +26,12 @@ export default function StepOne() {
 
           <View className="mt-6 space-y-2">
             <Text className="text-center font-MontserratBold text-xl">
-              1º Passo{'\n'} Crie seu cadastro grátis
+              1º Passo{'\n'}
+              Dados pessoais
             </Text>
-            <Text className="font-base text-center font-MontserratMedium">
-              Preencha seus dados e serviços que{'\n'} você atende. Após aprovado, seu cadastro
-              poderá ser concluído, ok?
+            <Text className="text-center font-MontserratMedium text-base">
+              Informe seus dados. Eles estão seguros e usados somente para validação do perfil na
+              plataforma.
             </Text>
           </View>
 

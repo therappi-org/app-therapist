@@ -27,12 +27,10 @@ export default function StepThree() {
           <View className="mt-6 space-y-2">
             <Text className="text-center font-MontserratBold text-xl">
               3º Passo{'\n'}
-              Defina horários e valores
+              Terapias e endereços
             </Text>
-            <Text className="font-base text-center font-MontserratMedium">
-              Informe como e quais os valores dos {'\n'}
-              seus serviços, permitindo que seus{'\n'}
-              clientes agendem seu atendimento.
+            <Text className="text-center font-MontserratMedium text-base">
+              Informe as terapias e respectivos endereços que você atende.
             </Text>
           </View>
 

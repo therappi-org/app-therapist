@@ -16,14 +16,18 @@ export default function Intro() {
       <CardStack>
         <View className="flex-1 items-center rounded-3xl bg-white px-4 pb-8 pt-10">
           <Text className="mb-4 text-center font-MontserratBold text-xl">
-            Seja bem-vindo {'\n'}ao Therappi
+            Seja bem-vindo {'\n'}
+            ao Therappi
           </Text>
           <Text className="mb-5 text-center font-MontserratMedium text-base">
-            Cadastre seus serviços e tenha acesso a clientes em busca de atendimentos de forma
-            simples e gratuita
+            Muito obrigado por estar conosco
+          </Text>
+          <Text className="mb-10 text-center font-MontserratMedium text-base">
+            Para que possa desfrutar da plataforma é necessário informar alguns dados pessoais e
+            profissionais. Mas não se preocupe, iremos te guiar.
           </Text>
           <Text className="text-center font-MontserratMedium text-base">
-            Novo por aqui? {'\n'}Nós te explicamos tudo 😉
+            Nós te explicamos tudo 😉
           </Text>
 
           <View className="mt-auto space-y-8">

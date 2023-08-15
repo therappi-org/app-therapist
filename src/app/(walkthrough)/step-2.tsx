@@ -27,11 +27,10 @@ export default function StepTwo() {
           <View className="mt-6 space-y-2">
             <Text className="text-center font-MontserratBold text-xl">
               2º Passo{'\n'}
-              Personalize sua área
+              Dados profissionais
             </Text>
-            <Text className="font-base text-center font-MontserratMedium">
-              Depois do cadastro aprovado, você {'\n'}poderá personalizar sua área podendo adicionar
-              fotos e mais outros detalhes.
+            <Text className="text-center font-MontserratMedium text-base">
+              Capriche nos dados pois é como os pacientes irão te ver na plataforma
             </Text>
           </View>
 

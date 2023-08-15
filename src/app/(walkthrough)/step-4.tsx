@@ -13,23 +13,24 @@ export default function StepFour() {
     <View className="w-full flex-1 items-center justify-center">
       <CardStack>
         <View className="flex-1 items-center rounded-3xl bg-white px-4 pb-8 pt-10">
-          <Image
-            className="h-52 w-52"
-            source={require('@/assets/images/Info_state_variants.svg')}
-          />
+          <View className="self-end">
+            <Button variant="ghost">
+              <Text className="text-center font-MontserratBold text-base text-gray-800">Pular</Text>
+            </Button>
+          </View>
+
+          <Image className="h-52 w-52" source={require('@/assets/images/walkthrough-step-3.svg')} />
           <View className="mt-2">
             <StepSphere step={4} />
           </View>
 
           <View className="mt-6 space-y-2">
             <Text className="text-center font-MontserratBold text-xl">
-              E pronto! Entre em contato{'\n'}
-              com o cliente
+              4º Passo{'\n'}
+              Defina horários e valores
             </Text>
-            <Text className="font-base text-center font-MontserratMedium">
-              Após o pagamento do usuário você terá{'\n'}
-              acesso aos seus dados para dar{'\n'}
-              sequência no atendimento.
+            <Text className="text-center font-MontserratMedium text-base">
+              Informe horários e valores dos seus serviços.
             </Text>
           </View>
 
@@ -42,10 +43,19 @@ export default function StepFour() {
                 backgroundColor="transparent"
               />
             </Button>
-
-            <Button className="w-full max-w-[208px]">
-              <Text className="font-MontserratBold text-base text-white">Vamos começar</Text>
-            </Button>
+            <Link asChild href="/(walkthrough)/step-5">
+              <Button className="w-full max-w-[208px]">
+                <View className="flex-row items-center gap-4">
+                  <Text className="font-MontserratBold text-base text-white">Próximo passo</Text>
+                  <Feather
+                    name="arrow-right"
+                    size={24}
+                    color="white"
+                    backgroundColor="transparent"
+                  />
+                </View>
+              </Button>
+            </Link>
           </View>
         </View>
       </CardStack>
