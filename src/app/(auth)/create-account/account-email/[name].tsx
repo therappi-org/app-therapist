@@ -48,7 +48,7 @@ export default function EmailAccount() {
           <Input
             control={control}
             name="email"
-            placeholder="Digite seu nome"
+            placeholder="Digite seu e-mail"
             isValid={isValid}
             variant="unstyled"
             autoCapitalize="none"
