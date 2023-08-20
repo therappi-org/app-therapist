@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link } from 'expo-router';
+import { Link, useSearchParams } from 'expo-router';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
@@ -17,14 +17,17 @@ import { z } from 'zod';
 import { Button } from '@/components/Button';
 import { ProgressBar } from '@/components/ProgressBar';
 
-const phoneRegisterSchema = z.object({
-  phone: z.string().regex(/^\([0-9]{2}\) [0-9]{5}-[0-9]{4}$/, { message: 'Telefone inválido' }),
+const dateOfBirthSchema = z.object({
+  DateOfBirth: z
+    .string()
+    .regex(/^\d{2}\/\d{2}\/\d{4}$/, { message: 'Data de nascimento inválida' }),
 });
 
-type PhoneRegisterFormValues = z.infer<typeof phoneRegisterSchema>;
+type PhoneRegisterFormValues = z.infer<typeof dateOfBirthSchema>;
 
-export default function PhoneRegister() {
-  const [phoneNumber, setPhoneNumber] = useState('');
+export default function DateOfBirthRegister() {
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const { phoneNumber } = useSearchParams<{ phoneNumber: string }>();
 
   const {
     control,
@@ -32,7 +35,7 @@ export default function PhoneRegister() {
     formState: { errors, isValid },
   } = useForm<PhoneRegisterFormValues>({
     mode: 'all',
-    resolver: zodResolver(phoneRegisterSchema),
+    resolver: zodResolver(dateOfBirthSchema),
   });
 
   return (
@@ -40,7 +43,7 @@ export default function PhoneRegister() {
       <View className="mt-4 space-y-4 px-6">
         <ProgressBar progress={40} />
         <Text className="font-MontserratSemiBold text-base text-white">
-          1º Passo - Número do telefone
+          2º Passo - Data de nascimento
         </Text>
       </View>
       <KeyboardAvoidingView
@@ -50,9 +53,9 @@ export default function PhoneRegister() {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View className="w-full flex-1">
             <View className="mt-6 items-center space-y-4">
-              <Text className="font-MontserratBold text-lg">Qual é o número do telefone?</Text>
+              <Text className="font-MontserratBold text-lg">Qual é a sua data nascimento?</Text>
               <Controller
-                name="phone"
+                name="DateOfBirth"
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => {
                   return (
@@ -61,19 +64,19 @@ export default function PhoneRegister() {
                         className={` h-10 w-full text-center font-MontserratBold text-lg ${
                           isValid ? 'text-brand' : 'text-feedback-error'
                         }`}
-                        placeholder="(00) 00000-0000"
+                        placeholder="DD/MM/YYYY"
                         value={value}
                         onBlur={onBlur}
                         keyboardType="number-pad"
-                        onChangeText={(maskedPhone, unmaskedPhone) => {
-                          setPhoneNumber(unmaskedPhone);
-                          onChange(maskedPhone);
+                        onChangeText={(maskedDateOfBirth, unmaskedDateOfBirth) => {
+                          setDateOfBirth(unmaskedDateOfBirth);
+                          onChange(maskedDateOfBirth);
                         }}
-                        mask={Masks.BRL_PHONE}
+                        mask={Masks.DATE_DDMMYYYY}
                       />
-                      {errors.phone && (
+                      {errors.DateOfBirth && (
                         <Text className="pt-2 text-center font-MontserratBold text-xs text-feedback-error">
-                          {errors.phone.message}
+                          {errors.DateOfBirth.message}
                         </Text>
                       )}
                     </>
@@ -83,7 +86,7 @@ export default function PhoneRegister() {
             </View>
 
             <View className="absolute bottom-12 right-6">
-              <Link asChild href={`/(therapist-register)/date-birth/${phoneNumber}`}>
+              <Link asChild href="/(therapist-register)/photo">
                 <Button disabled={!isValid} variant="rounded">
                   <Feather
                     name="arrow-right"

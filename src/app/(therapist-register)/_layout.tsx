@@ -43,6 +43,24 @@ export default function Layout() {
             }}
             name="index"
           />
+          <Stack.Screen
+            options={{
+              title: 'Dados pessoais',
+            }}
+            name="date-birth/[phoneNumber]"
+          />
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="photo/index"
+          />
+          <Stack.Screen
+            options={{
+              title: 'Adicionar foto',
+            }}
+            name="photo/takePhoto/index"
+          />
         </Stack>
       </View>
     </>
