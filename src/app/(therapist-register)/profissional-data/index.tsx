@@ -7,25 +7,26 @@ import { Button } from '@/components/Button';
 import { CardStack } from '@/layout/CardStack';
 import colors from '@/theme/colors';
 
-export default function Bio() {
+export default function ProfissionalData() {
   return (
     <View className="w-full flex-1 items-center justify-center">
       <CardStack>
-        <View className="flex-1 items-center justify-center rounded-3xl bg-white px-4 pb-8 pt-10">
+        <View className="flex-1 items-center rounded-3xl bg-white px-4 pb-8 pt-10">
           <View className="flex-1 items-center justify-center">
             <Image
               className="h-52 w-52"
               source={require('@/assets/images/walkthrough-step-2.svg')}
             />
 
-            <View className="mt-6 space-y-7">
+            <View className="mt-6 space-y-2">
               <Text className="text-center font-MontserratBold text-xl">
-                Hora de adicionar foto de perfil profissional
+                Hora de adicionar seus dados profissionais
               </Text>
-              <Text className=" text-center font-MontserratMedium text-base">Capriche na foto</Text>
+              <Text className="text-center font-MontserratMedium text-base">
+                Capriche nos dados pois é como os pacientes irão te ver na plataforma
+              </Text>
             </View>
           </View>
-
           <View className="w-full flex-row justify-between">
             <Button className="bg-gray-100" variant="rounded" onPress={() => router.back()}>
               <Feather
@@ -35,10 +36,10 @@ export default function Bio() {
                 backgroundColor="transparent"
               />
             </Button>
-            <Link asChild href="/(therapist-register)/photo/addPhoto">
+            <Link asChild href="/(therapist-register)/profissional-data/bio">
               <Button className="w-full max-w-[208px]">
                 <View className="flex-row items-center gap-4">
-                  <Text className="font-MontserratBold text-base text-white">Adicionar foto</Text>
+                  <Text className="font-MontserratBold text-base text-white">Próximo passo</Text>
                   <Feather
                     name="arrow-right"
                     size={24}

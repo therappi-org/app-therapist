@@ -7,7 +7,7 @@ export default function Home() {
     <>
       <StatusBar style="light" />
       <View className="flex-1 items-center justify-center">
-        <Link replace href="/intro">
+        <Link replace href="/(therapist-register)/profissional-data/therapy">
           entre aqui
         </Link>
       </View>

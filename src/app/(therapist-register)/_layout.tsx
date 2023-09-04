@@ -61,6 +61,30 @@ export default function Layout() {
             }}
             name="photo/addPhoto/index"
           />
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="profissional-data/index"
+          />
+          <Stack.Screen
+            options={{
+              title: 'Dados profissionais',
+            }}
+            name="profissional-data/bio"
+          />
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="profissional-data/therapy/index"
+          />
+          <Stack.Screen
+            options={{
+              title: 'Dados profissionais',
+            }}
+            name="profissional-data/therapy/enable-therapies"
+          />
         </Stack>
       </View>
     </>
