@@ -57,9 +57,9 @@ export default function Layout() {
           />
           <Stack.Screen
             options={{
-              title: 'Adicionar foto',
+              title: '',
             }}
-            name="photo/takePhoto/index"
+            name="photo/addPhoto/index"
           />
         </Stack>
       </View>

@@ -7,7 +7,7 @@ import { Button } from '@/components/Button';
 import { CardStack } from '@/layout/CardStack';
 import colors from '@/theme/colors';
 
-export default function Photo() {
+export default function Bio() {
   return (
     <View className="w-full flex-1 items-center justify-center">
       <CardStack>
