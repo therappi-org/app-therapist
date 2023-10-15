@@ -3,6 +3,7 @@ module.exports = {
     'universe/native',
     'universe/shared/typescript-analysis',
     'plugin:react-hooks/recommended',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
   ],
   overrides: [
     {
