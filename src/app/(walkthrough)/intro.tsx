@@ -46,14 +46,15 @@ export default function Intro() {
                 </View>
               </Button>
             </Link>
-
-            <Button variant="ghost">
-              <View>
-                <Text className="font-MontserratBold text-base text-brand">
-                  Já conheço o produto :)
-                </Text>
-              </View>
-            </Button>
+            <Link asChild replace href="/(auth)/intro">
+              <Button variant="ghost">
+                <View>
+                  <Text className="font-MontserratBold text-base text-brand">
+                    Já conheço o produto :)
+                  </Text>
+                </View>
+              </Button>
+            </Link>
           </View>
         </View>
       </CardStack>

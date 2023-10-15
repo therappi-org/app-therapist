@@ -43,10 +43,11 @@ export default function StepFive() {
                 backgroundColor="transparent"
               />
             </Button>
-
-            <Button className="w-full max-w-[208px]">
-              <Text className="font-MontserratBold text-base text-white">Vamos começar</Text>
-            </Button>
+            <Link replace asChild href="/(auth)/intro">
+              <Button className="w-full max-w-[208px]">
+                <Text className="font-MontserratBold text-base text-white">Vamos começar</Text>
+              </Button>
+            </Link>
           </View>
         </View>
       </CardStack>

@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { ReactNode, forwardRef } from 'react';
 import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
 
@@ -11,24 +12,31 @@ type ButtonProps = TouchableOpacityProps & {
 };
 
 export const Button = forwardRef<TouchableOpacity, ButtonProps>(
-  ({ disabled, children, variant = 'default', isLoading = false, ...props }, ref) => {
-    const buttonVariants = {
-      default: `w-80 max-w-full items-center justify-center rounded-full ${
-        disabled ? 'bg-gray-100' : 'bg-brand'
-      } py-4`,
-      outline: `w-80 max-w-full items-center justify-center rounded-full border border-brand py-4`,
-      rounded: `h-14 w-14 items-center justify-center rounded-full bg-brand ${
-        disabled ? 'opacity-40' : 'bg-brand'
-      }`,
-      ghost: `max-w-full items-center justify-center rounded-full py-4`,
-    };
+  (
+    { disabled = false, children, variant = 'default', isLoading = false, className, ...props },
+    ref
+  ) => {
+    const defaultClassName = clsx(
+      variant === 'default' &&
+        `w-80 max-w-full items-center bg-brand justify-center rounded-full py-4 ${
+          disabled && 'opacity-40'
+        } ${isLoading && 'h-14'}`,
+      variant === 'outline' &&
+        `w-80 max-w-full items-center justify-center rounded-full border border-brand py-4`,
+      variant === 'rounded' &&
+        `h-14 w-14 items-center justify-center rounded-full bg-brand ${
+          disabled ? 'opacity-40' : 'bg-brand'
+        }`,
+      variant === 'ghost' && `max-w-full items-center justify-center rounded-full py-4`,
+      className
+    );
 
     return (
       <TouchableOpacity
-        className={buttonVariants[variant]}
+        className={defaultClassName}
         ref={ref}
         activeOpacity={0.8}
-        disabled={disabled}
+        disabled={disabled || isLoading}
         {...props}>
         {isLoading ? (
           <Loading source={require('../../assets/animations/loading.json')} autoPlay loop />

@@ -6,16 +6,19 @@ import {
   Montserrat_700Bold,
   useFonts,
 } from '@expo-google-fonts/montserrat';
-import { SplashScreen as ExpoSplashScreen, Stack } from 'expo-router';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { SplashScreen as ExpoSplashScreen, Slot } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import queryClient from '@/api/reactQueryConfig';
 import { SplashScreen } from '@/components/SplashScreen';
+import { AuthProvider } from '@/contexts/useAuth';
 
 ExpoSplashScreen.preventAutoHideAsync();
 
-export default function Layout() {
+export default function Root() {
   const [fontsLoaded] = useFonts({
     Montserrat_300Light,
     Montserrat_400Regular,
@@ -23,14 +26,19 @@ export default function Layout() {
     Montserrat_600SemiBold,
     Montserrat_700Bold,
   });
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    if (fontsLoaded) {
-      ExpoSplashScreen.hideAsync();
-    }
+    (async () => {
+      if (fontsLoaded) {
+        ExpoSplashScreen.hideAsync();
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        setIsReady(fontsLoaded);
+      }
+    })();
   }, [fontsLoaded]);
 
-  if (!fontsLoaded) {
+  if (!isReady) {
     return <SplashScreen />;
   }
 
@@ -38,11 +46,11 @@ export default function Layout() {
     <>
       <StatusBar style="light" />
       <SafeAreaProvider>
-        <Stack
-          screenOptions={{
-            headerShown: false,
-          }}
-        />
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <Slot />
+          </AuthProvider>
+        </QueryClientProvider>
       </SafeAreaProvider>
     </>
   );

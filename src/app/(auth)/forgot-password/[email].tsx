@@ -1,7 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useSearchParams } from 'expo-router';
 import { useForm } from 'react-hook-form';
-import { Text, View } from 'react-native';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { z } from 'zod';
 
@@ -39,45 +46,54 @@ export default function ForgotPassword() {
   };
 
   return (
-    <View
+    <KeyboardAvoidingView
       className="flex-1 bg-white px-4"
-      style={{
-        paddingBottom: insets.bottom,
-      }}>
-      <View className="mt-6 flex-1 space-y-8">
-        <Text className="font-MontserratSemiBold text-base">
-          Antes de continuarmos, confirme seu email cadastrado:
-        </Text>
-
-        <View>
-          {watchEmailField && (
-            <Text className="px-4 font-MontserratBold text-xs text-gray-600">Email cadastrado</Text>
-          )}
-          <Input
-            name="email"
-            control={control}
-            placeholderTextColor={colors.gray[500]}
-            placeholder="Email cadastrado"
-            keyboardType="email-address"
-            error={errors.email?.message}
-            autoCapitalize="none"
-            className=" border-b-[1px] border-gray-500 px-4 pb-4 font-MontserratSemiBold text-sm text-gray-600 focus:border-brand"
-          />
-        </View>
-      </View>
-
-      <View className="mb-4 items-center">
-        <Link href="/(auth)/forgot-password/feedback" asChild>
-          <Button disabled={!isValid}>
-            <Text
-              className={`font-MontserratBold text-base ${
-                isValid ? 'text-white' : 'text-feedback-info opacity-40'
-              }`}>
-              Enviar link de recuperação
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View
+          className="flex-1"
+          style={{
+            paddingBottom: insets.bottom,
+          }}>
+          <View className="mt-6 flex-1 space-y-8">
+            <Text className="font-MontserratSemiBold text-base">
+              Antes de continuarmos, confirme seu email cadastrado:
             </Text>
-          </Button>
-        </Link>
-      </View>
-    </View>
+
+            <View>
+              {watchEmailField && (
+                <Text className="px-4 font-MontserratBold text-xs text-gray-600">
+                  Email cadastrado
+                </Text>
+              )}
+              <Input
+                name="email"
+                control={control}
+                placeholderTextColor={colors.gray[500]}
+                placeholder="Email cadastrado"
+                keyboardType="email-address"
+                error={errors.email?.message}
+                autoCapitalize="none"
+                className=" border-b-[1px] border-gray-500 px-4 pb-4 font-MontserratSemiBold text-sm text-gray-600 focus:border-brand"
+              />
+            </View>
+          </View>
+
+          <View className="mb-4 items-center">
+            <Link href="/(auth)/forgot-password/feedback" asChild>
+              <Button disabled={!isValid}>
+                <Text
+                  className={`font-MontserratBold text-base ${
+                    isValid ? 'text-white' : 'text-gray-400'
+                  }`}>
+                  Enviar link de recuperação
+                </Text>
+              </Button>
+            </Link>
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }

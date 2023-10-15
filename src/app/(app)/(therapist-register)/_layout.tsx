@@ -85,6 +85,36 @@ export default function Layout() {
             }}
             name="profissional-data/therapy/enable-therapies"
           />
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="profissional-data/therapy/[quantityTherapies]"
+          />
+          <Stack.Screen
+            options={{
+              title: 'Dados do local',
+            }}
+            name="address/cep"
+          />
+          <Stack.Screen
+            options={{
+              title: 'Dados do local',
+            }}
+            name="address/full-address/[cep]"
+          />
+          <Stack.Screen
+            options={{
+              title: 'Dados profissionais',
+            }}
+            name="session/cost"
+          />
+          <Stack.Screen
+            options={{
+              title: 'Dados profissionais',
+            }}
+            name="session/duration"
+          />
         </Stack>
       </View>
     </>

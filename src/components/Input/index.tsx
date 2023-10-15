@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import {
   Control,
   Controller,
@@ -8,8 +9,6 @@ import {
   Path,
 } from 'react-hook-form';
 import { Text, TextInput, TextInputProps, View } from 'react-native';
-
-import { Button } from '../Button';
 
 type InputProps<T extends FieldValues> = TextInputProps & {
   control: Control<T>;
@@ -27,33 +26,32 @@ export const Input = <T extends FieldValues>({
   inputRightElement,
   variant = 'underlined',
   isValid = true,
+  className,
   ...props
 }: InputProps<T>) => {
-  const inputVariants = {
-    underlined: ``,
-    unstyled: `max-w-full font-MontserratBold text-lg ${
-      isValid ? 'text-brand' : 'text-feedback-error'
-    }`,
-  };
+  const defaultClassName = clsx(
+    variant === 'underlined' && ``,
+    variant === 'unstyled' &&
+      `max-w-full font-MontserratBold text-lg ${isValid ? 'text-brand' : 'text-feedback-error'}`,
+    className
+  );
 
   return (
-    <View>
+    <View className="w-full">
       <Controller
         name={name}
         control={control}
         render={({ field: { onChange, onBlur, value } }) => {
           return (
-            <View className="relative">
+            <View>
               <TextInput
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
-                className={inputVariants[variant]}
+                className={defaultClassName}
                 {...props}
               />
-              {inputRightElement && (
-                <View className="absolute bottom-2 self-end">{inputRightElement}</View>
-              )}
+              {inputRightElement && <View className="absolute self-end">{inputRightElement}</View>}
 
               {error && (
                 <Text

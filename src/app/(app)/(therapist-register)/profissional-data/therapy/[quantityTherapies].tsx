@@ -1,37 +1,41 @@
 import { Feather } from '@expo/vector-icons';
 import { Image } from 'expo-image';
-import { Link, router } from 'expo-router';
+import { Link, router, useSearchParams } from 'expo-router';
 import { Text, View } from 'react-native';
 
 import { Button } from '@/components/Button';
-import { SkipButton } from '@/components/SkipButton';
-import { StepSphere } from '@/components/StepSphere';
 import { CardStack } from '@/layout/CardStack';
 import colors from '@/theme/colors';
 
-export default function StepThree() {
+export default function FeedbackTherapy() {
+  const { quantityTherapies } = useSearchParams<{ quantityTherapies: string }>();
+
+  const formattedQuantityTherapies = Number(quantityTherapies ?? 0);
+
   return (
     <View className="w-full flex-1 items-center justify-center">
       <CardStack>
         <View className="flex-1 items-center rounded-3xl bg-white px-4 pb-8 pt-10">
-          <SkipButton />
+          <View className="flex-1 items-center justify-center">
+            <Image
+              className="h-52 w-52"
+              source={require('@/assets/images/walkthrough-step-3.svg')}
+            />
 
-          <Image className="h-52 w-52" source={require('@/assets/images/walkthrough-step-3.svg')} />
-          <View className="mt-2">
-            <StepSphere step={3} />
+            <View className="mt-6 space-y-2">
+              <Text className="text-center font-MontserratBold text-xl">
+                Que legal, você escolheu{' '}
+                {formattedQuantityTherapies > 1
+                  ? `${formattedQuantityTherapies} terapias`
+                  : `${formattedQuantityTherapies} terapia`}{' '}
+                para ativar
+              </Text>
+              <Text className="text-center font-MontserratMedium text-base">
+                Agora vamos completar o cadastro delas?
+              </Text>
+            </View>
           </View>
-
-          <View className="mt-6 space-y-2">
-            <Text className="text-center font-MontserratBold text-xl">
-              3º Passo{'\n'}
-              Terapias e endereços
-            </Text>
-            <Text className="text-center font-MontserratMedium text-base">
-              Informe as terapias e respectivos endereços que você atende.
-            </Text>
-          </View>
-
-          <View className="mt-auto w-full flex-row justify-between">
+          <View className="w-full flex-row justify-between">
             <Button className="bg-gray-100" variant="rounded" onPress={() => router.back()}>
               <Feather
                 name="arrow-left"
@@ -40,7 +44,7 @@ export default function StepThree() {
                 backgroundColor="transparent"
               />
             </Button>
-            <Link asChild href="/(walkthrough)/step-4">
+            <Link asChild href="/(therapist-register)/address/cep">
               <Button className="w-full max-w-[208px]">
                 <View className="flex-row items-center gap-4">
                   <Text className="font-MontserratBold text-base text-white">Próximo passo</Text>
