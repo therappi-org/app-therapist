@@ -28,7 +28,7 @@ export type SignInFormValues = z.infer<typeof signInSchema>;
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
   const insets = useSafeAreaInsets();
-  const { signIn } = useAuth();
+  const { signIn, isAuthLoading } = useAuth();
 
   const {
     control,
@@ -105,8 +105,7 @@ export default function SignIn() {
           </View>
 
           <View className="mb-4 items-center space-y-4">
-            {/* <Link href="/" asChild> */}
-            <Button disabled={!isValid}>
+            <Button onPress={handleSubmit(onSubmit)} disabled={!isValid} isLoading={isAuthLoading}>
               <Text
                 className={`font-MontserratBold text-base ${
                   isValid ? 'text-white' : 'text-gray-400'
@@ -114,7 +113,6 @@ export default function SignIn() {
                 Avançar
               </Text>
             </Button>
-            {/* </Link> */}
 
             <Link href={`/(auth)/forgot-password/${watchFields.s_email || 'undefined'}`} asChild>
               <Button variant="ghost">
