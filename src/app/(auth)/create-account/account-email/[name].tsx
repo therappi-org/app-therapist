@@ -34,7 +34,6 @@ export default function EmailAccount() {
 
   const {
     control,
-    handleSubmit,
     watch,
     formState: { errors, isValid },
   } = useForm<EmailAccountFormValues>({

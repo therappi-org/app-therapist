@@ -30,7 +30,6 @@ type NameAccountFormValues = z.infer<typeof nameAccountSchema>;
 export default function NameAccount() {
   const {
     control,
-    handleSubmit,
     watch,
     formState: { errors, isValid },
   } = useForm<NameAccountFormValues>({

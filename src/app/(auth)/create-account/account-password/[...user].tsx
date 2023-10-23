@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link, useLocalSearchParams } from 'expo-router';
+import { Link, router, useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
@@ -17,6 +17,7 @@ import { z } from 'zod';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { ProgressBar } from '@/components/ProgressBar';
+import { UserQuery } from '@/queries/user';
 
 const passwordAccountSchema = z.object({
   password: z
@@ -30,20 +31,35 @@ const passwordAccountSchema = z.object({
 
 type PasswordAccountFormValues = z.infer<typeof passwordAccountSchema>;
 
+type User = [name: string, email: string];
+
 export default function PasswordAccount() {
   const [showPassword, setShowPassword] = useState(false);
   const insets = useSafeAreaInsets();
-  const { user } = useLocalSearchParams<{ user: string[] }>();
+  const { user } = useLocalSearchParams<{ user: User }>();
+  const [name, email] = user;
+  const { mutate: createUser, isLoading } = UserQuery.Create({
+    onSuccess() {
+      router.push('/(auth)/create-account/feedback');
+    },
+  });
 
   const {
     control,
     handleSubmit,
-    watch,
     formState: { errors, isValid },
   } = useForm<PasswordAccountFormValues>({
     mode: 'all',
     resolver: zodResolver(passwordAccountSchema),
   });
+
+  const onSubmit = ({ password }: PasswordAccountFormValues) => {
+    createUser({
+      s_email: email,
+      s_password: password,
+      s_name: name,
+    });
+  };
 
   return (
     <KeyboardAvoidingView
@@ -92,16 +108,13 @@ export default function PasswordAccount() {
                   </Text>
                 </Button>
               </View>
-              <Link asChild href="/(auth)/create-account/feedback">
-                <Button disabled={!isValid} variant="rounded">
-                  <Feather
-                    name="arrow-right"
-                    size={24}
-                    color="#fff"
-                    backgroundColor="transparent"
-                  />
-                </Button>
-              </Link>
+              <Button
+                isLoading={isLoading}
+                onPress={handleSubmit(onSubmit)}
+                disabled={!isValid}
+                variant="rounded">
+                <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
+              </Button>
             </View>
           </View>
         </View>
