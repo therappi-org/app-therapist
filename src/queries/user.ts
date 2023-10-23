@@ -1,14 +1,14 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
-import { AuthService } from '@/services/auth';
+import { UserService } from '@/services/user';
 import { QueryArgs } from '@/types/query';
 import { UserData } from '@/types/user';
 
-export const AuthQuery = {
-  Session: ({ onError, onSuccess }: QueryArgs<UserData> = {}) => {
+export const UserQuery = {
+  Create: ({ onError, onSuccess }: QueryArgs<UserData> = {}) => {
     return useMutation({
-      mutationFn: AuthService.session,
+      mutationFn: UserService.create,
       onSuccess: (data) => {
         onSuccess?.(data);
       },

@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { createContext, useContext, useEffect } from 'react';
 
@@ -21,7 +22,26 @@ const therappiStoreTokenKey = 'therappi.therapist.token';
 const therappiStoreUserKey = 'therappi.therapist.user';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { isLoading: isAuthLoading, mutateAsync, data: userData } = AuthQuery.Session();
+  const {
+    isLoading: isAuthLoading,
+    mutate,
+    data: userData,
+  } = AuthQuery.Session({
+    async onSuccess(data) {
+      if (data) {
+        await SecureStore.setItemAsync(
+          therappiStoreTokenKey,
+          JSON.stringify({
+            token: data.token,
+            expires: Date.now() + thirtyDaysInMilliseconds,
+          })
+        );
+        await SecureStore.setItemAsync(therappiStoreUserKey, JSON.stringify(data.user));
+
+        router.replace('/(app)/(tabs)/home');
+      }
+    },
+  });
 
   useEffect(() => {
     (async () => {
@@ -49,21 +69,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   let isAuthenticated = !!userData;
 
   const signIn = async ({ s_email, s_password }: SignInFormValues) => {
-    await mutateAsync({
+    mutate({
       s_email,
       s_password,
     });
-
-    if (userData) {
-      await SecureStore.setItemAsync(
-        therappiStoreTokenKey,
-        JSON.stringify({
-          token: userData.token,
-          expires: Date.now() + thirtyDaysInMilliseconds,
-        })
-      );
-      await SecureStore.setItemAsync(therappiStoreUserKey, JSON.stringify(userData.user));
-    }
   };
 
   const signOut = async () => {
