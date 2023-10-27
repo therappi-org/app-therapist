@@ -39,7 +39,17 @@ export const Button = forwardRef<TouchableOpacity, ButtonProps>(
         disabled={disabled || isLoading}
         {...props}>
         {isLoading ? (
-          <Loading source={require('../../assets/animations/loading.json')} autoPlay loop />
+          <Loading
+            style={
+              variant === 'rounded' && {
+                width: 100,
+                height: 50,
+              }
+            }
+            source={require('../../assets/animations/loading.json')}
+            autoPlay
+            loop
+          />
         ) : (
           children
         )}
