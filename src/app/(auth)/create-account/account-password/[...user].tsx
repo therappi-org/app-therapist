@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link, router, useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
@@ -40,7 +40,7 @@ export default function PasswordAccount() {
   const [name, email] = user;
   const { mutate: createUser, isLoading } = UserQuery.Create({
     onSuccess() {
-      router.push('/(auth)/create-account/feedback');
+      router.replace('/(auth)/create-account/feedback');
     },
   });
 
