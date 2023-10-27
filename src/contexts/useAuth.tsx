@@ -49,8 +49,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const storageToken = await SecureStore.getItemAsync(therappiStoreTokenKey);
         const storageUser = await SecureStore.getItemAsync(therappiStoreUserKey);
 
-        console.log({ storageToken, storageUser });
-
         if (storageToken && storageUser) {
           const parsedStorageToken: { token: string; expires: number } = JSON.parse(storageToken);
 
