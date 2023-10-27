@@ -82,6 +82,7 @@ export default function Layout() {
             name="create-account/feedback"
             options={{
               headerShown: false,
+              gestureEnabled: false,
             }}
           />
         </Stack>

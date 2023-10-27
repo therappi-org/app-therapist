@@ -1,6 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 import { Image } from 'expo-image';
-import { router } from 'expo-router';
+import { Link, router, useNavigation } from 'expo-router';
+import { useEffect } from 'react';
 import { Text, View } from 'react-native';
 
 import { Button } from '@/components/Button';
@@ -8,6 +9,16 @@ import { CardStack } from '@/layout/CardStack';
 import colors from '@/theme/colors';
 
 export default function Feedback() {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', (e) => {
+      e.preventDefault();
+
+      navigation.dispatch(e.data.action);
+    });
+  }, [navigation]);
+
   return (
     <CardStack>
       <View className="flex-1 px-4 py-6">
@@ -26,20 +37,17 @@ export default function Feedback() {
         </View>
 
         <View className="w-full flex-row justify-between">
-          <Button className="bg-gray-100" variant="rounded" onPress={() => router.back()}>
-            <Feather
-              name="arrow-left"
-              size={24}
-              color={colors.gray[600]}
-              backgroundColor="transparent"
-            />
-          </Button>
-
-          <Button className="w-full max-w-[208px]">
-            <Text className="font-MontserratBold text-base text-gray-50">Acessar a Home</Text>
-          </Button>
+          <Link asChild replace href="/(app)/(tabs)/home">
+            <Button className="w-full">
+              <Text className="font-MontserratBold text-base text-gray-50">Acessar a Home</Text>
+            </Button>
+          </Link>
         </View>
       </View>
     </CardStack>
   );
 }
+
+Feedback.navigationOptions = {
+  gestureEnabled: false,
+};
