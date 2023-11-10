@@ -1,6 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker';
+import { Link } from 'expo-router';
 import { useState } from 'react';
 import { Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -69,9 +70,11 @@ export default function AddPhoto() {
         </View>
         {!!profileImage && (
           <View className="items-center gap-1">
-            <Button variant="rounded" className="bg-feedback-success">
-              <Feather name="check" size={24} color="#fff" backgroundColor="transparent" />
-            </Button>
+            <Link asChild href="/(app)/(therapist-register)/profissional-data">
+              <Button variant="rounded" className="bg-feedback-success">
+                <Feather name="check" size={24} color="#fff" backgroundColor="transparent" />
+              </Button>
+            </Link>
             <Text className="font-MontserratBold text-base text-white">Confirmar</Text>
           </View>
         )}

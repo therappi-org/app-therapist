@@ -93,7 +93,7 @@ export default function Bio() {
         <View className="mt-6 px-6">
           <Link
             asChild
-            href={`/(therapist-register)/profissional-data/therapy/${selectedTherapies.length}`}>
+            href={`/(app)/(therapist-register)/profissional-data/therapy/${selectedTherapies.length}`}>
             <Button disabled={!selectedTherapies.length} className="w-full bg-white">
               <Text className="font-MontserratBold text-base text-brand">Avançar</Text>
             </Button>

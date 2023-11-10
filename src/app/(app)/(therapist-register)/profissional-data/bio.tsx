@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link, useSearchParams } from 'expo-router';
+import { Link, useLocalSearchParams } from 'expo-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
@@ -20,11 +20,11 @@ const bioSchema = z.object({
 type BioFormValues = z.infer<typeof bioSchema>;
 
 export default function Bio() {
-  const { name } = useSearchParams<{ name: string }>();
+  const { name } = useLocalSearchParams<{ name: string }>();
 
   const {
     control,
-    handleSubmit,
+    // handleSubmit,
     watch,
     formState: { errors, isValid },
   } = useForm<BioFormValues>({
@@ -58,7 +58,7 @@ export default function Bio() {
         </View>
 
         <View className="absolute bottom-20 right-6">
-          <Link asChild href="/(therapist-register)/profissional-data/">
+          <Link asChild href="/(app)/(therapist-register)/profissional-data/type-service">
             <Button disabled={!isValid} variant="rounded">
               <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
             </Button>

@@ -1,11 +1,12 @@
 import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
-import { createContext, useContext, useEffect } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 import { axiosConfig } from '@/api/axiosConfig';
 import { SignInFormValues } from '@/app/(auth)/sign-in';
 import { AuthQuery } from '@/queries/auth';
 import { UserData } from '@/types/user';
+import { THERAPIST_STORE_TOKEN_KEY, THERAPIST_STORE_USER_KEY } from '@/utils/constants';
 
 export type Auth = {
   signIn(credentials: SignInFormValues): void;
@@ -18,10 +19,10 @@ export type Auth = {
 const AuthContext = createContext({} as Auth);
 
 const thirtyDaysInMilliseconds = 30 * 24 * 60 * 60 * 1000;
-const therappiStoreTokenKey = 'therappi.therapist.token';
-const therappiStoreUserKey = 'therappi.therapist.user';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   const {
     isLoading: isAuthLoading,
     mutate,
@@ -30,15 +31,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     async onSuccess(data) {
       if (data) {
         await SecureStore.setItemAsync(
-          therappiStoreTokenKey,
+          THERAPIST_STORE_TOKEN_KEY,
           JSON.stringify({
             token: data.token,
             expires: Date.now() + thirtyDaysInMilliseconds,
           })
         );
-        await SecureStore.setItemAsync(therappiStoreUserKey, JSON.stringify(data.user));
+        await SecureStore.setItemAsync(THERAPIST_STORE_USER_KEY, JSON.stringify(data.user));
+        setIsAuthenticated(!!data.user);
 
-        router.replace('/(app)/(tabs)/home');
+        router.replace('/(app)/(walkthrough)/intro');
       }
     },
   });
@@ -46,8 +48,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     (async () => {
       try {
-        const storageToken = await SecureStore.getItemAsync(therappiStoreTokenKey);
-        const storageUser = await SecureStore.getItemAsync(therappiStoreUserKey);
+        const storageToken = await SecureStore.getItemAsync(THERAPIST_STORE_TOKEN_KEY);
+        const storageUser = await SecureStore.getItemAsync(THERAPIST_STORE_USER_KEY);
 
         if (storageToken && storageUser) {
           const parsedStorageToken: { token: string; expires: number } = JSON.parse(storageToken);
@@ -55,6 +57,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           if (Date.now() > parsedStorageToken.expires) {
             return signOut();
           }
+
+          setIsAuthenticated(true);
 
           axiosConfig.defaults.headers.common['Authorization'] = `Bearer ${storageToken}`;
         }
@@ -64,8 +68,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     })();
   }, [userData]);
 
-  let isAuthenticated = !!userData;
-
   const signIn = async ({ s_email, s_password }: SignInFormValues) => {
     mutate({
       s_email,
@@ -74,10 +76,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const signOut = async () => {
-    await SecureStore.deleteItemAsync(therappiStoreTokenKey);
-    await SecureStore.deleteItemAsync(therappiStoreUserKey);
+    await SecureStore.deleteItemAsync(THERAPIST_STORE_TOKEN_KEY);
+    await SecureStore.deleteItemAsync(THERAPIST_STORE_USER_KEY);
 
-    isAuthenticated = false;
+    setIsAuthenticated(false);
   };
 
   return (

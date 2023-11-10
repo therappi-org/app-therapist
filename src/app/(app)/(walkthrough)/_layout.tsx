@@ -1,11 +1,24 @@
-import { Stack } from 'expo-router';
+import { Redirect, Stack, router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { getData } from '@/utils/asyncStoreData';
+import { THERAPIST_STORE_WALKTHROUGH_KEY } from '@/utils/constants';
+
 export default function Layout() {
   const insets = useSafeAreaInsets();
+
+  useEffect(() => {
+    (async () => {
+      const didWalkthrough = await getData(THERAPIST_STORE_WALKTHROUGH_KEY);
+
+      if (didWalkthrough) {
+        router.replace('/(app)/(therapist-register)');
+      }
+    })();
+  }, []);
 
   return (
     <>

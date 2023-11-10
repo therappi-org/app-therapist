@@ -78,7 +78,7 @@ export default function SessionDuration() {
             </View>
 
             <View className="absolute bottom-12 right-6">
-              <Link asChild href="/(therapist-register)/session/duration">
+              <Link asChild href="/(app)/(therapist-register)/session/duration">
                 <Button disabled={!isValid} variant="rounded">
                   <Feather
                     name="arrow-right"

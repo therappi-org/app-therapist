@@ -37,7 +37,7 @@ export default function Feedback() {
         </View>
 
         <View className="w-full flex-row justify-between">
-          <Link asChild replace href="/(app)/(tabs)/home">
+          <Link asChild replace href="/(app)/(walkthrough)/intro">
             <Button className="w-full">
               <Text className="font-MontserratBold text-base text-gray-50">Acessar a Home</Text>
             </Button>

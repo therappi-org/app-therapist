@@ -187,7 +187,7 @@ export default function FullAddress() {
         </View>
 
         <View className="mb-4 items-center space-y-4">
-          <Link href="/(therapist-register)/session/cost" asChild>
+          <Link href="/(app)/(therapist-register)/session/cost" asChild>
             <Button disabled={!isValid}>
               <Text
                 className={`font-MontserratBold text-base ${

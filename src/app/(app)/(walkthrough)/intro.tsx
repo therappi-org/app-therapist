@@ -5,6 +5,8 @@ import { Text, View } from 'react-native';
 
 import { Button } from '@/components/Button';
 import { CardStack } from '@/layout/CardStack';
+import { storeData } from '@/utils/asyncStoreData';
+import { THERAPIST_STORE_WALKTHROUGH_KEY } from '@/utils/constants';
 
 export default function Intro() {
   return (
@@ -31,7 +33,7 @@ export default function Intro() {
           </Text>
 
           <View className="mt-auto space-y-8">
-            <Link asChild href="/(walkthrough)/step-1">
+            <Link asChild href="/(app)/(walkthrough)/step-1">
               <Button>
                 <View className="flex-row items-center gap-5">
                   <Text className="font-MontserratBold text-base text-white">
@@ -46,8 +48,12 @@ export default function Intro() {
                 </View>
               </Button>
             </Link>
-            <Link asChild replace href="/(auth)/intro">
-              <Button variant="ghost">
+            <Link asChild replace href="/(app)/(therapist-register)">
+              <Button
+                onPress={async () =>
+                  await storeData(THERAPIST_STORE_WALKTHROUGH_KEY, JSON.stringify(true))
+                }
+                variant="ghost">
                 <View>
                   <Text className="font-MontserratBold text-base text-brand">
                     Já conheço o produto :)

@@ -28,7 +28,6 @@ export default function PhoneRegister() {
 
   const {
     control,
-    handleSubmit,
     formState: { errors, isValid },
   } = useForm<PhoneRegisterFormValues>({
     mode: 'all',

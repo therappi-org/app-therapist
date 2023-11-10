@@ -41,7 +41,7 @@ export default function StepOne() {
                 backgroundColor="transparent"
               />
             </Button>
-            <Link asChild href="/(walkthrough)/step-2">
+            <Link asChild href="/(app)/(walkthrough)/step-2">
               <Button className="w-full max-w-[208px]">
                 <View className="flex-row items-center gap-4">
                   <Text className="font-MontserratBold text-base text-white">Próximo passo</Text>

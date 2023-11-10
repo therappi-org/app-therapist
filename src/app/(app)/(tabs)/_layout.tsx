@@ -1,7 +1,13 @@
 import { Tabs } from 'expo-router';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { useAuth } from '@/contexts/useAuth';
+
 export default function Layout() {
+  const { signOut } = useAuth();
+
+  // signOut();
+
   return (
     <SafeAreaProvider>
       <Tabs
@@ -12,7 +18,7 @@ export default function Layout() {
           },
         }}
         tabBar={() => null}>
-        <Tabs.Screen name="home" />
+        <Tabs.Screen name="index" />
       </Tabs>
     </SafeAreaProvider>
   );

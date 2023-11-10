@@ -6,7 +6,7 @@ import {
   Montserrat_700Bold,
   useFonts,
 } from '@expo-google-fonts/montserrat';
-import { Redirect, Stack, SplashScreen as ExpoSplashScreen } from 'expo-router';
+import { Redirect, SplashScreen as ExpoSplashScreen, Slot } from 'expo-router';
 import { useEffect, useState } from 'react';
 
 import { SplashScreen } from '@/components/SplashScreen';
@@ -38,9 +38,10 @@ export default function AppLayout() {
     return <SplashScreen />;
   }
 
-  if (!isAuthenticated) {
-    return <Redirect href="/(auth)/intro" />;
-  }
+  // if (!isAuthenticated) {
+  //   return <Redirect href="/(auth)/intro" />;
+  //   // return <Redirect href="/(app)/(walkthrough)/intro" />;
+  // }
 
-  return <Stack />;
+  return <Slot />;
 }

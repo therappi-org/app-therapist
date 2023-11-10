@@ -44,7 +44,7 @@ export default function FeedbackTherapy() {
                 backgroundColor="transparent"
               />
             </Button>
-            <Link asChild href="/(therapist-register)/address/cep">
+            <Link asChild href="/(app)/(therapist-register)/address/cep">
               <Button className="w-full max-w-[208px]">
                 <View className="flex-row items-center gap-4">
                   <Text className="font-MontserratBold text-base text-white">Próximo passo</Text>
