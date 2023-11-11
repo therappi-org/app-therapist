@@ -78,7 +78,12 @@ export default function Bio() {
             <View key={therapy.name} className="py-2">
               <Button className="h-[72px] w-full" onPress={() => handleOnPressTherapy(therapy)}>
                 <Card.Root>
-                  <Card.Content title={therapy.name} image={therapy.image} />
+                  <Card.Content
+                    title={therapy.name}
+                    image={{
+                      source: therapy.image,
+                    }}
+                  />
                   <Card.CheckBox
                     isChecked={selectedTherapies.some(
                       (selectedTherapy) => selectedTherapy.name === therapy.name

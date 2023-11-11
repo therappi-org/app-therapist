@@ -9,36 +9,50 @@ import { Card } from '@/components/Card';
 import { ProgressBar } from '@/components/ProgressBar';
 
 type Services = {
-  isChecked: boolean;
+  id: string;
   name: string;
   subtitle: string;
   image: any;
 };
 
+const services: Services[] = [
+  {
+    name: 'Atendimento remoto',
+    id: 'remote',
+    subtitle: 'Através de videoconferências',
+    image: require('@/assets/images/computer.png'),
+  },
+  {
+    name: 'Atendimento domiciliar',
+    id: 'home',
+    subtitle: 'Atendimento em casa',
+    image: require('@/assets/images/house.png'),
+  },
+  {
+    name: 'Atendimento presencial',
+    id: 'inPerson',
+    subtitle: 'Atendimento em consultório',
+    image: require('@/assets/images/hospital.png'),
+  },
+];
+
 export default function TypesOfService() {
   const [selectedServices, setSelectedServices] = useState<Services[]>([]);
   const insets = useSafeAreaInsets();
 
-  const services: Services[] = [
-    {
-      name: 'Atendimento remoto',
-      subtitle: 'Através de videoconferências',
-      image: require('@/assets/images/computer.svg'),
-      isChecked: false,
-    },
-    {
-      name: 'Atendimento domiciliar',
-      subtitle: 'Atendimento em casa',
-      image: require('@/assets/images/home.svg'),
-      isChecked: false,
-    },
-    {
-      name: 'Atendimento presencial',
-      subtitle: 'Atendimento em consultório',
-      image: require('@/assets/images/clinic.svg'),
-      isChecked: false,
-    },
-  ];
+  console.log(selectedServices);
+
+  const handleRedirect = () => {
+    const isHomeOrInPerson = selectedServices.some(
+      (service) => service.id === 'home' || service.id === 'inPerson'
+    );
+
+    if (isHomeOrInPerson) {
+      return '/(app)/(therapist-register)/address/cep';
+    }
+
+    return '/(app)/(therapist-register)/session/cost';
+  };
 
   const handleOnPressTherapy = (service: Services) => {
     const hasTherapy = selectedServices.some(
@@ -67,23 +81,33 @@ export default function TypesOfService() {
     <View className="flex-1 bg-brand" style={{ paddingBottom: insets.bottom }}>
       <View className="mt-4 space-y-4 px-6">
         <ProgressBar progress={50} />
-        <Text className="font-MontserratSemiBold text-base text-white">Habilitar serviços</Text>
+        <Text className="font-MontserratSemiBold text-base text-white">1/4 - Psicologia</Text>
+        <Text className="font-MontserratSemiBold text-base text-white">
+          Preferências no atendimento
+        </Text>
       </View>
 
       <View className="mt-8 flex-1">
         <Text className="px-6 font-MontserratBold text-base text-white">
-          Marque as terapias que você quer ativar na plataforma:
+          Qual modelo de atendimento é ideal?
         </Text>
 
         <ScrollView className="mt-4 flex-1 px-6" showsVerticalScrollIndicator={false}>
           {services.map((service) => (
-            <View key={service.name} className="py-2">
+            <View key={service.name} className="my-5 flex-1">
               <Button className="h-[72px] w-full" onPress={() => handleOnPressTherapy(service)}>
                 <Card.Root>
                   <Card.Content
+                    style={{
+                      padding: 16,
+                    }}
                     title={service.name}
                     subtitle={service.subtitle}
-                    image={service.image}
+                    image={{
+                      source: service.image,
+                      alt: service.name,
+                      className: 'h-12 w-12 p-2 bg-gray-100 rounded-full',
+                    }}
                   />
                   <Card.CheckBox
                     isChecked={selectedServices.some(
@@ -97,9 +121,7 @@ export default function TypesOfService() {
         </ScrollView>
 
         <View className="mt-6 px-6">
-          <Link
-            asChild
-            href={`/(app)/(therapist-register)/profissional-data/therapy/${selectedServices.length}`}>
+          <Link asChild href={handleRedirect()}>
             <Button disabled={!selectedServices.length} className="w-full bg-white">
               <Text className="font-MontserratBold text-base text-brand">Avançar</Text>
             </Button>
