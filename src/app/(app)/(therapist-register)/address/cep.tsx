@@ -41,7 +41,7 @@ export default function CepAddress() {
   return (
     <View className="flex-1 bg-brand">
       <View className="mt-4 space-y-4 px-6">
-        <ProgressBar progress={40} />
+        <ProgressBar progress={60} />
         <Text className="font-MontserratSemiBold text-base text-white">1/4 Psicologia</Text>
       </View>
       <KeyboardAvoidingView

@@ -75,12 +75,6 @@ export default function Layout() {
           />
           <Stack.Screen
             options={{
-              title: 'Dados profissionais',
-            }}
-            name="profissional-data/type-service"
-          />
-          <Stack.Screen
-            options={{
               headerShown: false,
             }}
             name="profissional-data/therapy/index"
@@ -96,6 +90,12 @@ export default function Layout() {
               headerShown: false,
             }}
             name="profissional-data/therapy/[quantityTherapies]"
+          />
+          <Stack.Screen
+            options={{
+              title: 'Dados do local',
+            }}
+            name="profissional-data/type-service"
           />
           <Stack.Screen
             options={{

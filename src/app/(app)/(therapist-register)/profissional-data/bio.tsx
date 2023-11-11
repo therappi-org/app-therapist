@@ -58,7 +58,7 @@ export default function Bio() {
         </View>
 
         <View className="absolute bottom-20 right-6">
-          <Link asChild href="/(app)/(therapist-register)/profissional-data/type-service">
+          <Link asChild href="/(app)/(therapist-register)/profissional-data/therapy">
             <Button disabled={!isValid} variant="rounded">
               <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
             </Button>

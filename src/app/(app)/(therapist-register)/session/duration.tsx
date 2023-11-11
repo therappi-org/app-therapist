@@ -2,7 +2,7 @@ import { Feather } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from 'expo-router';
 import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -48,12 +48,10 @@ export default function SessionDuration() {
     resolver: zodResolver(sessionDurationSchema),
   });
 
-  console.log(watch());
-
   return (
     <View className="flex-1 bg-brand">
       <View className="mt-4 space-y-4 px-6">
-        <ProgressBar progress={40} />
+        <ProgressBar progress={100} />
         <Text className="font-MontserratSemiBold text-base text-white">1/4 Psicologia</Text>
       </View>
       <KeyboardAvoidingView
@@ -69,6 +67,7 @@ export default function SessionDuration() {
               <Input
                 control={control}
                 name="duration"
+                textAlign="center"
                 placeholder="Ex. 2 horas"
                 keyboardType="number-pad"
                 isValid={isValid}
@@ -78,7 +77,7 @@ export default function SessionDuration() {
             </View>
 
             <View className="absolute bottom-12 right-6">
-              <Link asChild href="/(app)/(therapist-register)/session/duration">
+              <Link asChild href="/(app)/(tabs)">
                 <Button disabled={!isValid} variant="rounded">
                   <Feather
                     name="arrow-right"
