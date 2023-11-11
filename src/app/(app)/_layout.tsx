@@ -38,10 +38,9 @@ export default function AppLayout() {
     return <SplashScreen />;
   }
 
-  // if (!isAuthenticated) {
-  //   return <Redirect href="/(auth)/intro" />;
-  //   // return <Redirect href="/(app)/(walkthrough)/intro" />;
-  // }
+  if (!isAuthenticated) {
+    return <Redirect href="/(auth)/intro" />;
+  }
 
   return <Slot />;
 }
