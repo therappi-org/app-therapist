@@ -1,24 +1,36 @@
 import { Redirect, Stack, router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { SplashScreen } from '@/components/SplashScreen';
 import { getData } from '@/utils/asyncStoreData';
 import { THERAPIST_STORE_WALKTHROUGH_KEY } from '@/utils/constants';
 
 export default function Layout() {
   const insets = useSafeAreaInsets();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
-      const didWalkthrough = await getData(THERAPIST_STORE_WALKTHROUGH_KEY);
+      try {
+        const didWalkthrough = await getData(THERAPIST_STORE_WALKTHROUGH_KEY);
 
-      if (didWalkthrough) {
-        router.replace('/(app)/(therapist-register)');
+        if (didWalkthrough) {
+          router.replace('/(app)/(therapist-register)');
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
       }
     })();
   }, []);
+
+  if (loading) {
+    return <SplashScreen />;
+  }
 
   return (
     <>
