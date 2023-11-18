@@ -7,12 +7,7 @@ import { axiosConfig } from '@/api/axiosConfig';
 import { SignInFormValues } from '@/app/(auth)/sign-in';
 import { AuthQuery } from '@/queries/auth';
 import { UserData } from '@/types/user';
-import {
-  THERAPIST_REGISTERED_KEY,
-  THERAPIST_STORE_TOKEN_KEY,
-  THERAPIST_STORE_USER_KEY,
-  THERAPIST_STORE_WALKTHROUGH_KEY,
-} from '@/utils/constants';
+import { THERAPIST_STORE_TOKEN_KEY, THERAPIST_STORE_USER_KEY } from '@/utils/constants';
 
 export type Auth = {
   signIn(credentials: SignInFormValues): void;
