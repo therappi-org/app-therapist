@@ -9,6 +9,7 @@ export const CardStack = ({ children }: { children: React.ReactNode }) => {
     <View
       className="relative w-full flex-1 items-center justify-center bg-brand px-4"
       style={{
+        paddingTop: insets.top,
         paddingBottom: insets.bottom,
       }}>
       <View className="flex-1 items-center justify-center">
