@@ -10,6 +10,8 @@ import {
 } from 'react-hook-form';
 import { Text, TextInput, TextInputProps, View } from 'react-native';
 
+import colors from '@/theme/colors';
+
 type InputProps<T extends FieldValues> = TextInputProps & {
   control: Control<T>;
   name: Path<T>;
@@ -48,6 +50,7 @@ export const Input = <T extends FieldValues>({
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
+                cursorColor={error ? colors.feedback.error : colors.brand.DEFAULT}
                 className={defaultClassName}
                 {...props}
               />
