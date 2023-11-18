@@ -1,15 +1,31 @@
-import { Stack } from 'expo-router';
+import { Stack, router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { BackButton } from '@/components/BackButton';
+import { getData } from '@/utils/asyncStoreData';
+import { THERAPIST_REGISTERED_KEY } from '@/utils/constants';
 
 const colors = require('@/theme/colors');
 
 export default function Layout() {
   const insets = useSafeAreaInsets();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const didRegister = await getData(THERAPIST_REGISTERED_KEY);
+
+        if (didRegister) {
+          router.replace('/(app)/(tabs)');
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
 
   return (
     <>
@@ -41,7 +57,7 @@ export default function Layout() {
             options={{
               title: 'Dados pessoais',
             }}
-            name="index"
+            name="phoneNumber"
           />
           <Stack.Screen
             options={{
