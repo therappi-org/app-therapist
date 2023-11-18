@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link, useSearchParams } from 'expo-router';
+import { Link, useLocalSearchParams } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import {
   Keyboard,
@@ -24,7 +24,7 @@ type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 
 export default function ForgotPassword() {
   const insets = useSafeAreaInsets();
-  const { email } = useSearchParams<{ email: string }>();
+  const { email } = useLocalSearchParams<{ email: string }>();
 
   const {
     control,
