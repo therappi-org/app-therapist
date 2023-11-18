@@ -1,12 +1,10 @@
-import { Feather } from '@expo/vector-icons';
 import { Image } from 'expo-image';
-import { Link, router, useNavigation } from 'expo-router';
+import { Link, useNavigation } from 'expo-router';
 import { useEffect } from 'react';
 import { Text, View } from 'react-native';
 
 import { Button } from '@/components/Button';
 import { CardStack } from '@/layout/CardStack';
-import colors from '@/theme/colors';
 
 export default function Feedback() {
   const navigation = useNavigation();
