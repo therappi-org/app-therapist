@@ -48,7 +48,7 @@ export default function Intro() {
                 </View>
               </Button>
             </Link>
-            <Link asChild replace href="/(app)/(therapist-register)">
+            <Link asChild replace href="/(app)/(therapist-register)/phoneNumber">
               <Button
                 onPress={async () =>
                   await storeData(THERAPIST_STORE_WALKTHROUGH_KEY, JSON.stringify(true))
