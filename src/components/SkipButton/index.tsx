@@ -7,7 +7,7 @@ import { THERAPIST_STORE_WALKTHROUGH_KEY } from '@/utils/constants';
 
 export const SkipButton = () => (
   <View className="self-end">
-    <Link asChild replace href="/(app)/(therapist-register)">
+    <Link asChild replace href="/(app)/(therapist-register)/phoneNumber">
       <Button
         onPress={async () => await storeData(THERAPIST_STORE_WALKTHROUGH_KEY, JSON.stringify(true))}
         variant="ghost">
