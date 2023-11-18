@@ -43,8 +43,7 @@ export default function Intro() {
         <View className="mb-6 w-full items-center space-y-5">
           <Text className="font-MontserratSemiBold text-base">Ainda não tem acesso?</Text>
 
-          {/* <Link href="/(auth)/create-account" asChild> */}
-          <Link href="/(app)/(walkthrough)/intro" asChild>
+          <Link href="/(auth)/create-account" asChild>
             <Button variant="outline">
               <Text className=" font-MontserratBold text-base text-brand">Criar minha conta</Text>
             </Button>
