@@ -17,13 +17,13 @@ export default function Layout() {
       <View
         style={{
           flex: 1,
-          paddingTop: insets.top,
           paddingLeft: insets.left,
           paddingRight: insets.right,
         }}
         className="bg-brand">
         <Stack
           screenOptions={{
+            animation: 'slide_from_right',
             headerBackTitleVisible: false,
             headerShadowVisible: false,
             headerTintColor: '#fff',
