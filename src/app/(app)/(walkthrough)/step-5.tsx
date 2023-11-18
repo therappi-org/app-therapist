@@ -7,6 +7,8 @@ import { Button } from '@/components/Button';
 import { StepSphere } from '@/components/StepSphere';
 import { CardStack } from '@/layout/CardStack';
 import colors from '@/theme/colors';
+import { storeData } from '@/utils/asyncStoreData';
+import { THERAPIST_STORE_WALKTHROUGH_KEY } from '@/utils/constants';
 
 export default function StepFive() {
   return (
@@ -43,8 +45,12 @@ export default function StepFive() {
                 backgroundColor="transparent"
               />
             </Button>
-            <Link replace asChild href="/(auth)/intro">
-              <Button className="w-full max-w-[208px]">
+            <Link replace asChild href="/(app)/(therapist-register)/phoneNumber">
+              <Button
+                onPress={async () =>
+                  await storeData(THERAPIST_STORE_WALKTHROUGH_KEY, JSON.stringify(true))
+                }
+                className="w-full max-w-[208px]">
                 <Text className="font-MontserratBold text-base text-white">Vamos começar</Text>
               </Button>
             </Link>
