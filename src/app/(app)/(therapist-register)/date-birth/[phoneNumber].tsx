@@ -86,7 +86,7 @@ export default function DateOfBirthRegister() {
             </View>
 
             <View className="absolute bottom-12 right-6">
-              <Link asChild href="/(therapist-register)/photo">
+              <Link asChild href="/(app)/(therapist-register)/photo">
                 <Button disabled={!isValid} variant="rounded">
                   <Feather
                     name="arrow-right"

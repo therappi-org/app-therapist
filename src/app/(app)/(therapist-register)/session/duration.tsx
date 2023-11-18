@@ -16,6 +16,8 @@ import { z } from 'zod';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { ProgressBar } from '@/components/ProgressBar';
+import { storeData } from '@/utils/asyncStoreData';
+import { THERAPIST_REGISTERED_KEY } from '@/utils/constants';
 
 const sessionDurationSchema = z.object({
   duration: z
@@ -78,7 +80,12 @@ export default function SessionDuration() {
 
             <View className="absolute bottom-12 right-6">
               <Link asChild href="/(app)/(tabs)">
-                <Button disabled={!isValid} variant="rounded">
+                <Button
+                  onPress={async () =>
+                    await storeData(THERAPIST_REGISTERED_KEY, JSON.stringify(true))
+                  }
+                  disabled={!isValid}
+                  variant="rounded">
                   <Feather
                     name="arrow-right"
                     size={24}

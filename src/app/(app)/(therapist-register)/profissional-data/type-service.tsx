@@ -40,8 +40,6 @@ export default function TypesOfService() {
   const [selectedServices, setSelectedServices] = useState<Services[]>([]);
   const insets = useSafeAreaInsets();
 
-  console.log(selectedServices);
-
   const handleRedirect = () => {
     const isHomeOrInPerson = selectedServices.some(
       (service) => service.id === 'home' || service.id === 'inPerson'
