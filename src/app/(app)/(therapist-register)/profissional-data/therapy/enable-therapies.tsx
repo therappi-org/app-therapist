@@ -76,7 +76,10 @@ export default function Bio() {
         <ScrollView className="mt-4 flex-1 px-6" showsVerticalScrollIndicator={false}>
           {formattedTherapies.map((therapy) => (
             <View key={therapy.name} className="py-2">
-              <Button className="h-[72px] w-full" onPress={() => handleOnPressTherapy(therapy)}>
+              <Button
+                activeOpacity={0.9}
+                className="h-[72px] w-full"
+                onPress={() => handleOnPressTherapy(therapy)}>
                 <Card.Root>
                   <Card.Content
                     title={therapy.name}
@@ -95,7 +98,7 @@ export default function Bio() {
           ))}
         </ScrollView>
 
-        <View className="mt-6 px-6">
+        <View className="mb-4 mt-6 px-6">
           <Link
             asChild
             href={`/(app)/(therapist-register)/profissional-data/therapy/${selectedTherapies.length}`}>

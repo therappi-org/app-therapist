@@ -1,5 +1,4 @@
-import { useHeaderHeight } from '@react-navigation/elements';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode } from 'react';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -8,35 +7,26 @@ import {
   View,
 } from 'react-native';
 
-export const KeyBoardAvoidingViewLayout = ({ children }: { children: ReactNode }) => {
-  const headerHeight = useHeaderHeight();
+type KeyBoardAvoidingViewLayoutProps = {
+  header: ReactNode;
+  children: ReactNode;
+};
 
-  const [enabled, setEnabled] = useState(false);
-
-  useEffect(() => {
-    const showSubscription = Keyboard.addListener('keyboardWillShow', () => {
-      setEnabled(true);
-    });
-
-    const hideSubscription = Keyboard.addListener('keyboardWillHide', () => {
-      setEnabled(false);
-    });
-
-    return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
-    };
-  }, []);
-
+export const KeyBoardAvoidingViewLayout = ({
+  header,
+  children,
+}: KeyBoardAvoidingViewLayoutProps) => {
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      enabled={enabled}
-      keyboardVerticalOffset={headerHeight - 10}
-      className="h-full flex-grow">
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View className="flex-1 bg-brand">{children}</View>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+    <View className="flex-1 bg-brand">
+      {header}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
+        className="mt-8 w-full flex-1 items-center rounded-t-2xl bg-white px-2">
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View className="w-full flex-1">{children}</View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </View>
   );
 };

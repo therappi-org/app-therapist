@@ -16,7 +16,7 @@ const emailAccountSchema = z.object({
       required_error: 'Campo obrigatório',
     })
     .email({ message: 'O email informado não é válido' })
-    .nonempty('Campo obrigatório')
+    .nonempty({ message: 'Campo obrigatório' })
     .trim(),
 });
 
@@ -37,37 +37,36 @@ export default function EmailAccount() {
   const watchEmail = watch('email');
 
   return (
-    <KeyBoardAvoidingViewLayout>
-      <View className="mt-4 space-y-4 px-6">
-        <ProgressBar progress={80} />
-        <Text className="font-MontserratSemiBold text-base text-white">
-          2º Passo - Seus dados de acesso
-        </Text>
+    <KeyBoardAvoidingViewLayout
+      header={
+        <View className="mt-4 space-y-4 px-6">
+          <ProgressBar progress={80} />
+          <Text className="font-MontserratSemiBold text-base text-white">
+            2º Passo - Seus dados de acesso
+          </Text>
+        </View>
+      }>
+      <View className="mt-6 w-full flex-1 items-center space-y-4">
+        <Text className="font-MontserratBold text-lg">Qual é o seu e-mail?</Text>
+        <Input
+          control={control}
+          name="email"
+          placeholder="Digite seu e-mail"
+          isValid={isValid}
+          textAlign="center"
+          keyboardType="email-address"
+          variant="unstyled"
+          autoCapitalize="none"
+          error={errors.email?.message}
+        />
       </View>
 
-      <View className="mt-8 h-full flex-1 items-center rounded-t-2xl bg-white px-2">
-        <View className="mt-6 w-full flex-1 items-center space-y-4">
-          <Text className="font-MontserratBold text-lg">Qual é o seu e-mail?</Text>
-          <Input
-            control={control}
-            name="email"
-            placeholder="Digite seu e-mail"
-            isValid={isValid}
-            textAlign="center"
-            keyboardType="email-address"
-            variant="unstyled"
-            autoCapitalize="none"
-            error={errors.email?.message}
-          />
-        </View>
-
-        <View className="mb-8 mr-5 w-full items-end">
-          <Link asChild href={`/(auth)/create-account/account-password/${name}/${watchEmail}`}>
-            <Button disabled={!isValid} variant="rounded">
-              <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
-            </Button>
-          </Link>
-        </View>
+      <View className="mb-8 mr-5 w-full items-end">
+        <Link asChild href={`/(auth)/create-account/account-password/${name}/${watchEmail}`}>
+          <Button disabled={!isValid} variant="rounded">
+            <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
+          </Button>
+        </Link>
       </View>
     </KeyBoardAvoidingViewLayout>
   );

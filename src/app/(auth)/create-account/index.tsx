@@ -17,7 +17,7 @@ const nameAccountSchema = z.object({
     })
     .trim()
     .min(3, 'O nome deve ter no mínimo 3 caracteres')
-    .nonempty('Campo obrigatório'),
+    .nonempty({ message: 'Campo obrigatório' }),
 });
 type NameAccountFormValues = z.infer<typeof nameAccountSchema>;
 
@@ -34,35 +34,34 @@ export default function NameAccount() {
   const name = watch('name');
 
   return (
-    <KeyBoardAvoidingViewLayout>
-      <View className="mt-4 space-y-4 px-6">
-        <ProgressBar progress={50} />
-        <Text className="font-MontserratSemiBold text-base text-white">
-          1º Passo - Seus dados básicos
-        </Text>
+    <KeyBoardAvoidingViewLayout
+      header={
+        <View className="mt-4 space-y-4 px-6">
+          <ProgressBar progress={50} />
+          <Text className="font-MontserratSemiBold text-base text-white">
+            1º Passo - Seus dados básicos
+          </Text>
+        </View>
+      }>
+      <View className="mt-6 w-full flex-1 items-center space-y-4">
+        <Text className="font-MontserratBold text-lg">Qual é o seu nome e sobrenome?</Text>
+        <Input
+          control={control}
+          name="name"
+          textAlign="center"
+          placeholder="Digite seu nome"
+          isValid={isValid}
+          variant="unstyled"
+          autoCapitalize="words"
+          error={errors.name?.message}
+        />
       </View>
-
-      <View className="relative mt-8 flex-1 items-center rounded-t-2xl bg-white px-2">
-        <View className="mt-6 w-full flex-1 items-center space-y-4">
-          <Text className="font-MontserratBold text-lg">Qual é o seu nome e sobrenome?</Text>
-          <Input
-            control={control}
-            name="name"
-            textAlign="center"
-            placeholder="Digite seu nome"
-            isValid={isValid}
-            variant="unstyled"
-            autoCapitalize="words"
-            error={errors.name?.message}
-          />
-        </View>
-        <View className="mb-8 mr-5 w-full items-end">
-          <Link asChild href={`/(auth)/create-account/account-email/${name}`}>
-            <Button disabled={!isValid} variant="rounded">
-              <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
-            </Button>
-          </Link>
-        </View>
+      <View className="mb-8 mr-5 w-full items-end">
+        <Link asChild href={`/(auth)/create-account/account-email/${name}`}>
+          <Button disabled={!isValid} variant="rounded">
+            <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
+          </Button>
+        </Link>
       </View>
     </KeyBoardAvoidingViewLayout>
   );

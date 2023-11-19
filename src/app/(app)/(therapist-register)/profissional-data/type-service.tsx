@@ -78,7 +78,7 @@ export default function TypesOfService() {
   return (
     <View className="flex-1 bg-brand" style={{ paddingBottom: insets.bottom }}>
       <View className="mt-4 space-y-4 px-6">
-        <ProgressBar progress={50} />
+        <ProgressBar progress={80} />
         <Text className="font-MontserratSemiBold text-base text-white">1/4 - Psicologia</Text>
         <Text className="font-MontserratSemiBold text-base text-white">
           Preferências no atendimento
@@ -118,7 +118,7 @@ export default function TypesOfService() {
           ))}
         </ScrollView>
 
-        <View className="mt-6 px-6">
+        <View className="mb-4 mt-6 px-6">
           <Link asChild href={handleRedirect()}>
             <Button disabled={!selectedServices.length} className="w-full bg-white">
               <Text className="font-MontserratBold text-base text-brand">Avançar</Text>
