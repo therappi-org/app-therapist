@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { Image, ImageProps } from 'expo-image';
 import React from 'react';
 import { StyleProp, Text, View, ViewStyle } from 'react-native';
