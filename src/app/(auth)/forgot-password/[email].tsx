@@ -83,10 +83,7 @@ export default function ForgotPassword() {
           <View className="mb-4 items-center">
             <Link href="/(auth)/forgot-password/feedback" asChild>
               <Button disabled={!isValid}>
-                <Text
-                  className={`font-MontserratBold text-base ${
-                    isValid ? 'text-white' : 'text-gray-400'
-                  }`}>
+                <Text className="font-MontserratBold text-base text-white">
                   Enviar link de recuperação
                 </Text>
               </Button>

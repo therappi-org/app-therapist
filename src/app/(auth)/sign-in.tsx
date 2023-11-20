@@ -106,12 +106,7 @@ export default function SignIn() {
 
           <View className="mb-4 items-center space-y-4">
             <Button onPress={handleSubmit(onSubmit)} disabled={!isValid} isLoading={isAuthLoading}>
-              <Text
-                className={`font-MontserratBold text-base ${
-                  isValid ? 'text-white' : 'text-gray-400'
-                }`}>
-                Avançar
-              </Text>
+              <Text className="text-bas font-MontserratBold text-white">Avançar</Text>
             </Button>
 
             <Link href={`/(auth)/forgot-password/${watchFields.s_email || 'undefined'}`} asChild>
