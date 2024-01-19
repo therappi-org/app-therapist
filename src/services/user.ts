@@ -16,4 +16,12 @@ export const UserService = {
 
     return response?.data;
   },
+
+  forgotPassword: async ({ s_email }: Pick<CreateUserData, 's_email'>) => {
+    const response = await axiosConfig.post('/user/forgotpassword', {
+      s_email,
+    });
+
+    return response?.data;
+  },
 };

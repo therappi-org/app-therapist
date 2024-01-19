@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link, useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import {
   Keyboard,
@@ -14,6 +14,7 @@ import { z } from 'zod';
 
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
+import { UserQuery } from '@/queries/user';
 import colors from '@/theme/colors';
 
 const forgotPasswordSchema = z.object({
@@ -25,6 +26,11 @@ type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 export default function ForgotPassword() {
   const insets = useSafeAreaInsets();
   const { email } = useLocalSearchParams<{ email: string }>();
+  const { mutate: forgotPassword, isLoading } = UserQuery.ForgotPassword({
+    onSuccess: () => {
+      router.push('/(auth)/forgot-password/feedback');
+    },
+  });
 
   const {
     control,
@@ -43,6 +49,7 @@ export default function ForgotPassword() {
 
   const onSubmit = (values: ForgotPasswordFormValues) => {
     console.log(values);
+    forgotPassword({ s_email: values.email });
   };
 
   return (
@@ -81,13 +88,11 @@ export default function ForgotPassword() {
           </View>
 
           <View className="mb-4 items-center">
-            <Link href="/(auth)/forgot-password/feedback" asChild>
-              <Button disabled={!isValid}>
-                <Text className="font-MontserratBold text-base text-white">
-                  Enviar link de recuperação
-                </Text>
-              </Button>
-            </Link>
+            <Button isLoading={isLoading} onPress={handleSubmit(onSubmit)} disabled={!isValid}>
+              <Text className="font-MontserratBold text-base text-white">
+                Enviar link de recuperação
+              </Text>
+            </Button>
           </View>
         </View>
       </TouchableWithoutFeedback>
