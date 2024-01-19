@@ -17,6 +17,7 @@ export default function Layout() {
       <View
         style={{
           flex: 1,
+          paddingTop: insets.top,
           paddingLeft: insets.left,
           paddingRight: insets.right,
         }}

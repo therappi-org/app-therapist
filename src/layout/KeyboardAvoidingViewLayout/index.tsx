@@ -21,7 +21,7 @@ export const KeyBoardAvoidingViewLayout = ({
       {header}
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 70 : 0}
         className="mt-8 w-full flex-1 items-center rounded-t-2xl bg-white px-2">
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View className="w-full flex-1">{children}</View>

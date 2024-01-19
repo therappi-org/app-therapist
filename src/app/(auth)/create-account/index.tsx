@@ -43,7 +43,7 @@ export default function NameAccount() {
           </Text>
         </View>
       }>
-      <View className="mt-6 w-full flex-1 items-center space-y-4">
+      <View className="mt-6 items-center space-y-4">
         <Text className="font-MontserratBold text-lg">Qual é o seu nome e sobrenome?</Text>
         <Input
           control={control}
@@ -56,9 +56,9 @@ export default function NameAccount() {
           error={errors.name?.message}
         />
       </View>
-      <View className="mb-8 mr-5 w-full items-end">
+      <View className="absolute bottom-12 right-4">
         <Link asChild href={`/(auth)/create-account/account-email/${name}`}>
-          <Button disabled={!isValid} variant="rounded">
+          <Button onPress={Keyboard.dismiss} disabled={!isValid} variant="rounded">
             <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
           </Button>
         </Link>

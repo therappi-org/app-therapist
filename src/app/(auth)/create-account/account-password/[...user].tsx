@@ -30,7 +30,11 @@ export default function PasswordAccount() {
   const [showPassword, setShowPassword] = useState(false);
   const { user } = useLocalSearchParams<{ user: User }>();
   const [name, email] = user;
-  const { mutate: createUser, isLoading, isSuccess } = UserQuery.Create();
+  const { mutate: createUser, isLoading } = UserQuery.Create({
+    onSuccess() {
+      router.replace('/(auth)/create-account/feedback');
+    },
+  });
 
   const {
     control,
@@ -47,10 +51,6 @@ export default function PasswordAccount() {
       s_password: password,
       s_name: name,
     });
-
-    if (isSuccess) {
-      router.replace('/(auth)/create-account/feedback');
-    }
   };
 
   return (
@@ -63,7 +63,7 @@ export default function PasswordAccount() {
           </Text>
         </View>
       }>
-      <View className="mt-6 w-full flex-1 items-center space-y-4">
+      <View className="mt-6 items-center space-y-4">
         <Text className="font-MontserratBold text-lg">Vamos criar uma senha de acesso:</Text>
         <Input
           control={control}
@@ -78,12 +78,7 @@ export default function PasswordAccount() {
         />
       </View>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}
-        className="mb-8 w-full items-center px-4">
+      <View className="absolute bottom-12 w-full flex-row items-center justify-between px-4">
         <View>
           <Button
             className="w-full"
