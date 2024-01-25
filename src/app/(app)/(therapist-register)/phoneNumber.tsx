@@ -67,7 +67,7 @@ export default function PhoneRegister() {
         />
       </View>
 
-      <View className="absolute bottom-12 right-6">
+      <View className="absolute bottom-12 right-4">
         <Link asChild href={`/(app)/(therapist-register)/date-birth/${phoneNumber}`}>
           <Button disabled={!isValid} variant="rounded">
             <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />

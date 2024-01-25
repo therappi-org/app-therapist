@@ -66,7 +66,7 @@ export default function SessionDuration() {
         />
       </View>
 
-      <View className="absolute bottom-12 right-6">
+      <View className="absolute bottom-12 right-4">
         <Link asChild href="/(app)/(tabs)">
           <Button
             onPress={async () => await storeData(THERAPIST_REGISTERED_KEY, JSON.stringify(true))}
