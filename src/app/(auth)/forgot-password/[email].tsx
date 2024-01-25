@@ -82,7 +82,7 @@ export default function ForgotPassword() {
                 keyboardType="email-address"
                 error={errors.email?.message}
                 autoCapitalize="none"
-                className=" border-b-[1px] border-gray-500 px-4 pb-4 font-MontserratSemiBold text-sm text-gray-600 focus:border-brand"
+                className="border-b-[1px] border-gray-500 px-4 pb-4 font-MontserratSemiBold text-sm text-gray-600 focus:border-brand"
               />
             </View>
           </View>

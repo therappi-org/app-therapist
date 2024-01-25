@@ -99,7 +99,7 @@ export default function FullAddress() {
                   keyboardType="default"
                   error={errors.street?.message}
                   autoCapitalize="none"
-                  className=" border-b-[1px] border-gray-500 px-2 pb-4 font-MontserratSemiBold text-sm text-gray-600 focus:border-brand"
+                  className="border-b-[1px] border-gray-500 px-2 pb-4 font-MontserratSemiBold text-sm text-gray-600 focus:border-brand"
                 />
               </View>
               <View className="w-full flex-row">
