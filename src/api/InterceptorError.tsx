@@ -13,12 +13,13 @@ export const InterceptorError = () => {
       Toast.show(message, {
         duration: Toast.durations.SHORT,
         position: Toast.positions.TOP,
-        shadow: true,
-        opacity: 1,
+        shadow: false,
         animation: true,
         hideOnPress: true,
+        opacity: 1,
         delay: 0,
         backgroundColor: colors.feedback.error,
+        textColor: colors.gray[50],
       });
     }
   };
