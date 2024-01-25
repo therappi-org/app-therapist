@@ -1,7 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link, useLocalSearchParams } from 'expo-router';
-import React, { useState } from 'react';
+import { router, useLocalSearchParams } from 'expo-router';
+import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 import { Masks } from 'react-native-mask-input';
@@ -10,7 +10,9 @@ import { z } from 'zod';
 import { Button } from '@/components/Button';
 import { MaskInput } from '@/components/MaskInput';
 import { ProgressBar } from '@/components/ProgressBar';
+import { useAuth } from '@/contexts/useAuth';
 import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout';
+import { UserQuery } from '@/queries/user';
 
 const dateOfBirthSchema = z.object({
   DateOfBirth: z
@@ -21,8 +23,13 @@ const dateOfBirthSchema = z.object({
 type PhoneRegisterFormValues = z.infer<typeof dateOfBirthSchema>;
 
 export default function DateOfBirthRegister() {
-  const [dateOfBirth, setDateOfBirth] = useState('');
   const { phoneNumber } = useLocalSearchParams<{ phoneNumber: string }>();
+  const { userData } = useAuth();
+  const { mutate: updateUserData, isLoading } = UserQuery.Update({
+    onSuccess: () => {
+      router.push('/(app)/(therapist-register)/photo');
+    },
+  });
 
   const {
     control,
@@ -32,6 +39,16 @@ export default function DateOfBirthRegister() {
     mode: 'all',
     resolver: zodResolver(dateOfBirthSchema),
   });
+
+  const onSubmit = async ({ DateOfBirth }: PhoneRegisterFormValues) => {
+    const invertedDateOfBirth = DateOfBirth.split('/').reverse().join('');
+    console.log(userData?.id);
+    updateUserData({
+      s_birthdate: invertedDateOfBirth,
+      s_cellphone: phoneNumber,
+      userId: userData?.id,
+    });
+  };
 
   return (
     <KeyBoardAvoidingViewLayout
@@ -57,8 +74,7 @@ export default function DateOfBirthRegister() {
                 onBlur={onBlur}
                 error={errors.DateOfBirth?.message}
                 keyboardType="number-pad"
-                onChangeText={(maskedDateOfBirth, unmaskedDateOfBirth) => {
-                  setDateOfBirth(unmaskedDateOfBirth);
+                onChangeText={(maskedDateOfBirth) => {
                   onChange(maskedDateOfBirth);
                 }}
                 mask={Masks.DATE_DDMMYYYY}
@@ -69,11 +85,13 @@ export default function DateOfBirthRegister() {
       </View>
 
       <View className="absolute bottom-12 right-4">
-        <Link asChild href="/(app)/(therapist-register)/photo">
-          <Button disabled={!isValid} variant="rounded">
-            <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
-          </Button>
-        </Link>
+        <Button
+          isLoading={isLoading}
+          onPress={handleSubmit(onSubmit)}
+          disabled={!isValid}
+          variant="rounded">
+          <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
+        </Button>
       </View>
     </KeyBoardAvoidingViewLayout>
   );
