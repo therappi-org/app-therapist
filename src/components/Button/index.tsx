@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { ReactNode, forwardRef } from 'react';
-import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import { ActivityIndicator, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 
 import { Loading } from '../Loading';
 
@@ -31,6 +31,14 @@ export const Button = forwardRef<TouchableOpacity, ButtonProps>(
       className
     );
 
+    const LoadingIcon = () => {
+      if (variant === 'rounded') {
+        return <ActivityIndicator color="#fff" />;
+      }
+
+      return <Loading source={require('../../assets/animations/loading.json')} autoPlay loop />;
+    };
+
     return (
       <TouchableOpacity
         className={defaultClassName}
@@ -38,21 +46,7 @@ export const Button = forwardRef<TouchableOpacity, ButtonProps>(
         activeOpacity={0.8}
         disabled={disabled || isLoading}
         {...props}>
-        {isLoading ? (
-          <Loading
-            style={
-              variant === 'rounded' && {
-                width: 100,
-                height: 50,
-              }
-            }
-            source={require('../../assets/animations/loading.json')}
-            autoPlay
-            loop
-          />
-        ) : (
-          children
-        )}
+        {isLoading ? <LoadingIcon /> : children}
       </TouchableOpacity>
     );
   }
