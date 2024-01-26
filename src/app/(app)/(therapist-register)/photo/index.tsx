@@ -35,7 +35,7 @@ export default function Photo() {
                 backgroundColor="transparent"
               />
             </Button>
-            <Link asChild href="/(therapist-register)/photo/addPhoto">
+            <Link asChild href="/(app)/(therapist-register)/photo/addPhoto">
               <Button className="w-full max-w-[208px]">
                 <View className="flex-row items-center gap-4">
                   <Text className="font-MontserratBold text-base text-white">Adicionar foto</Text>

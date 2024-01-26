@@ -41,4 +41,16 @@ export const UserQuery = {
       },
     });
   },
+
+  UpdateAvatar: ({ onError, onSuccess }: QueryArgs<User> = {}) => {
+    return useMutation({
+      mutationFn: UserService.updateAvatar,
+      onSuccess: (data) => {
+        onSuccess?.(data);
+      },
+      onError: (error: AxiosError) => {
+        onError?.(error);
+      },
+    });
+  },
 };

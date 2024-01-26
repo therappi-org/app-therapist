@@ -42,7 +42,7 @@ export default function DateOfBirthRegister() {
 
   const onSubmit = async ({ DateOfBirth }: PhoneRegisterFormValues) => {
     const invertedDateOfBirth = DateOfBirth.split('/').reverse().join('');
-    console.log(userData?.id);
+
     updateUserData({
       s_birthdate: invertedDateOfBirth,
       s_cellphone: phoneNumber,

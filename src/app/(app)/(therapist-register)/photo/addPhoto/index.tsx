@@ -1,29 +1,65 @@
 import { Feather } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker';
-import { Link } from 'expo-router';
+import * as Linking from 'expo-linking';
+import { router } from 'expo-router';
 import { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Alert, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/Button';
+import { useAuth } from '@/contexts/useAuth';
+import { UserQuery } from '@/queries/user';
 import colors from '@/theme/colors';
 
 export default function AddPhoto() {
-  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [profileImageUri, setProfileImageUri] = useState<string | null>(null);
+  const { userData } = useAuth();
+  const { mutate: updateUserAvatar, isLoading } = UserQuery.UpdateAvatar({
+    onSuccess() {
+      router.push('/(app)/(therapist-register)/profissional-data');
+    },
+  });
   const insets = useSafeAreaInsets();
-
   const pickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 4],
-      quality: 1,
-    });
+    try {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-    if (!result.canceled) {
-      setProfileImage(result.assets[0].uri);
+      if (status !== ImagePicker.PermissionStatus.GRANTED) {
+        return Alert.alert(
+          'Permissão de acesso ao álbum',
+          'Você precisa permitir o acesso ao álbum para escolher uma foto de perfil',
+          [
+            { text: 'OK', onPress: () => console.log('OK Pressed') },
+            { text: 'Abrir configurações', onPress: () => Linking.openSettings() },
+          ]
+        );
+      }
+
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 4],
+        quality: 1,
+      });
+
+      if (!result.canceled) {
+        setProfileImageUri(result.assets[0].uri);
+      }
+    } catch (error) {
+      console.log(error);
     }
+  };
+
+  const handleUploadUserAvatar = () => {
+    if (!profileImageUri) return;
+    const formData = new FormData();
+    formData.append('avatar', profileImageUri);
+
+    updateUserAvatar({
+      userId: userData?.id,
+      formData,
+    });
   };
 
   return (
@@ -37,9 +73,9 @@ export default function AddPhoto() {
           Confirme sua foto de perfil
         </Text>
 
-        {profileImage ? (
+        {profileImageUri ? (
           <Image
-            source={{ uri: profileImage }}
+            source={{ uri: profileImageUri }}
             alt="Imagem de perfil"
             className="m-4 max-h-full max-w-full flex-1 items-center justify-center rounded-xl"
             contentFit="cover"
@@ -68,13 +104,15 @@ export default function AddPhoto() {
           </Button>
           <Text className="font-MontserratBold text-base text-white">Escolher foto</Text>
         </View>
-        {!!profileImage && (
+        {!!profileImageUri && (
           <View className="items-center gap-1">
-            <Link asChild href="/(app)/(therapist-register)/profissional-data">
-              <Button variant="rounded" className="bg-feedback-success">
-                <Feather name="check" size={24} color="#fff" backgroundColor="transparent" />
-              </Button>
-            </Link>
+            <Button
+              isLoading={isLoading}
+              onPress={handleUploadUserAvatar}
+              variant="rounded"
+              className="bg-feedback-success">
+              <Feather name="check" size={24} color="#fff" backgroundColor="transparent" />
+            </Button>
             <Text className="font-MontserratBold text-base text-white">Confirmar</Text>
           </View>
         )}

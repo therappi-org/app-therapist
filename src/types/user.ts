@@ -30,3 +30,9 @@ export type User = {
   ];
   sAvatarUrl: string;
 };
+
+export type UpdateUserData = {
+  userId?: number;
+  s_birthdate: string;
+  s_cellphone: string;
+};

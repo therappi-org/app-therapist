@@ -7,6 +7,11 @@ type CreateUserData = {
   s_password: string;
 };
 
+type UpdateAvatarData = {
+  userId?: number;
+  formData: FormData;
+};
+
 const baseUrl = '/user';
 
 export const UserService = {
@@ -30,11 +35,19 @@ export const UserService = {
   update: async (data: UpdateUserData) => {
     if (!data?.userId) throw new Error('User id is required');
 
-    console.log(data);
-
     const response = await axiosConfig.patch<User>(`${baseUrl}/update/${data.userId}`, {
       s_birthdate: data.s_birthdate,
       s_cellphone: data.s_cellphone,
+    });
+
+    return response?.data;
+  },
+
+  updateAvatar: async ({ userId, formData }: UpdateAvatarData) => {
+    const response = await axiosConfig.patch<User>(`${baseUrl}/avatar/${userId}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     });
 
     return response?.data;
