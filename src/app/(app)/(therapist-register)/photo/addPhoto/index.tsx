@@ -13,7 +13,7 @@ import { UserQuery } from '@/queries/user';
 import colors from '@/theme/colors';
 
 export default function AddPhoto() {
-  const [profileImageUri, setProfileImageUri] = useState<string | null>(null);
+  const [profileImage, setProfileImage] = useState<ImagePicker.ImagePickerAsset | null>(null);
   const { userData } = useAuth();
   const { mutate: updateUserAvatar, isLoading } = UserQuery.UpdateAvatar({
     onSuccess() {
@@ -44,7 +44,7 @@ export default function AddPhoto() {
       });
 
       if (!result.canceled) {
-        setProfileImageUri(result.assets[0].uri);
+        setProfileImage(result.assets[0]);
       }
     } catch (error) {
       console.log(error);
@@ -52,9 +52,11 @@ export default function AddPhoto() {
   };
 
   const handleUploadUserAvatar = () => {
-    if (!profileImageUri) return;
+    if (!profileImage) return;
+    const localUri = profileImage.uri;
+    const filename = localUri.split('/').pop();
     const formData = new FormData();
-    formData.append('avatar', profileImageUri);
+    formData.append('file', { uri: localUri, name: filename, type: profileImage.type } as any);
 
     updateUserAvatar({
       userId: userData?.id,
@@ -73,9 +75,9 @@ export default function AddPhoto() {
           Confirme sua foto de perfil
         </Text>
 
-        {profileImageUri ? (
+        {profileImage ? (
           <Image
-            source={{ uri: profileImageUri }}
+            source={{ uri: profileImage.uri }}
             alt="Imagem de perfil"
             className="m-4 max-h-full max-w-full flex-1 items-center justify-center rounded-xl"
             contentFit="cover"
@@ -104,7 +106,7 @@ export default function AddPhoto() {
           </Button>
           <Text className="font-MontserratBold text-base text-white">Escolher foto</Text>
         </View>
-        {!!profileImageUri && (
+        {!!profileImage && (
           <View className="items-center gap-1">
             <Button
               isLoading={isLoading}
