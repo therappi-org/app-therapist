@@ -30,10 +30,6 @@
       ],
       "package": "com.therappibr.apptherapist"
     },
-    "experiments": {
-      "tsconfigPaths": true,
-      "typedRoutes": true
-    },
     "plugins": [
       "expo-router",
       [
