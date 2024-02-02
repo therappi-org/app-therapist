@@ -47,6 +47,18 @@
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "node_modules/@expo-google-fonts/montserrat/Montserrat_300Light.ttf",
+            "node_modules/@expo-google-fonts/montserrat/Montserrat_400Regular.ttf",
+            "node_modules/@expo-google-fonts/montserrat/Montserrat_500Medium.ttf",
+            "node_modules/@expo-google-fonts/montserrat/Montserrat_600SemiBold.ttf",
+            "node_modules/@expo-google-fonts/montserrat/Montserrat_700Bold.ttf"
+          ]
+        }
       ]
     ],
     "extra": {
