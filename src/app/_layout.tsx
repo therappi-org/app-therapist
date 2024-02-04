@@ -1,5 +1,7 @@
+import { useReactNavigationDevTools } from '@dev-plugins/react-navigation';
+import { useReactQueryDevTools } from '@dev-plugins/react-query';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { Slot } from 'expo-router';
+import { Slot, useNavigationContainerRef } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -13,6 +15,10 @@ export const unstable_settings = {
 };
 
 export default function Root() {
+  const navigationRef = useNavigationContainerRef();
+  useReactNavigationDevTools(navigationRef);
+  useReactQueryDevTools(queryClient);
+
   return (
     <>
       <StatusBar style="light" />
