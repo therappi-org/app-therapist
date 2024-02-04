@@ -32,12 +32,9 @@ export const UserService = {
     return response?.data;
   },
 
-  update: async (data: UpdateUserData) => {
-    if (!data?.userId) throw new Error('User id is required');
-
-    const response = await axiosConfig.patch<User>(`${baseUrl}/update/${data.userId}`, {
-      s_birthdate: data.s_birthdate,
-      s_cellphone: data.s_cellphone,
+  update: async ({ userId, ...data }: UpdateUserData) => {
+    const response = await axiosConfig.patch<User>(`${baseUrl}/update/${userId}`, {
+      ...data,
     });
 
     return response?.data;

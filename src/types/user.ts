@@ -33,6 +33,7 @@ export type User = {
 
 export type UpdateUserData = {
   userId?: number;
-  s_birthdate: string;
-  s_cellphone: string;
+  s_birthdate?: string;
+  s_cellphone?: string;
+  s_short_bio?: string;
 };
