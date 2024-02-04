@@ -1,0 +1,91 @@
+import { Link } from 'expo-router';
+import React from 'react';
+import { ScrollView, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { Button } from '@/components/Button';
+import { Card } from '@/components/Card';
+import { ProgressBar } from '@/components/ProgressBar';
+import { useAuth } from '@/contexts/useAuth';
+import { UserTherapyQuery } from '@/queries/userTherapy';
+import { useTherapyStore } from '@/stories/useTherapyStore';
+import { Therapy } from '@/types/therapy';
+
+export default function SelectTherapy() {
+  const { userData } = useAuth();
+  const insets = useSafeAreaInsets();
+  const { selectedTherapy, setSelectedTherapy } = useTherapyStore((state) => ({
+    selectedTherapy: state.selectedTherapy,
+    setSelectedTherapy: state.setSelectedTherapy,
+  }));
+
+  const { data: notAttendedTherapyData, isLoading } = UserTherapyQuery.FindNotAttendedTherapy({
+    userId: userData?.id,
+  });
+
+  const formattedTherapies: Therapy[] | undefined = notAttendedTherapyData
+    ?.map((therapy) => {
+      return {
+        id: therapy.id,
+        name: therapy.sName,
+        image: therapy.sAvatarUrl,
+      };
+    })
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  console.log(selectedTherapy);
+
+  const handleOnPressTherapy = (therapy: Therapy) => {
+    setSelectedTherapy(therapy);
+  };
+
+  return (
+    <View className="flex-1 bg-brand" style={{ paddingBottom: insets.bottom }}>
+      <View className="mt-4 space-y-4 px-6">
+        <ProgressBar progress={70} />
+        <Text className="font-MontserratSemiBold text-base text-white">Habilitar serviços</Text>
+      </View>
+
+      <View className="mt-6 flex-1">
+        <View className="space-y-2">
+          <Text className="px-6 font-MontserratBold text-base text-white">
+            Escolha a terapia que você deseja habilitar
+          </Text>
+
+          <Text className="px-6 font-MontserratSemiBold text-xs text-white">
+            Você poderá adicionar mais terapias posteriormente
+          </Text>
+        </View>
+
+        <ScrollView className="mt-4 flex-1 px-6" showsVerticalScrollIndicator={false}>
+          {formattedTherapies?.map((therapy) => (
+            <View key={therapy.name} className="py-2">
+              <Button
+                activeOpacity={0.8}
+                className={`h-[72px] w-full ${selectedTherapy?.id === therapy.id && 'opacity-70'}`}
+                onPress={() => handleOnPressTherapy(therapy)}>
+                <Card.Root>
+                  <Card.Content
+                    title={therapy.name}
+                    image={{
+                      source: therapy.image,
+                    }}
+                  />
+                </Card.Root>
+              </Button>
+            </View>
+          ))}
+        </ScrollView>
+        <View className="mb-4 mt-6 px-6">
+          <Link
+            asChild
+            href="/(app)/(therapist-register)/profissional-data/therapy/feedbackTherapy">
+            <Button disabled={!selectedTherapy} className="w-full bg-white">
+              <Text className="font-MontserratBold text-base text-brand">Avançar</Text>
+            </Button>
+          </Link>
+        </View>
+      </View>
+    </View>
+  );
+}

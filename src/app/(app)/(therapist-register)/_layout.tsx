@@ -99,13 +99,13 @@ export default function Layout() {
             options={{
               title: 'Dados profissionais',
             }}
-            name="profissional-data/therapy/enable-therapies"
+            name="profissional-data/therapy/select-therapy"
           />
           <Stack.Screen
             options={{
               headerShown: false,
             }}
-            name="profissional-data/therapy/[quantityTherapies]"
+            name="profissional-data/therapy/feedbackTherapy"
           />
           <Stack.Screen
             options={{

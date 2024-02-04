@@ -36,7 +36,7 @@ export default function ProfissionalData() {
             </Button>
             <Link
               asChild
-              href="/(app)/(therapist-register)/profissional-data/therapy/enable-therapies">
+              href="/(app)/(therapist-register)/profissional-data/therapy/select-therapy">
               <Button className="w-full max-w-[208px]">
                 <View className="flex-row items-center gap-4">
                   <Text className="font-MontserratBold text-base text-white">Próximo passo</Text>
