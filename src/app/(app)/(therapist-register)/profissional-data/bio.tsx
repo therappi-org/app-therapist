@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link, useLocalSearchParams } from 'expo-router';
+import { router } from 'expo-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
@@ -9,32 +9,42 @@ import { z } from 'zod';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { ProgressBar } from '@/components/ProgressBar';
+import { useAuth } from '@/contexts/useAuth';
 import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout';
+import { UserQuery } from '@/queries/user';
 
 const bioSchema = z.object({
   bio: z
-    .string()
-    .nonempty({ message: 'A bio não pode ser vazia' })
-    .max(200, { message: 'A bio não pode ter mais de 200 caracteres' })
-    .trim(),
+    .string({ required_error: 'Campo obrigatório' })
+    .min(1, { message: 'Campo obrigatório' })
+    .max(200, { message: 'A bio não pode ter mais de 200 caracteres' }),
 });
 
 type BioFormValues = z.infer<typeof bioSchema>;
 
 export default function Bio() {
-  const { name } = useLocalSearchParams<{ name: string }>();
+  const { userData } = useAuth();
+  const { mutate: updateUserData, isLoading } = UserQuery.Update({
+    onSuccess: () => {
+      router.push('/(app)/(therapist-register)/profissional-data/therapy');
+    },
+  });
 
   const {
     control,
-    // handleSubmit,
-    watch,
+    handleSubmit,
     formState: { errors, isValid },
   } = useForm<BioFormValues>({
     mode: 'all',
     resolver: zodResolver(bioSchema),
   });
 
-  const watchBio = watch('bio');
+  const onSubmit = ({ bio }: BioFormValues) => {
+    updateUserData({
+      userId: userData?.id,
+      s_short_bio: bio,
+    });
+  };
 
   return (
     <KeyBoardAvoidingViewLayout
@@ -54,6 +64,8 @@ export default function Bio() {
           textAlign="center"
           placeholder="Digite sua bio"
           isValid={isValid}
+          className="min-h-[100px]"
+          textBreakStrategy="highQuality"
           multiline
           numberOfLines={4}
           variant="unstyled"
@@ -63,11 +75,13 @@ export default function Bio() {
       </View>
 
       <View className="absolute bottom-12 right-4">
-        <Link asChild href="/(app)/(therapist-register)/profissional-data/therapy">
-          <Button disabled={!isValid} variant="rounded">
-            <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
-          </Button>
-        </Link>
+        <Button
+          onPress={handleSubmit(onSubmit)}
+          isLoading={isLoading}
+          disabled={!isValid}
+          variant="rounded">
+          <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
+        </Button>
       </View>
     </KeyBoardAvoidingViewLayout>
   );

@@ -16,7 +16,8 @@ import { UserQuery } from '@/queries/user';
 
 const dateOfBirthSchema = z.object({
   DateOfBirth: z
-    .string()
+    .string({ required_error: 'Campo obrigatório' })
+    .min(1, { message: 'Campo obrigatório' })
     .regex(/^\d{2}\/\d{2}\/\d{4}$/, { message: 'Data de nascimento inválida' }),
 });
 
