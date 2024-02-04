@@ -1,7 +1,7 @@
-import LottieView, { AnimatedLottieViewProps } from 'lottie-react-native';
+import LottieView, { LottieViewProps } from 'lottie-react-native';
 import { StyleProp, ViewStyle } from 'react-native';
 
-export const Loading = ({ style, ...props }: AnimatedLottieViewProps) => {
+export const Loading = ({ style, ...props }: LottieViewProps) => {
   const LoadingStyles: StyleProp<ViewStyle> = {
     width: 150,
     height: 100,
