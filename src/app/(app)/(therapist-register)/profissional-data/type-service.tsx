@@ -1,4 +1,3 @@
-'expo-router';
 import { Link } from 'expo-router';
 import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
@@ -7,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
 import { ProgressBar } from '@/components/ProgressBar';
+import { useTherapyStore } from '@/stories/useTherapyStore';
 
 type Services = {
   id: string;
@@ -22,12 +22,12 @@ const services: Services[] = [
     subtitle: 'Através de videoconferências',
     image: require('@/assets/images/computer.png'),
   },
-  {
-    name: 'Atendimento domiciliar',
-    id: 'home',
-    subtitle: 'Atendimento em casa',
-    image: require('@/assets/images/house.png'),
-  },
+  // {
+  //   name: 'Atendimento domiciliar',
+  //   id: 'home',
+  //   subtitle: 'Atendimento em casa',
+  //   image: require('@/assets/images/house.png'),
+  // },
   {
     name: 'Atendimento presencial',
     id: 'inPerson',
@@ -39,6 +39,9 @@ const services: Services[] = [
 export default function TypesOfService() {
   const [selectedServices, setSelectedServices] = useState<Services[]>([]);
   const insets = useSafeAreaInsets();
+  const { selectedTherapy } = useTherapyStore((state) => ({
+    selectedTherapy: state.selectedTherapy,
+  }));
 
   const handleRedirect = () => {
     const isHomeOrInPerson = selectedServices.some(
@@ -79,7 +82,9 @@ export default function TypesOfService() {
     <View className="flex-1 bg-brand" style={{ paddingBottom: insets.bottom }}>
       <View className="mt-4 space-y-4 px-6">
         <ProgressBar progress={80} />
-        <Text className="font-MontserratSemiBold text-base text-white">1/4 - Psicologia</Text>
+        <Text className="font-MontserratSemiBold text-base text-white">
+          {selectedTherapy?.name}
+        </Text>
         <Text className="font-MontserratSemiBold text-base text-white">
           Preferências no atendimento
         </Text>
@@ -87,7 +92,7 @@ export default function TypesOfService() {
 
       <View className="mt-8 flex-1">
         <Text className="px-6 font-MontserratBold text-base text-white">
-          Qual modelo de atendimento é ideal?
+          Marque as opções de atendimento para essa terapia
         </Text>
 
         <ScrollView className="mt-4 flex-1 px-6" showsVerticalScrollIndicator={false}>
@@ -96,9 +101,7 @@ export default function TypesOfService() {
               <Button className="h-[72px] w-full" onPress={() => handleOnPressTherapy(service)}>
                 <Card.Root>
                   <Card.Content
-                    style={{
-                      padding: 16,
-                    }}
+                    className="p-2"
                     title={service.name}
                     subtitle={service.subtitle}
                     image={{
