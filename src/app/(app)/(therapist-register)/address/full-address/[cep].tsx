@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
@@ -17,21 +17,37 @@ import { z } from 'zod';
 import { Button } from '@/components/Button';
 import { CardCheckbox } from '@/components/Card/CardCheckbox';
 import { Input } from '@/components/Input';
+import { ViaCepQueries } from '@/queries/viaCep';
+import { useTherapyStore } from '@/stories/useTherapyStore';
 import colors from '@/theme/colors';
 
 const fullAddressSchema = z
   .object({
-    street: z.string().trim().nonempty({ message: 'Campo obrigatório' }),
+    street: z
+      .string({ required_error: 'Campo obrigatório' })
+      .min(1, { message: 'Campo obrigatório' })
+      .trim(),
     hasNoHouseNumber: z.boolean(),
     number: z.string().trim(),
-    complement: z.string().trim().nonempty({ message: 'Campo obrigatório' }),
-    neighborhood: z.string().trim().nonempty({ message: 'Campo obrigatório' }),
-    city: z.string().trim().nonempty({ message: 'Campo obrigatório' }),
-    state: z.string().trim().nonempty({ message: 'Campo obrigatório' }),
+    complement: z.string().trim(),
+    neighborhood: z
+      .string({ required_error: 'Campo obrigatório' })
+      .min(1, { message: 'Campo obrigatório' })
+      .trim(),
+    city: z
+      .string({ required_error: 'Campo obrigatório' })
+      .min(1, { message: 'Campo obrigatório' })
+      .trim(),
+    state: z
+      .string({ required_error: 'Campo obrigatório' })
+      .min(1, { message: 'Campo obrigatório' })
+      .trim(),
   })
-  .refine((data) => (data.hasNoHouseNumber ? true : !!data.number), {
-    message: 'Campo obrigatório',
-    path: ['number'],
+  .refine((data) => {
+    if (!data.hasNoHouseNumber) {
+      return data.number.length > 0;
+    }
+    return true;
   });
 
 type FullAddressFormValues = z.infer<typeof fullAddressSchema>;
@@ -39,7 +55,14 @@ type FullAddressFormValues = z.infer<typeof fullAddressSchema>;
 export default function FullAddress() {
   const [hasNoHouseNumber, setHasNumber] = useState(false);
   const insets = useSafeAreaInsets();
+  const { cep } = useLocalSearchParams<{ cep: string }>();
+  const { setAddress } = useTherapyStore((state) => ({
+    setAddress: state.setAddress,
+  }));
 
+  const { data } = ViaCepQueries.GetCepData({
+    cep,
+  });
   const {
     control,
     setValue,
@@ -60,12 +83,32 @@ export default function FullAddress() {
       city: '',
       state: '',
     },
+    values: {
+      street: data?.logradouro ?? '',
+      hasNoHouseNumber: false,
+      number: '',
+      complement: '',
+      neighborhood: data?.bairro ?? '',
+      city: data?.localidade ?? '',
+      state: data?.uf ?? '',
+    },
   });
 
   const watchFields = watch();
 
   const onSubmit = (values: FullAddressFormValues) => {
     console.log(values);
+    setAddress({
+      cep,
+      logradouro: values.street,
+      numero: values.number,
+      complemento: values.complement,
+      bairro: values.neighborhood,
+      localidade: values.city,
+      uf: values.state,
+    });
+
+    router.push('/(app)/(therapist-register)/session/cost');
   };
 
   return (
@@ -75,7 +118,7 @@ export default function FullAddress() {
         paddingBottom: insets.bottom,
       }}>
       <Text className="mt-6 font-MontserratSemiBold text-base text-gray-700">
-        Informe o CEP do seu endereço:
+        Informe o endereço completo
       </Text>
 
       <KeyboardAvoidingView
@@ -128,11 +171,11 @@ export default function FullAddress() {
                     setChecked={(value) => {
                       setHasNumber(value);
                       setValue('hasNoHouseNumber', !!value);
-                      trigger();
                       if (value) {
                         clearErrors('number');
                         setValue('number', '');
                       }
+                      trigger('hasNoHouseNumber');
                     }}
                   />
                   <Text>Sem número</Text>
@@ -202,11 +245,9 @@ export default function FullAddress() {
             </View>
 
             <View className="my-9 items-center">
-              <Link href="/(app)/(therapist-register)/session/cost" asChild>
-                <Button disabled={!isValid}>
-                  <Text className="font-MontserratBold text-base text-white">Avançar</Text>
-                </Button>
-              </Link>
+              <Button onPress={handleSubmit(onSubmit)} disabled={!isValid}>
+                <Text className="font-MontserratBold text-base text-white">Avançar</Text>
+              </Button>
             </View>
           </ScrollView>
         </TouchableWithoutFeedback>
