@@ -11,22 +11,25 @@ import { Button } from '@/components/Button';
 import { MaskInput } from '@/components/MaskInput';
 import { ProgressBar } from '@/components/ProgressBar';
 import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout';
+import { useTherapyStore } from '@/stories/useTherapyStore';
 
 const cepAddressSchema = z.object({
   cep: z
-    .string()
-    .regex(/^\d{5}-\d{3}$/, { message: 'CEP inválido' })
-    .nonempty({ message: 'Campo obrigatório' }),
+    .string({ required_error: 'Campo obrigatório' })
+    .min(1, { message: 'Campo obrigatório' })
+    .regex(/^\d{5}-\d{3}$/, { message: 'CEP inválido' }),
 });
 
 type cepAddressFormValues = z.infer<typeof cepAddressSchema>;
 
 export default function CepAddress() {
   const [cep, setCep] = useState('');
+  const { selectedTherapy } = useTherapyStore((state) => ({
+    selectedTherapy: state.selectedTherapy,
+  }));
 
   const {
     control,
-    handleSubmit,
     formState: { errors, isValid },
   } = useForm<cepAddressFormValues>({
     mode: 'all',
@@ -37,8 +40,10 @@ export default function CepAddress() {
     <KeyBoardAvoidingViewLayout
       header={
         <View className="mt-4 space-y-4 px-6">
-          <ProgressBar progress={60} />
-          <Text className="font-MontserratSemiBold text-base text-white">1/4 Psicologia</Text>
+          <ProgressBar progress={85} />
+          <Text className="font-MontserratSemiBold text-base text-white">
+            {selectedTherapy?.name}
+          </Text>
         </View>
       }>
       <View className="mt-6 items-center space-y-4">
@@ -66,7 +71,7 @@ export default function CepAddress() {
         />
       </View>
 
-      <View className="absolute bottom-12 right-6">
+      <View className="absolute bottom-12 right-4">
         <Link asChild href={`/(app)/(therapist-register)/address/full-address/${cep}`}>
           <Button disabled={!isValid} variant="rounded">
             <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
