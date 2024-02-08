@@ -1,6 +1,6 @@
 import { Link } from 'expo-router';
-import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import ContentLoader, { Rect } from 'react-content-loader/native';
+import { ScrollView, Text, View, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/Button';
@@ -14,6 +14,7 @@ import { Therapy } from '@/types/therapy';
 export default function SelectTherapy() {
   const { userData } = useAuth();
   const insets = useSafeAreaInsets();
+  const { width, height } = useWindowDimensions();
   const { selectedTherapy, setSelectedTherapy } = useTherapyStore((state) => ({
     selectedTherapy: state.selectedTherapy,
     setSelectedTherapy: state.setSelectedTherapy,
@@ -32,8 +33,6 @@ export default function SelectTherapy() {
       };
     })
     .sort((a, b) => a.name.localeCompare(b.name));
-
-  console.log(selectedTherapy);
 
   const handleOnPressTherapy = (therapy: Therapy) => {
     setSelectedTherapy(therapy);
@@ -57,25 +56,44 @@ export default function SelectTherapy() {
           </Text>
         </View>
 
-        <ScrollView className="mt-4 flex-1 px-6" showsVerticalScrollIndicator={false}>
-          {formattedTherapies?.map((therapy) => (
-            <View key={therapy.name} className="py-2">
-              <Button
-                activeOpacity={0.8}
-                className={`h-[72px] w-full ${selectedTherapy?.id === therapy.id && 'opacity-70'}`}
-                onPress={() => handleOnPressTherapy(therapy)}>
-                <Card.Root>
-                  <Card.Content
-                    title={therapy.name}
-                    image={{
-                      source: therapy.image,
-                    }}
-                  />
-                </Card.Root>
-              </Button>
-            </View>
-          ))}
-        </ScrollView>
+        {isLoading ? (
+          <View className="mx-6 mt-4 flex-1">
+            <ContentLoader
+              speed={1}
+              width={width}
+              height={height}
+              viewBox={`0 0 ${width} ${height}`}
+              backgroundColor="#d9d9d9"
+              foregroundColor="#ededed">
+              <Rect x="0" y="0" rx="12" ry="12" width="90%" height="80" />
+              <Rect x="0" y="88" rx="12" ry="12" width="90%" height="80" />
+              <Rect x="0" y="176" rx="12" ry="12" width="90%" height="80" />
+              <Rect x="0" y="264" rx="12" ry="12" width="90%" height="80" />
+              <Rect x="0" y="352" rx="12" ry="12" width="90%" height="80" />
+            </ContentLoader>
+          </View>
+        ) : (
+          <ScrollView className="mt-4 flex-1 px-6" showsVerticalScrollIndicator={false}>
+            {formattedTherapies?.map((therapy) => (
+              <View key={therapy.name} className="py-2">
+                <Button
+                  activeOpacity={0.8}
+                  className={`h-[72px] w-full ${selectedTherapy?.id === therapy.id && 'opacity-70'}`}
+                  onPress={() => handleOnPressTherapy(therapy)}>
+                  <Card.Root>
+                    <Card.Content
+                      title={therapy.name}
+                      image={{
+                        source: therapy.image,
+                      }}
+                    />
+                  </Card.Root>
+                </Button>
+              </View>
+            ))}
+          </ScrollView>
+        )}
+
         <View className="mb-4 mt-6 px-6">
           <Link
             asChild
