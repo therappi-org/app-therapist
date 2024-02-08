@@ -1,5 +1,8 @@
 {
   "expo": {
+    "experiments": {
+      "typedRoutes": true
+    },
     "name": "app-therapist",
     "slug": "app-therapist",
     "scheme": "app-therapist",

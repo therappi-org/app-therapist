@@ -13,6 +13,8 @@
     "**/*.ts",
     "**/*.tsx",
     "src/theme/colors.js",
-    "colors.js"
+    "colors.js",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
   ]
 }
