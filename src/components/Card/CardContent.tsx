@@ -10,9 +10,9 @@ interface CardContentProps extends ViewProps {
 
 export const CardContent = ({ title, subtitle, image, className, ...props }: CardContentProps) => {
   return (
-    <View className={clsx('flex-row items-center gap-1', className)} {...props}>
-      {image && <Image className="h-14 w-14" {...image} />}
-      <View className="flex flex-col gap-1">
+    <View className={clsx('flex-1 flex-row items-center gap-1', className)} {...props}>
+      {image && <Image {...image} className={clsx('h-14 w-14', image.className)} />}
+      <View className="flex flex-1 flex-col gap-1">
         {title && <Text className="font-MontserratBold text-sm text-brand-100">{title}</Text>}
         {subtitle && (
           <Text className="font-MontserratSemiBold text-sm text-gray-600">{subtitle}</Text>
