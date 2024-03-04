@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   View,
@@ -56,13 +56,39 @@ export default function FullAddress() {
   const [hasNoHouseNumber, setHasNumber] = useState(false);
   const insets = useSafeAreaInsets();
   const { cep } = useLocalSearchParams<{ cep: string }>();
-  const { setAddress } = useTherapyStore((state) => ({
+  const { setAddress, address } = useTherapyStore((state) => ({
     setAddress: state.setAddress,
+    address: state.address,
   }));
 
-  const { data } = ViaCepQueries.GetCepData({
+  const { data: cepData } = ViaCepQueries.GetCepData({
     cep,
   });
+
+  const formValues = () => {
+    if (address) {
+      return {
+        street: address.logradouro ?? '',
+        hasNoHouseNumber: false,
+        number: address.numero ?? '',
+        complement: address.complemento ?? '',
+        neighborhood: address.bairro ?? '',
+        city: address.localidade ?? '',
+        state: address.uf ?? '',
+      };
+    }
+
+    return {
+      street: cepData?.logradouro ?? '',
+      hasNoHouseNumber: false,
+      number: '',
+      complement: '',
+      neighborhood: cepData?.bairro ?? '',
+      city: cepData?.localidade ?? '',
+      state: cepData?.uf ?? '',
+    };
+  };
+
   const {
     control,
     setValue,
@@ -83,21 +109,12 @@ export default function FullAddress() {
       city: '',
       state: '',
     },
-    values: {
-      street: data?.logradouro ?? '',
-      hasNoHouseNumber: false,
-      number: '',
-      complement: '',
-      neighborhood: data?.bairro ?? '',
-      city: data?.localidade ?? '',
-      state: data?.uf ?? '',
-    },
+    values: formValues(),
   });
 
   const watchFields = watch();
 
   const onSubmit = (values: FullAddressFormValues) => {
-    console.log(values);
     setAddress({
       cep,
       logradouro: values.street,
@@ -110,6 +127,12 @@ export default function FullAddress() {
 
     router.push('/(app)/(therapist-register)/session/cost');
   };
+
+  useEffect(() => {
+    return () => {
+      setAddress(null);
+    };
+  }, []);
 
   return (
     <View
@@ -168,6 +191,7 @@ export default function FullAddress() {
                 <View className="flex-row items-center space-x-2">
                   <CardCheckbox
                     isChecked={hasNoHouseNumber}
+                    className="h-5 w-5 rounded-md border-[1px] border-gray-500 bg-white"
                     setChecked={(value) => {
                       setHasNumber(value);
                       setValue('hasNoHouseNumber', !!value);
