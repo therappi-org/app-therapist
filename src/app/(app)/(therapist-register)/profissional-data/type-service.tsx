@@ -7,13 +7,7 @@ import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
 import { ProgressBar } from '@/components/ProgressBar';
 import { useTherapyStore } from '@/stories/useTherapyStore';
-
-type Services = {
-  id: string;
-  name: string;
-  subtitle: string;
-  image: any;
-};
+import { Services } from '@/types/therapy';
 
 const services: Services[] = [
   {
@@ -39,8 +33,10 @@ const services: Services[] = [
 export default function TypesOfService() {
   const [selectedServices, setSelectedServices] = useState<Services[]>([]);
   const insets = useSafeAreaInsets();
-  const { selectedTherapy } = useTherapyStore((state) => ({
+  const { selectedTherapy, typeOfService, setTypeOfService } = useTherapyStore((state) => ({
     selectedTherapy: state.selectedTherapy,
+    typeOfService: state.typeOfService,
+    setTypeOfService: state.setTypeOfService,
   }));
 
   const handleRedirect = () => {
@@ -64,8 +60,19 @@ export default function TypesOfService() {
       setSelectedServices((prevTherapies) => {
         return prevTherapies.filter((prevService) => prevService.name !== service.name);
       });
+
+      setTypeOfService({
+        ...typeOfService,
+        [service.id]: false,
+      });
+
       return;
     }
+
+    setTypeOfService({
+      ...typeOfService,
+      [service.id]: true,
+    });
 
     setSelectedServices((prevService) => {
       return [
