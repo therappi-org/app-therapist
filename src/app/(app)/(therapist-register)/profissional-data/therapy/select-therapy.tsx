@@ -63,8 +63,8 @@ export default function SelectTherapy() {
               width={width}
               height={height}
               viewBox={`0 0 ${width} ${height}`}
-              backgroundColor="#d9d9d9"
-              foregroundColor="#ededed">
+              backgroundColor="#f3f3f3"
+              foregroundColor="#ecebeb">
               <Rect x="0" y="0" rx="12" ry="12" width="90%" height="80" />
               <Rect x="0" y="88" rx="12" ry="12" width="90%" height="80" />
               <Rect x="0" y="176" rx="12" ry="12" width="90%" height="80" />
@@ -77,7 +77,6 @@ export default function SelectTherapy() {
             {formattedTherapies?.map((therapy) => (
               <View key={therapy.name} className="py-2">
                 <Button
-                  activeOpacity={0.8}
                   className={`h-[72px] w-full ${selectedTherapy?.id === therapy.id && 'opacity-70'}`}
                   onPress={() => handleOnPressTherapy(therapy)}>
                   <Card.Root>
