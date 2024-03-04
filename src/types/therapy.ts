@@ -11,3 +11,10 @@ export type NotAttendedTherapy = {
   nSequence: number;
   sAvatarUrl: string;
 };
+
+export type Services = {
+  id: 'remote' | 'home' | 'inPerson';
+  name: string;
+  subtitle: string;
+  image: any;
+};
