@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
@@ -10,7 +10,9 @@ import { z } from 'zod';
 import { Button } from '@/components/Button';
 import { MaskInput } from '@/components/MaskInput';
 import { ProgressBar } from '@/components/ProgressBar';
+import { useAuth } from '@/contexts/useAuth';
 import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout';
+import { AddressQueries } from '@/queries/address';
 import { useTherapyStore } from '@/stories/useTherapyStore';
 
 const cepAddressSchema = z.object({
@@ -24,9 +26,16 @@ type cepAddressFormValues = z.infer<typeof cepAddressSchema>;
 
 export default function CepAddress() {
   const [cep, setCep] = useState('');
+  const { userData } = useAuth();
   const { selectedTherapy } = useTherapyStore((state) => ({
     selectedTherapy: state.selectedTherapy,
   }));
+
+  const { data: registeredAddress } = AddressQueries.GetRegisteredAddress({
+    userId: userData!.id,
+  });
+
+  const hasRegisteredAddress = registeredAddress?.length;
 
   const {
     control,
@@ -71,7 +80,17 @@ export default function CepAddress() {
         />
       </View>
 
-      <View className="absolute bottom-12 right-4">
+      <View className="absolute bottom-12 w-full flex-row items-center justify-between px-4">
+        <View>
+          {hasRegisteredAddress && (
+            <Button
+              className="w-full"
+              onPress={() => router.push('/(app)/(therapist-register)/address/registered-address')}
+              variant="ghost">
+              <Text className="font-MontserratBold text-sm text-brand">Endereços salvos</Text>
+            </Button>
+          )}
+        </View>
         <Link asChild href={`/(app)/(therapist-register)/address/full-address/${cep}`}>
           <Button disabled={!isValid} variant="rounded">
             <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
