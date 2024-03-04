@@ -121,6 +121,14 @@ export default function Layout() {
           />
           <Stack.Screen
             options={{
+              title: 'Lista de endereços',
+              presentation: 'modal',
+              headerLeft: () => <BackButton iconName="x" />,
+            }}
+            name="address/registered-address"
+          />
+          <Stack.Screen
+            options={{
               title: 'Dados do local',
             }}
             name="address/full-address/[cep]"
