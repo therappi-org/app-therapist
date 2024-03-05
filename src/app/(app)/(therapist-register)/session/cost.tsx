@@ -1,7 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link } from 'expo-router';
-import React, { useState } from 'react';
+import { router } from 'expo-router';
+import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 import { Masks } from 'react-native-mask-input';
@@ -11,15 +11,16 @@ import { Button } from '@/components/Button';
 import { MaskInput } from '@/components/MaskInput';
 import { ProgressBar } from '@/components/ProgressBar';
 import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout';
+import { useTherapyStore } from '@/stories/useTherapyStore';
 
 const sessionCostSchema = z.object({
   currency: z
-    .string()
-    .nonempty({ message: 'Campo obrigatório' })
+    .string({ required_error: 'Campo obrigatório' })
+    .min(1, { message: 'Campo obrigatório' })
     .refine(
       (value) => {
         const number = Number(value.replace(/[^0-9]/g, ''));
-        return number > 0;
+        return number >= 100 && number <= 10000000000;
       },
       { message: 'Valor inválido' }
     ),
@@ -28,7 +29,10 @@ const sessionCostSchema = z.object({
 type sessionCostFormValues = z.infer<typeof sessionCostSchema>;
 
 export default function SessionCost() {
-  const [currency, setCurrency] = useState('');
+  const { selectedTherapy, setCurrency } = useTherapyStore((state) => ({
+    selectedTherapy: state.selectedTherapy,
+    setCurrency: state.setCurrency,
+  }));
 
   const {
     control,
@@ -39,12 +43,18 @@ export default function SessionCost() {
     resolver: zodResolver(sessionCostSchema),
   });
 
+  const onSubmit = () => {
+    router.push('/(app)/(therapist-register)/session/duration');
+  };
+
   return (
     <KeyBoardAvoidingViewLayout
       header={
         <View className="mt-4 space-y-4 px-6">
           <ProgressBar progress={90} />
-          <Text className="font-MontserratSemiBold text-base text-white">1/4 Psicologia</Text>
+          <Text className="font-MontserratSemiBold text-base text-white">
+            {selectedTherapy?.name}
+          </Text>
         </View>
       }>
       <View className="mt-6 items-center space-y-4">
@@ -62,8 +72,10 @@ export default function SessionCost() {
                 error={errors.currency?.message}
                 keyboardType="number-pad"
                 onChangeText={(maskedCurrency, unmaskedCurrency) => {
-                  setCurrency(unmaskedCurrency);
+                  if (unmaskedCurrency === '0' && unmaskedCurrency.length === 1) return;
+                  // console.log(maskedCurrency.slice(3));
                   onChange(maskedCurrency);
+                  setCurrency(Number(unmaskedCurrency));
                 }}
                 mask={Masks.BRL_CURRENCY}
               />
@@ -73,11 +85,9 @@ export default function SessionCost() {
       </View>
 
       <View className="absolute bottom-12 right-4">
-        <Link asChild href="/(app)/(therapist-register)/session/duration">
-          <Button disabled={!isValid} variant="rounded">
-            <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
-          </Button>
-        </Link>
+        <Button onPress={handleSubmit(onSubmit)} disabled={!isValid} variant="rounded">
+          <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
+        </Button>
       </View>
     </KeyBoardAvoidingViewLayout>
   );
