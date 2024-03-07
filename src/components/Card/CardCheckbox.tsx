@@ -1,8 +1,8 @@
-import clsx from 'clsx';
 import Checkbox from 'expo-checkbox';
 import React from 'react';
 
 import colors from '@/theme/colors';
+import { cn } from '@/utils/lib';
 
 type CardCheckboxProps = React.ComponentProps<typeof Checkbox> & {
   isChecked?: boolean;
@@ -13,7 +13,7 @@ export const CardCheckbox = ({ isChecked, setChecked, className, ...props }: Car
   return (
     <Checkbox
       value={isChecked}
-      className={clsx('h-4 w-4 rounded-full', className)}
+      className={cn('h-4 w-4 rounded-full', className)}
       color={colors.brand.DEFAULT}
       onValueChange={setChecked}
       {...props}

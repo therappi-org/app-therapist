@@ -16,6 +16,7 @@ import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { UserQuery } from '@/queries/user';
 import colors from '@/theme/colors';
+import { cn } from '@/utils/lib';
 
 const forgotPasswordSchema = z.object({
   email: z.string().email({ message: 'O email informado não é válido' }),
@@ -82,7 +83,7 @@ export default function ForgotPassword() {
                 keyboardType="email-address"
                 error={errors.email?.message}
                 autoCapitalize="none"
-                className="border-b-[1px] border-gray-500 px-4 pb-4 font-MontserratSemiBold text-sm text-gray-600 focus:border-brand"
+                className={cn('px-4', watchEmailField && 'border-brand')}
               />
             </View>
           </View>

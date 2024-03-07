@@ -20,6 +20,7 @@ import { Input } from '@/components/Input';
 import { ViaCepQueries } from '@/queries/viaCep';
 import { useTherapyStore } from '@/stories/useTherapyStore';
 import colors from '@/theme/colors';
+import { cn } from '@/utils/lib';
 
 const fullAddressSchema = z
   .object({
@@ -162,10 +163,11 @@ export default function FullAddress() {
                   control={control}
                   placeholderTextColor={colors.gray[500]}
                   placeholder="Avenida, Rua, Logradouro"
+                  variant="underlined"
                   keyboardType="default"
                   error={errors.street?.message}
                   autoCapitalize="none"
-                  className="border-b-[1px] border-gray-500 px-2 pb-4 font-MontserratSemiBold text-sm text-gray-600 focus:border-brand"
+                  className={cn(watchFields.street && 'border-brand')}
                 />
               </View>
               <View className="w-full flex-row">
@@ -182,10 +184,14 @@ export default function FullAddress() {
                     control={control}
                     placeholderTextColor={colors.gray[500]}
                     placeholder="Nº do endereço"
+                    variant="underlined"
                     keyboardType="default"
                     error={errors.number?.message}
                     autoCapitalize="none"
-                    className="mr-10 w-full max-w-[144px] border-b-[1px] border-gray-500 px-2 pb-4 font-MontserratSemiBold text-sm text-gray-600 focus:border-brand"
+                    className={cn(
+                      'mr-10 w-full max-w-[144px]',
+                      watchFields.number && 'border-brand'
+                    )}
                   />
                 </View>
                 <View className="flex-row items-center space-x-2">
@@ -216,10 +222,12 @@ export default function FullAddress() {
                   control={control}
                   placeholderTextColor={colors.gray[500]}
                   placeholder="Complemento"
+                  variant="underlined"
                   keyboardType="default"
                   error={errors.complement?.message}
                   autoCapitalize="none"
-                  className=" border-b-[1px] border-gray-500 px-2 pb-4 font-MontserratSemiBold text-sm text-gray-600 focus:border-brand"
+                  // className=" border-b-[1px] border-gray-500 px-2 pb-4 font-MontserratSemiBold text-sm text-gray-600 focus:border-brand"
+                  className={cn(watchFields.complement && 'border-brand')}
                 />
               </View>
               <View>
@@ -231,9 +239,10 @@ export default function FullAddress() {
                   control={control}
                   placeholderTextColor={colors.gray[500]}
                   placeholder="Bairro"
+                  variant="underlined"
                   keyboardType="default"
                   error={errors.neighborhood?.message}
-                  className=" border-b-[1px] border-gray-500 px-2 pb-4 font-MontserratSemiBold text-sm text-gray-600 focus:border-brand"
+                  className={cn(watchFields.neighborhood && 'border-brand')}
                 />
               </View>
               <View>
@@ -245,10 +254,11 @@ export default function FullAddress() {
                   control={control}
                   placeholderTextColor={colors.gray[500]}
                   placeholder="Cidade"
+                  variant="underlined"
                   keyboardType="default"
                   error={errors.city?.message}
                   autoCapitalize="words"
-                  className=" border-b-[1px] border-gray-500 px-2 pb-4 font-MontserratSemiBold text-sm text-gray-600 focus:border-brand"
+                  className={cn(watchFields.city && 'border-brand')}
                 />
               </View>
               <View>
@@ -260,10 +270,11 @@ export default function FullAddress() {
                   control={control}
                   placeholderTextColor={colors.gray[500]}
                   placeholder="Estado"
+                  variant="underlined"
                   keyboardType="default"
                   error={errors.state?.message}
                   autoCapitalize="words"
-                  className=" border-b-[1px] border-gray-500 px-2 pb-4 font-MontserratSemiBold text-sm text-gray-600 focus:border-brand"
+                  className={cn(watchFields.state && 'border-brand')}
                 />
               </View>
             </View>

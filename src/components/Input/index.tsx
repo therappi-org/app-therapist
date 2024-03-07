@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import {
   Control,
   Controller,
@@ -11,6 +10,7 @@ import {
 import { Text, TextInput, TextInputProps, View } from 'react-native';
 
 import colors from '@/theme/colors';
+import { cn } from '@/utils/lib';
 
 type InputProps<T extends FieldValues> = TextInputProps & {
   control: Control<T>;
@@ -31,8 +31,9 @@ export const Input = <T extends FieldValues>({
   className,
   ...props
 }: InputProps<T>) => {
-  const defaultClassName = clsx(
-    variant === 'underlined' && ``,
+  const defaultClassName = cn(
+    variant === 'underlined' &&
+      'border-b-[1px] border-gray-500 px-2 pb-4 font-MontserratSemiBold text-sm text-gray-600 focus:border-brand',
     variant === 'unstyled' &&
       `max-w-full font-MontserratBold text-lg ${isValid ? 'text-brand' : 'text-feedback-error'}`,
     className

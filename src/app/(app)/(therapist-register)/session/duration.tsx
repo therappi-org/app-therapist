@@ -10,30 +10,24 @@ import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { ProgressBar } from '@/components/ProgressBar';
 import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout';
+import { useTherapyStore } from '@/stories/useTherapyStore';
 import { storeData } from '@/utils/asyncStoreData';
 import { THERAPIST_REGISTERED_KEY } from '@/utils/constants';
 
 const sessionDurationSchema = z.object({
   duration: z
-    .string()
-    .nonempty({ message: 'Campo obrigatório' })
-    .regex(/^[0-9]+$/, { message: 'Valor inválido' })
-    .refine(
-      (value) => {
-        const number = Number(value);
-        if (number > 24 || number < 1) {
-          return false;
-        }
-
-        return number > 0;
-      },
-      { message: 'Hora inválida' }
-    ),
+    .string({ required_error: 'Campo obrigatório' })
+    .min(1, { message: 'Campo obrigatório' })
+    .regex(/^[0-9]+$/, { message: 'Valor inválido' }),
 });
 
 type sessionDurationFormValues = z.infer<typeof sessionDurationSchema>;
 
 export default function SessionDuration() {
+  const { selectedTherapy } = useTherapyStore((state) => ({
+    selectedTherapy: state.selectedTherapy,
+  }));
+
   const {
     control,
     handleSubmit,
@@ -49,16 +43,18 @@ export default function SessionDuration() {
       header={
         <View className="mt-4 space-y-4 px-6">
           <ProgressBar progress={100} />
-          <Text className="font-MontserratSemiBold text-base text-white">1/4 Psicologia</Text>
+          <Text className="font-MontserratSemiBold text-base text-white">
+            {selectedTherapy?.name}
+          </Text>
         </View>
       }>
       <View className="mt-6 items-center space-y-4">
-        <Text className="text-center font-MontserratBold text-lg">Qual é a duração da sessão?</Text>
+        <Text className="font-MontserratBold text-lg">Qual é a duração da sessão?</Text>
         <Input
           control={control}
           name="duration"
           textAlign="center"
-          placeholder="Ex. 2 horas"
+          placeholder="Ex. 60 minutos"
           keyboardType="number-pad"
           isValid={isValid}
           variant="unstyled"

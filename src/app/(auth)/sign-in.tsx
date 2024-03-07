@@ -17,6 +17,7 @@ import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { useAuth } from '@/contexts/useAuth';
 import colors from '@/theme/colors';
+import { cn } from '@/utils/lib';
 
 const signInSchema = z.object({
   s_email: z.string().email({ message: 'O email informado não é válido' }),
@@ -69,10 +70,11 @@ export default function SignIn() {
                 control={control}
                 placeholderTextColor={colors.gray[500]}
                 placeholder="Email cadastrado"
+                variant="underlined"
                 keyboardType="email-address"
                 error={errors.s_email?.message}
                 autoCapitalize="none"
-                className=" border-b-[1px] border-gray-500 px-4 pb-4 font-MontserratSemiBold text-sm text-gray-600 focus:border-brand"
+                className={cn('px-4', watchFields.s_email && 'border-brand')}
               />
             </View>
 
@@ -87,9 +89,10 @@ export default function SignIn() {
                 control={control}
                 placeholderTextColor={colors.gray[500]}
                 placeholder="Senha de acesso"
+                variant="underlined"
                 secureTextEntry={!showPassword}
                 error={errors.s_password?.message}
-                className="border-b-[1px] border-gray-500 px-4 pb-4 font-MontserratSemiBold text-sm text-gray-600 focus:border-brand"
+                className={cn('px-4', watchFields.s_password && 'border-brand')}
                 inputRightElement={
                   <Button
                     variant="ghost"
