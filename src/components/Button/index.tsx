@@ -1,8 +1,9 @@
-import clsx from 'clsx';
 import { ReactNode, forwardRef } from 'react';
 import { ActivityIndicator, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 
 import { Loading } from '../Loading';
+
+import { cn } from '@/utils/lib';
 
 type ButtonProps = TouchableOpacityProps & {
   disabled?: boolean;
@@ -16,7 +17,7 @@ export const Button = forwardRef<TouchableOpacity, ButtonProps>(
     { disabled = false, children, variant = 'default', isLoading = false, className, ...props },
     ref
   ) => {
-    const defaultClassName = clsx(
+    const defaultClassName = cn(
       variant === 'default' &&
         `w-80 max-w-full items-center bg-brand justify-center rounded-full py-4 ${
           disabled && 'opacity-40'
