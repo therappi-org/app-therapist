@@ -1,3 +1,5 @@
+import { Address } from './address';
+
 export type Therapy = {
   id: number;
   name: string;
@@ -18,3 +20,13 @@ export type Services = {
   subtitle: string;
   image: any;
 };
+
+export type CreateTherapyData = {
+  idUser: number;
+  idTherapy: number;
+  bVirtual: boolean;
+  bPresential: boolean;
+  nSessionValue: number;
+  nSessionDurationInMinutes: number;
+  idUserAddress: null | number;
+} & Partial<Address>;

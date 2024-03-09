@@ -1,6 +1,5 @@
 export type Address = {
   id: number;
-  dCreatedAt: string;
   sCountry: string;
   sState: string;
   sCity: string;
