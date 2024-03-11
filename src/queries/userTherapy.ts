@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 import { UserTherapyService } from '@/services/userTherapy';
@@ -13,6 +13,18 @@ export const UserTherapyQuery = {
       queryKey: ['get-not-attended-therapy', userId],
       queryFn: () => UserTherapyService.findNotAttendedTherapy(userId),
       enabled: !!userId,
+      onSuccess: (data) => {
+        onSuccess?.(data);
+      },
+      onError: (error: AxiosError) => {
+        onError?.(error);
+      },
+    });
+  },
+
+  CreateTherapy: ({ onError, onSuccess }: QueryArgs = {}) => {
+    return useMutation({
+      mutationFn: UserTherapyService.createTherapy,
       onSuccess: (data) => {
         onSuccess?.(data);
       },
