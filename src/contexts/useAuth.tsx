@@ -6,12 +6,17 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { axiosConfig } from '@/api/axiosConfig';
 import { SignInFormValues } from '@/app/(auth)/sign-in';
 import { AuthQuery } from '@/queries/auth';
-import { UserData } from '@/types/user';
-import { THERAPIST_STORE_TOKEN_KEY, THERAPIST_STORE_USER_KEY } from '@/utils/constants';
+import { User } from '@/types/user';
+import {
+  THERAPIST_REGISTERED_KEY,
+  THERAPIST_STORE_TOKEN_KEY,
+  THERAPIST_STORE_USER_KEY,
+  THERAPIST_STORE_WALKTHROUGH_KEY,
+} from '@/utils/constants';
 
 export type Auth = {
   signIn(credentials: SignInFormValues): void;
-  userData: UserData | undefined;
+  userData: User | null;
   isAuthenticated: boolean;
   isAuthLoading: boolean;
   signOut(): Promise<void>;
@@ -23,6 +28,7 @@ const thirtyDaysInMilliseconds = 30 * 24 * 60 * 60 * 1000;
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
 
   const {
     isLoading: isAuthLoading,
@@ -60,8 +66,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           }
 
           setIsAuthenticated(true);
+          setUser(JSON.parse(storageUser));
 
-          axiosConfig.defaults.headers.common['Authorization'] = `Bearer ${storageToken}`;
+          axiosConfig.defaults.headers.common['Authorization'] =
+            `Bearer ${parsedStorageToken.token}`;
         }
       } catch (error) {
         console.log(error);
@@ -81,6 +89,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     await SecureStore.deleteItemAsync(THERAPIST_STORE_USER_KEY);
 
     setIsAuthenticated(false);
+
+    await AsyncStorage.multiRemove([THERAPIST_STORE_WALKTHROUGH_KEY, THERAPIST_REGISTERED_KEY]);
   };
 
   return (
@@ -89,7 +99,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         signIn,
         isAuthLoading,
         isAuthenticated,
-        userData,
+        userData: user,
         signOut,
       }}>
       {children}
