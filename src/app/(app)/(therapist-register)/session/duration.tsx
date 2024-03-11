@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link } from 'expo-router';
+import { router } from 'expo-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
@@ -9,10 +9,10 @@ import { z } from 'zod';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { ProgressBar } from '@/components/ProgressBar';
+import { useAuth } from '@/contexts/useAuth';
 import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout';
+import { UserTherapyQuery } from '@/queries/userTherapy';
 import { useTherapyStore } from '@/stories/useTherapyStore';
-import { storeData } from '@/utils/asyncStoreData';
-import { THERAPIST_REGISTERED_KEY } from '@/utils/constants';
 
 const sessionDurationSchema = z.object({
   duration: z
@@ -24,19 +24,64 @@ const sessionDurationSchema = z.object({
 type sessionDurationFormValues = z.infer<typeof sessionDurationSchema>;
 
 export default function SessionDuration() {
-  const { selectedTherapy } = useTherapyStore((state) => ({
+  const { userData } = useAuth();
+  const { selectedTherapy, address, typeOfService, currency } = useTherapyStore((state) => ({
     selectedTherapy: state.selectedTherapy,
+    address: state.address,
+    typeOfService: state.typeOfService,
+    currency: state.currency,
   }));
 
   const {
     control,
     handleSubmit,
-    watch,
     formState: { errors, isValid },
   } = useForm<sessionDurationFormValues>({
     mode: 'all',
     resolver: zodResolver(sessionDurationSchema),
   });
+
+  const { mutate: createTherapy, isLoading } = UserTherapyQuery.CreateTherapy({
+    onSuccess() {
+      router.push('/(app)/(therapist-register)/session/feedback');
+    },
+  });
+
+  const onSubmit = async (data: sessionDurationFormValues) => {
+    if (userData?.id && selectedTherapy?.id) {
+      if (address?.id) {
+        createTherapy({
+          idUser: userData.id,
+          idTherapy: selectedTherapy.id,
+          bVirtual: typeOfService.remote,
+          bPresential: typeOfService.inPerson,
+          sCountry: 'BR',
+          nSessionValue: currency,
+          nSessionDurationInMinutes: Number(data.duration),
+          idUserAddress: address.id,
+        });
+        return;
+      }
+
+      createTherapy({
+        idUser: userData.id,
+        idTherapy: selectedTherapy.id,
+        bVirtual: typeOfService.remote,
+        bPresential: typeOfService.inPerson,
+        nSessionValue: currency,
+        nSessionDurationInMinutes: Number(data.duration),
+        idUserAddress: null,
+        sCountry: 'BR',
+        sState: address?.uf ?? '',
+        sCity: address?.localidade ?? '',
+        sNeighborhood: address?.bairro ?? '',
+        sStreet: address?.logradouro ?? '',
+        sZipcode: address?.cep ?? '',
+        nBuildNumber: Number(address?.numero ?? ''),
+        sComplement: address?.complemento ?? '',
+      });
+    }
+  };
 
   return (
     <KeyBoardAvoidingViewLayout
@@ -54,7 +99,7 @@ export default function SessionDuration() {
           control={control}
           name="duration"
           textAlign="center"
-          placeholder="Ex. 60 minutos"
+          placeholder="Ex. 60 (em minutos)"
           keyboardType="number-pad"
           isValid={isValid}
           variant="unstyled"
@@ -63,14 +108,13 @@ export default function SessionDuration() {
       </View>
 
       <View className="absolute bottom-12 right-4">
-        <Link asChild href="/(app)/(tabs)">
-          <Button
-            onPress={async () => await storeData(THERAPIST_REGISTERED_KEY, JSON.stringify(true))}
-            disabled={!isValid}
-            variant="rounded">
-            <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
-          </Button>
-        </Link>
+        <Button
+          onPress={handleSubmit(onSubmit)}
+          disabled={!isValid}
+          isLoading={isLoading}
+          variant="rounded">
+          <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
+        </Button>
       </View>
     </KeyBoardAvoidingViewLayout>
   );
