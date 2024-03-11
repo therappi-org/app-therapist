@@ -112,7 +112,7 @@ export default function SignIn() {
               <Text className="text-bas font-MontserratBold text-white">Avançar</Text>
             </Button>
 
-            <Link href={`/(auth)/forgot-password/${watchFields.s_email || 'undefined'}`} asChild>
+            <Link href={`/(auth)/forgot-password/${watchFields.s_email ?? 'undefined'}`} asChild>
               <Button variant="ghost">
                 <Text className="font-MontserratBold text-base text-brand">
                   Esqueci minha senha
