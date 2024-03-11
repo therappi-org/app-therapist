@@ -28,8 +28,8 @@ export default function TherapyFeedback() {
         <View className="w-full flex-col justify-between gap-2">
           <Link asChild replace href="/(app)/(tabs)">
             <Button
-              onPress={() => {
-                storeData(THERAPIST_REGISTERED_KEY, JSON.stringify(true));
+              onPress={async () => {
+                await storeData(THERAPIST_REGISTERED_KEY, JSON.stringify(true));
               }}
               className="w-full">
               <Text className="font-MontserratBold text-base text-gray-50">Acessar a Home</Text>
