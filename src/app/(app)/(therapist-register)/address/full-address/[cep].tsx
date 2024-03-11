@@ -117,6 +117,7 @@ export default function FullAddress() {
 
   const onSubmit = (values: FullAddressFormValues) => {
     setAddress({
+      ...address,
       cep,
       logradouro: values.street,
       numero: values.number,
