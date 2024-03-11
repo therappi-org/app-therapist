@@ -145,6 +145,12 @@ export default function Layout() {
             }}
             name="session/duration"
           />
+          <Stack.Screen
+            options={{
+              title: 'Dados profissionais',
+            }}
+            name="session/feedback"
+          />
         </Stack>
       </View>
     </>
