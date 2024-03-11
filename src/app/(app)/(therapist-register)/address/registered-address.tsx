@@ -24,6 +24,7 @@ export default function RegisteredAddress() {
 
   const handleOnPressAddress = (address: Address) => {
     setAddress({
+      id: address.id,
       cep: address.sZipcode,
       logradouro: address.sStreet,
       numero: String(address.nBuildNumber ?? ''),
@@ -56,8 +57,8 @@ export default function RegisteredAddress() {
                 <Card.Root>
                   <Card.Content
                     className="p-2"
-                    title={`${address?.sStreet ?? ''}, ${address?.nBuildNumber ?? ''}`}
-                    subtitle={`${address?.sCity ?? ''} - ${address?.sState ?? ''} - ${transformZipcode(address?.sZipcode ?? '')}`}
+                    title={`${address?.sStreet ?? ''}${address?.nBuildNumber ? ', ' + address?.nBuildNumber : ''}`}
+                    subtitle={`${address?.sCity ?? ''}${address?.sState ? ' - ' + address?.sState : ''}${address?.sZipcode ? ' - ' + transformZipcode(address?.sZipcode) : ''}`}
                     image={{
                       source: require('@/assets/images/map-pin.svg'),
                       className: 'h-8 w-8',
