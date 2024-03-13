@@ -1,3 +1,4 @@
+import { useNavigationState } from '@react-navigation/native';
 import { Stack, router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
@@ -147,7 +148,7 @@ export default function Layout() {
           />
           <Stack.Screen
             options={{
-              title: 'Dados profissionais',
+              headerShown: false,
             }}
             name="session/feedback"
           />
