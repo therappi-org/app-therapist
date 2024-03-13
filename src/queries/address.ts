@@ -6,7 +6,7 @@ import { Address } from '@/types/address';
 import { QueryArgs } from '@/types/query';
 
 type AddressQueriesArgs = QueryArgs<Address[]> & {
-  userId: number;
+  userId: number | undefined;
 };
 
 export const AddressQueries = {
