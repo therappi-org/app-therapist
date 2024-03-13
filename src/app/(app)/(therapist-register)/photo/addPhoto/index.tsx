@@ -56,7 +56,12 @@ export default function AddPhoto() {
     const localUri = profileImage.uri;
     const filename = localUri.split('/').pop();
     const formData = new FormData();
-    formData.append('file', { uri: localUri, name: filename, type: profileImage.type } as any);
+
+    formData.append('file', {
+      uri: localUri,
+      name: filename,
+      type: profileImage?.mimeType ?? 'image/jpeg',
+    } as any);
 
     updateUserAvatar({
       userId: userData?.id,
