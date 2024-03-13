@@ -19,7 +19,7 @@ export default function Intro() {
       </View>
 
       <View
-        className="w-full flex-1 items-center rounded-xl bg-white"
+        className="w-full flex-1 items-center rounded-t-xl bg-white"
         style={{
           paddingBottom: insets.bottom,
         }}>
