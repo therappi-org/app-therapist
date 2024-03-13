@@ -32,7 +32,7 @@ export default function CepAddress() {
   }));
 
   const { data: registeredAddress } = AddressQueries.GetRegisteredAddress({
-    userId: userData!.id,
+    userId: userData?.id,
   });
 
   const hasRegisteredAddress = registeredAddress?.length;
@@ -82,7 +82,7 @@ export default function CepAddress() {
 
       <View className="absolute bottom-12 w-full flex-row items-center justify-between px-4">
         <View>
-          {hasRegisteredAddress && (
+          {!!hasRegisteredAddress && (
             <Button
               className="w-full"
               onPress={() => router.push('/(app)/(therapist-register)/address/registered-address')}
