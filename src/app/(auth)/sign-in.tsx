@@ -20,8 +20,16 @@ import colors from '@/theme/colors';
 import { cn } from '@/utils/lib';
 
 const signInSchema = z.object({
-  s_email: z.string().email({ message: 'O email informado não é válido' }),
-  s_password: z.string().min(6, { message: 'A senha deve ter no mínimo 6 caracteres' }),
+  s_email: z
+    .string({ required_error: 'Campo obrigatório' })
+    .min(1, { message: 'Campo obrigatório' })
+    .email({ message: 'O email informado não é válido' })
+    .trim(),
+  s_password: z
+    .string({ required_error: 'Campo obrigatório' })
+    .min(1, { message: 'Campo obrigatório' })
+    .min(6, { message: 'A senha deve ter no mínimo 6 caracteres' })
+    .trim(),
 });
 
 export type SignInFormValues = z.infer<typeof signInSchema>;

@@ -14,12 +14,9 @@ import { UserQuery } from '@/queries/user';
 
 const passwordAccountSchema = z.object({
   password: z
-    .string({
-      required_error: 'Campo obrigatório',
-    })
-    .nonempty({ message: 'Campo obrigatório' })
-    .trim()
-    .min(6, { message: 'A senha deve ter no mínimo 6 caracteres' }),
+    .string({ required_error: 'Campo obrigatório' })
+    .min(6, { message: 'A senha deve ter no mínimo 6 caracteres' })
+    .trim(),
 });
 
 type PasswordAccountFormValues = z.infer<typeof passwordAccountSchema>;

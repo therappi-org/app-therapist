@@ -19,7 +19,10 @@ import colors from '@/theme/colors';
 import { cn } from '@/utils/lib';
 
 const forgotPasswordSchema = z.object({
-  email: z.string().email({ message: 'O email informado não é válido' }),
+  email: z
+    .string({ required_error: 'Campo obrigatório' })
+    .min(1, { message: 'Campo obrigatório' })
+    .email({ message: 'O email informado não é válido' }),
 });
 
 type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;

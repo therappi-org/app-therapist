@@ -12,12 +12,9 @@ import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout'
 
 const nameAccountSchema = z.object({
   name: z
-    .string({
-      required_error: 'Campo obrigatório',
-    })
-    .trim()
+    .string({ required_error: 'Campo obrigatório' })
     .min(3, 'O nome deve ter no mínimo 3 caracteres')
-    .nonempty({ message: 'Campo obrigatório' }),
+    .trim(),
 });
 type NameAccountFormValues = z.infer<typeof nameAccountSchema>;
 

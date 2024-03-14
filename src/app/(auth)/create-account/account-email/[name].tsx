@@ -12,11 +12,8 @@ import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout'
 
 const emailAccountSchema = z.object({
   email: z
-    .string({
-      required_error: 'Campo obrigatório',
-    })
+    .string({ required_error: 'Campo obrigatório' })
     .email({ message: 'O email informado não é válido' })
-    .nonempty({ message: 'Campo obrigatório' })
     .trim(),
 });
 
