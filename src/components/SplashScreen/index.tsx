@@ -8,7 +8,7 @@ export const SplashScreen = () => (
     <View className="flex-1 items-center justify-center">
       <Image
         alt="logo therappi profissional"
-        source={require('@/assets/images/logo.svg')}
+        source={require('../../assets/images/logo.svg')}
         className="h-40 w-40"
       />
     </View>
