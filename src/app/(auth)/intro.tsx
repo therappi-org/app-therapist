@@ -12,7 +12,7 @@ export default function Intro() {
     <View className="flex-1 bg-brand">
       <View className="my-10 self-center">
         <Image
-          className="h-28 w-44"
+          className="h-[55px] w-[152px]"
           alt="Logo"
           source={require('../../assets/images/logo-only-text.svg')}
         />
