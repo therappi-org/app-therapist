@@ -90,7 +90,7 @@ export default function AddPhoto() {
         ) : (
           <View className="m-4 flex-1 items-center rounded-xl bg-[#E4E6E7] shadow-md">
             <Image
-              source={require('../../../../assets/images/blank-profile-picture.svg')}
+              source={require('@/assets/images/blank-profile-picture.svg')}
               alt="Imagem de perfil"
               className="h-52 w-52 max-w-full flex-1 items-center justify-center"
               contentFit="contain"

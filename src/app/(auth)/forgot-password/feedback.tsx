@@ -19,7 +19,7 @@ export default function Feedback() {
           className="h-52 w-52"
           contentFit="cover"
           alt="feedback de recuperação de senha"
-          source={require('../../../../assets/images/forgot-password-feedback.svg')}
+          source={require('@/assets/images/forgot-password-feedback.svg')}
         />
 
         <View className="items-center space-y-3">

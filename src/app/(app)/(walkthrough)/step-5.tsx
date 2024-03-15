@@ -18,7 +18,7 @@ export default function StepFive() {
           <View className="flex-1 items-center justify-center">
             <Image
               className="h-52 w-52"
-              source={require('../../../../assets/images/walkthrough-step-5.svg')}
+              source={require('@/assets/images/walkthrough-step-5.svg')}
             />
             <View className="mt-2">
               <StepSphere step={5} />

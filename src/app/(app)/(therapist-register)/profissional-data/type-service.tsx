@@ -14,19 +14,19 @@ const services: Services[] = [
     name: 'Atendimento remoto',
     id: 'remote',
     subtitle: 'Através de videoconferências',
-    image: require('../../../../assets/images/computer.png'),
+    image: require('@/assets/images/computer.png'),
   },
   // {
   //   name: 'Atendimento domiciliar',
   //   id: 'home',
   //   subtitle: 'Atendimento em casa',
-  //   image: require('../../../../assets/images/house.png'),
+  //   image: require('@/assets/images/house.png'),
   // },
   {
     name: 'Atendimento presencial',
     id: 'inPerson',
     subtitle: 'Atendimento em consultório',
-    image: require('../../../../assets/images/hospital.png'),
+    image: require('@/assets/images/hospital.png'),
   },
 ];
 
