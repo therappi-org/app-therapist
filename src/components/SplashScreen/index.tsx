@@ -9,7 +9,7 @@ export const SplashScreen = () => (
       <Image
         alt="logo therappi profissional"
         source={require('@/assets/images/logo.svg')}
-        className="h-40 w-40"
+        className="h-[118] w-[126]"
       />
     </View>
 
