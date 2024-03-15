@@ -15,7 +15,7 @@ export default function TherapyFeedback() {
           <Image
             className="h-48 w-52"
             alt="Logo"
-            source={require('@/assets/images/successful.svg')}
+            source={require('../../../../assets/images/successful.svg')}
           />
 
           <View className="mt-10 space-y-2">

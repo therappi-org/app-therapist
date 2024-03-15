@@ -12,7 +12,10 @@ export default function Intro() {
   return (
     <View className="flex-1 items-center justify-center">
       <View className="w-full items-center bg-brand pt-11">
-        <Image className="h-16 w-48" source={require('@/assets/images/logo-only-text.svg')} />
+        <Image
+          className="h-16 w-48"
+          source={require('../../../../assets/images/logo-only-text.svg')}
+        />
       </View>
 
       <CardStack>

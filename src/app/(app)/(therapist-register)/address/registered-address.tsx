@@ -60,7 +60,7 @@ export default function RegisteredAddress() {
                     title={`${address?.sStreet ?? ''}${address?.nBuildNumber ? ', ' + address?.nBuildNumber : ''}`}
                     subtitle={`${address?.sCity ?? ''}${address?.sState ? ' - ' + address?.sState : ''}${address?.sZipcode ? ' - ' + transformZipcode(address?.sZipcode) : ''}`}
                     image={{
-                      source: require('@/assets/images/map-pin.svg'),
+                      source: require('../../../../assets/images/map-pin.svg'),
                       className: 'h-8 w-8',
                     }}
                   />

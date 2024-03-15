@@ -27,6 +27,8 @@ export default function Layout() {
     })();
   }, []);
 
+  // TODO: Add a Splash Screen here
+
   return (
     <>
       <StatusBar style="light" />

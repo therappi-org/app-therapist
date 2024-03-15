@@ -15,7 +15,7 @@ export default function Photo() {
           <View className="flex-1 items-center justify-center">
             <Image
               className="h-52 w-52"
-              source={require('@/assets/images/walkthrough-step-2.svg')}
+              source={require('../../../../assets/images/walkthrough-step-2.svg')}
             />
 
             <View className="mt-6 space-y-7">

@@ -16,7 +16,10 @@ export default function StepTwo() {
         <View className="flex-1 items-center rounded-3xl bg-white px-4 pb-8 pt-10">
           <SkipButton />
 
-          <Image className="h-52 w-52" source={require('@/assets/images/walkthrough-step-2.svg')} />
+          <Image
+            className="h-52 w-52"
+            source={require('../../../../assets/images/walkthrough-step-2.svg')}
+          />
           <View className="mt-2">
             <StepSphere step={2} />
           </View>

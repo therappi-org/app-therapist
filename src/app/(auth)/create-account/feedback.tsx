@@ -24,7 +24,7 @@ export default function Feedback() {
           <Image
             className="h-48 w-52"
             alt="Logo"
-            source={require('@/assets/images/create-account-feedback.svg')}
+            source={require('../../../../assets/images/create-account-feedback.svg')}
           />
 
           <View className="mt-10 space-y-2">
