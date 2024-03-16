@@ -35,7 +35,7 @@ export const Input = <T extends FieldValues>({
     variant === 'underlined' &&
       'border-b-[1px] border-gray-500 px-2 pb-4 font-MontserratSemiBold text-sm text-gray-600 focus:border-brand',
     variant === 'unstyled' &&
-      `max-w-full font-MontserratBold text-lg ${isValid ? 'text-brand' : 'text-feedback-error'}`,
+      `max-w-full font-MontserratBold text-lg leading-6 ${isValid ? 'text-brand' : 'text-feedback-error'}`,
     className
   );
 
