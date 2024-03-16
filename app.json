@@ -3,7 +3,7 @@
     "experiments": {
       "typedRoutes": true
     },
-    "name": "Therappi Professional",
+    "name": "Therappi",
     "slug": "app-therapist",
     "scheme": "app-therapist",
     "version": "1.0.0",
