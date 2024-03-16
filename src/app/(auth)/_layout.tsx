@@ -41,6 +41,7 @@ export default function Layout() {
             name="intro"
             options={{
               headerShown: false,
+              gestureEnabled: false,
             }}
           />
           <Stack.Screen

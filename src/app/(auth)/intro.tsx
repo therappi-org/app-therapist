@@ -53,3 +53,7 @@ export default function Intro() {
     </View>
   );
 }
+
+Intro.navigationOptions = {
+  gestureEnabled: false,
+};

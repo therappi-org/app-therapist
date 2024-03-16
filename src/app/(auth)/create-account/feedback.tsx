@@ -1,22 +1,11 @@
 import { Image } from 'expo-image';
-import { Link, useNavigation } from 'expo-router';
-import { useEffect } from 'react';
+import { Link } from 'expo-router';
 import { Text, View } from 'react-native';
 
 import { Button } from '@/components/Button';
 import { CardStack } from '@/layout/CardStack';
 
 export default function Feedback() {
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    navigation.addListener('beforeRemove', (e) => {
-      e.preventDefault();
-
-      navigation.dispatch(e.data.action);
-    });
-  }, [navigation]);
-
   return (
     <CardStack>
       <View className="flex-1 px-4 py-6">
@@ -35,9 +24,9 @@ export default function Feedback() {
         </View>
 
         <View className="w-full flex-row justify-between">
-          <Link asChild replace href="/(app)/(walkthrough)/intro">
+          <Link asChild push={false} replace href="/(auth)/intro">
             <Button className="w-full">
-              <Text className="font-MontserratBold text-base text-gray-50">Acessar a Home</Text>
+              <Text className="font-MontserratBold text-base text-gray-50">Acessar Conta</Text>
             </Button>
           </Link>
         </View>
