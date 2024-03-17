@@ -16,7 +16,7 @@ export default function Feedback() {
             source={require('@/assets/images/create-account-feedback.svg')}
           />
 
-          <View className="mt-10 space-y-2">
+          <View className="mt-10 gap-2">
             <Text className="text-center font-MontserratBold text-xl text-gray-800">
               Maravilha! seu cadastro foi {'\n'} criado com sucesso 🎉
             </Text>
@@ -24,7 +24,7 @@ export default function Feedback() {
         </View>
 
         <View className="w-full flex-row justify-between">
-          <Link asChild push={false} replace href="/(auth)/intro">
+          <Link asChild replace href="/(auth)/intro">
             <Button className="w-full">
               <Text className="font-MontserratBold text-base text-gray-50">Acessar Conta</Text>
             </Button>

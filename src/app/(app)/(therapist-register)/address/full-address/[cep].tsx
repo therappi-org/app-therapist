@@ -152,7 +152,7 @@ export default function FullAddress() {
         className="flex-1">
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-            <View className="mt-10 flex-1 space-y-10">
+            <View className="mt-10 flex-1 gap-10">
               <View>
                 {watchFields.street && (
                   <Text className="px-2 font-MontserratBold text-xs text-gray-600">
@@ -195,7 +195,7 @@ export default function FullAddress() {
                     )}
                   />
                 </View>
-                <View className="flex-row items-center space-x-2">
+                <View className="flex-row items-center gap-2">
                   <CardCheckbox
                     isChecked={hasNoHouseNumber}
                     className="h-5 w-5 rounded-md border-[1px] border-gray-500 bg-white"

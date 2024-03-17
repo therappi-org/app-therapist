@@ -36,14 +36,14 @@ export default function EmailAccount() {
   return (
     <KeyBoardAvoidingViewLayout
       header={
-        <View className="mt-4 space-y-4 px-6">
+        <View className="mt-4 gap-4 px-6">
           <ProgressBar progress={80} />
           <Text className="font-MontserratSemiBold text-base text-white">
             2º Passo - Seus dados de acesso
           </Text>
         </View>
       }>
-      <View className="mt-6 items-center space-y-4">
+      <View className="mt-6 items-center gap-4">
         <Text className="font-MontserratBold text-lg">Qual é o seu e-mail?</Text>
         <Input
           control={control}

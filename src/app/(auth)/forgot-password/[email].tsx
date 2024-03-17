@@ -67,7 +67,7 @@ export default function ForgotPassword() {
           style={{
             paddingBottom: insets.bottom,
           }}>
-          <View className="mt-6 flex-1 space-y-8">
+          <View className="mt-6 flex-1 gap-8">
             <Text className="font-MontserratSemiBold text-base">
               Antes de continuarmos, confirme seu email cadastrado:
             </Text>

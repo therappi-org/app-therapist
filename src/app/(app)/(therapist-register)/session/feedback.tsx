@@ -18,7 +18,7 @@ export default function TherapyFeedback() {
             source={require('@/assets/images/successful.svg')}
           />
 
-          <View className="mt-10 space-y-2">
+          <View className="mt-10 gap-2">
             <Text className="text-center font-MontserratBold text-xl text-gray-800">
               Maravilha! A Terapia foi cadastrada com sucesso!
             </Text>

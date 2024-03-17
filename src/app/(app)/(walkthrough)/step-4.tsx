@@ -21,7 +21,7 @@ export default function StepFour() {
             <StepSphere step={4} />
           </View>
 
-          <View className="mt-6 space-y-2">
+          <View className="mt-6 gap-2">
             <Text className="text-center font-MontserratBold text-xl">
               4º Passo{'\n'}
               Defina horários e valores

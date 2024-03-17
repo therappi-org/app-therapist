@@ -18,9 +18,9 @@ export default function Photo() {
               source={require('@/assets/images/walkthrough-step-2.svg')}
             />
 
-            <View className="mt-6 space-y-7">
+            <View className="mt-6 gap-7">
               <Text className="text-center font-MontserratBold text-xl">
-                Hora de adicionar foto de perfil profissional
+                Hora de adicionar sua foto de perfil profissional
               </Text>
               <Text className=" text-center font-MontserratMedium text-base">Capriche na foto</Text>
             </View>

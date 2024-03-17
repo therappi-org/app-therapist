@@ -21,7 +21,7 @@ export default function StepOne() {
             <StepSphere step={1} />
           </View>
 
-          <View className="mt-6 space-y-2">
+          <View className="mt-6 gap-2">
             <Text className="text-center font-MontserratBold text-xl">
               1º Passo{'\n'}
               Dados pessoais

@@ -22,7 +22,7 @@ export default function Feedback() {
           source={require('@/assets/images/forgot-password-feedback.svg')}
         />
 
-        <View className="items-center space-y-3">
+        <View className="items-center gap-3">
           <Text className="font-MontserratBold text-xl text-gray-600">
             Enviamos sua senha de acesso
           </Text>

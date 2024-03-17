@@ -53,14 +53,14 @@ export default function PasswordAccount() {
   return (
     <KeyBoardAvoidingViewLayout
       header={
-        <View className="mt-4 space-y-4 px-6">
+        <View className="mt-4 gap-4 px-6">
           <ProgressBar progress={100} />
           <Text className="font-MontserratSemiBold text-base text-white">
             3º Passo - Seus dados de acesso
           </Text>
         </View>
       }>
-      <View className="mt-6 items-center space-y-4">
+      <View className="mt-6 items-center gap-4">
         <Text className="font-MontserratBold text-lg">Vamos criar uma senha de acesso:</Text>
         <Input
           control={control}

@@ -50,7 +50,7 @@ export default function RegisteredAddress() {
           Selecione um endereço para continuar
         </Text>
 
-        <ScrollView className="mt-4 flex-1 space-y-4 px-6" showsVerticalScrollIndicator={false}>
+        <ScrollView className="mt-4 flex-1 gap-4 px-6" showsVerticalScrollIndicator={false}>
           {registeredAddress?.map((address) => (
             <View key={address.id} className="flex-1">
               <Button className="h-[72px] w-full" onPress={() => handleOnPressAddress(address)}>

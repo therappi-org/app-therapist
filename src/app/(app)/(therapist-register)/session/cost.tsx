@@ -50,14 +50,14 @@ export default function SessionCost() {
   return (
     <KeyBoardAvoidingViewLayout
       header={
-        <View className="mt-4 space-y-4 px-6">
+        <View className="mt-4 gap-4 px-6">
           <ProgressBar progress={90} />
           <Text className="font-MontserratSemiBold text-base text-white">
             {selectedTherapy?.name}
           </Text>
         </View>
       }>
-      <View className="mt-6 items-center space-y-4">
+      <View className="mt-6 items-center gap-4">
         <Text className="font-MontserratBold text-lg">Qual é o valor do sessão?</Text>
         <Controller
           name="currency"

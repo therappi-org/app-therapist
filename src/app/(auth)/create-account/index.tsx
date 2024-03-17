@@ -33,14 +33,14 @@ export default function NameAccount() {
   return (
     <KeyBoardAvoidingViewLayout
       header={
-        <View className="mt-4 space-y-4 px-6">
+        <View className="mt-4 gap-4 px-6">
           <ProgressBar progress={50} />
           <Text className="font-MontserratSemiBold text-base text-white">
             1º Passo - Seus dados básicos
           </Text>
         </View>
       }>
-      <View className="mt-6 items-center space-y-4">
+      <View className="mt-6 items-center gap-4">
         <Text className="font-MontserratBold text-lg">Qual é o seu nome e sobrenome?</Text>
         <Input
           control={control}

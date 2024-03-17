@@ -21,7 +21,7 @@ export default function StepTwo() {
             <StepSphere step={2} />
           </View>
 
-          <View className="mt-6 space-y-2">
+          <View className="mt-6 gap-2">
             <Text className="text-center font-MontserratBold text-xl">
               2º Passo{'\n'}
               Dados profissionais

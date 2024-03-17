@@ -18,7 +18,7 @@ export default function ProfissionalData() {
               source={require('@/assets/images/walkthrough-step-4.svg')}
             />
 
-            <View className="mt-6 space-y-2">
+            <View className="mt-6 gap-2">
               <Text className="text-center font-MontserratBold text-xl">Terapias</Text>
               <Text className="text-center font-MontserratMedium text-base">
                 Ótimo, agora vamos cadastrar quais terapias que você vai ativar no Therappi?

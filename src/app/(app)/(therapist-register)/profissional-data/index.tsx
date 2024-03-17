@@ -18,7 +18,7 @@ export default function ProfissionalData() {
               source={require('@/assets/images/walkthrough-step-2.svg')}
             />
 
-            <View className="mt-6 space-y-2">
+            <View className="mt-6 gap-2">
               <Text className="text-center font-MontserratBold text-xl">
                 Hora de adicionar seus dados profissionais
               </Text>

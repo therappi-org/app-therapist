@@ -14,7 +14,7 @@ export default function Intro() {
         <Image
           className="h-[55px] w-[152px]"
           alt="Logo"
-          source={require('../../assets/images/logo-only-text.svg')}
+          source={require('@/assets/images/logo-only-text.svg')}
         />
       </View>
 
@@ -24,7 +24,7 @@ export default function Intro() {
           paddingBottom: insets.bottom,
         }}>
         <View className="flex-1">
-          <View className="mb-8 mt-12 items-center space-y-2">
+          <View className="mb-8 mt-12 items-center gap-2">
             <Text className="font-MontserratBold text-xl">Vamos começar</Text>
             <Text className="font-MontserratSemiBold text-base">
               Escolha uma das opções de acesso:
@@ -40,10 +40,10 @@ export default function Intro() {
           </Link>
         </View>
 
-        <View className="mb-6 w-full items-center space-y-5">
+        <View className="mb-6 w-full items-center gap-5">
           <Text className="font-MontserratSemiBold text-base">Ainda não tem acesso?</Text>
 
-          <Link href="/(auth)/create-account" asChild>
+          <Link href="/(auth)/create-account" push asChild>
             <Button variant="outline">
               <Text className=" font-MontserratBold text-base text-brand">Criar minha conta</Text>
             </Button>

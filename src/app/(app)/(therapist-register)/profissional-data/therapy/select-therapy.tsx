@@ -40,13 +40,13 @@ export default function SelectTherapy() {
 
   return (
     <View className="flex-1 bg-brand" style={{ paddingBottom: insets.bottom }}>
-      <View className="mt-4 space-y-4 px-6">
+      <View className="mt-4 gap-4 px-6">
         <ProgressBar progress={70} />
         <Text className="font-MontserratSemiBold text-base text-white">Habilitar serviços</Text>
       </View>
 
       <View className="mt-6 flex-1">
-        <View className="space-y-2">
+        <View className="gap-2">
           <Text className="px-6 font-MontserratBold text-base text-white">
             Escolha a terapia que você deseja habilitar
           </Text>

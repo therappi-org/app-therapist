@@ -35,7 +35,7 @@ export default function Intro() {
             Nós te explicamos tudo 😉
           </Text>
 
-          <View className="mt-auto space-y-8">
+          <View className="mt-auto">
             <Link asChild href="/(app)/(walkthrough)/step-1">
               <Button>
                 <View className="flex-row items-center gap-5">

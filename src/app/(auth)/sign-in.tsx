@@ -66,7 +66,7 @@ export default function SignIn() {
           style={{
             paddingBottom: insets.bottom,
           }}>
-          <View className="mt-10 flex-1 space-y-10">
+          <View className="mt-10 flex-1 gap-10">
             <View>
               {watchFields.s_email && (
                 <Text className="px-4 font-MontserratBold text-xs text-gray-600">
@@ -115,12 +115,12 @@ export default function SignIn() {
             </View>
           </View>
 
-          <View className="mb-4 items-center space-y-4">
+          <View className="mb-4 items-center gap-4">
             <Button onPress={handleSubmit(onSubmit)} disabled={!isValid} isLoading={isAuthLoading}>
               <Text className="text-bas font-MontserratBold text-white">Avançar</Text>
             </Button>
 
-            <Link href={`/(auth)/forgot-password/${watchFields.s_email ?? 'undefined'}`} asChild>
+            <Link href={`/(auth)/forgot-password/${watchFields.s_email}`} asChild>
               <Button variant="ghost">
                 <Text className="font-MontserratBold text-base text-brand">
                   Esqueci minha senha
