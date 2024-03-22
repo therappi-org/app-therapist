@@ -13,6 +13,8 @@ import { useEffect, useState } from 'react';
 import { SplashScreen } from '@/components/SplashScreen';
 import { useAuth } from '@/contexts/useAuth';
 
+ExpoSplashScreen.preventAutoHideAsync();
+
 export default function AppLayout() {
   const { isAuthLoading, isAuthenticated } = useAuth();
   const [isReady, setIsReady] = useState(false);
