@@ -56,7 +56,7 @@ export default function CepAddress() {
         </View>
       }>
       <View className="mt-6 items-center gap-4">
-        <Text className="font-MontserratBold text-lg">Qual é o CEP do seu endereço?</Text>
+        <Text className="font-MontserratBold text-lg">Qual é o CEP do endereço?</Text>
         <Controller
           name="cep"
           control={control}
