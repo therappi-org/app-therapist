@@ -152,7 +152,7 @@ export default function FullAddress() {
         className="flex-1">
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-            <View className="mt-10 flex-1 gap-10">
+            <View className="mb-auto mt-10 flex-1 gap-10">
               <View>
                 {watchFields.street && (
                   <Text className="px-2 font-MontserratBold text-xs text-gray-600">
@@ -227,7 +227,6 @@ export default function FullAddress() {
                   keyboardType="default"
                   error={errors.complement?.message}
                   autoCapitalize="none"
-                  // className=" border-b-[1px] border-gray-500 px-2 pb-4 font-MontserratSemiBold text-sm text-gray-600 focus:border-brand"
                   className={cn(watchFields.complement && 'border-brand')}
                 />
               </View>
@@ -280,7 +279,7 @@ export default function FullAddress() {
               </View>
             </View>
 
-            <View className="my-9 items-center">
+            <View className="my-9 flex-1 items-center">
               <Button onPress={handleSubmit(onSubmit)} disabled={!isValid}>
                 <Text className="font-MontserratBold text-base text-white">Avançar</Text>
               </Button>
