@@ -52,7 +52,6 @@ export default function ForgotPassword() {
   const watchEmailField = watch('email');
 
   const onSubmit = (values: ForgotPasswordFormValues) => {
-    console.log(values);
     forgotPassword({ s_email: values.email });
   };
 
