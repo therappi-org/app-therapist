@@ -14,16 +14,13 @@ import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout'
 import { useTherapyStore } from '@/stories/useTherapyStore';
 
 const sessionCostSchema = z.object({
-  currency: z
-    .string({ required_error: 'Campo obrigatório' })
-    .min(1, { message: 'Campo obrigatório' })
-    .refine(
-      (value) => {
-        const number = Number(value.replace(/[^0-9]/g, ''));
-        return number >= 100 && number <= 10000000000;
-      },
-      { message: 'Valor inválido' }
-    ),
+  currency: z.string({ required_error: 'Campo obrigatório' }).refine(
+    (value) => {
+      const number = Number(value.replace(/[^0-9]/g, ''));
+      return number >= 100 && number <= 10000000000;
+    },
+    { message: 'Valor inválido' }
+  ),
 });
 
 type sessionCostFormValues = z.infer<typeof sessionCostSchema>;
@@ -41,10 +38,17 @@ export default function SessionCost() {
   } = useForm<sessionCostFormValues>({
     mode: 'all',
     resolver: zodResolver(sessionCostSchema),
+    defaultValues: { currency: '' },
   });
 
   const onSubmit = () => {
     router.push('/(app)/(therapist-register)/session/duration');
+  };
+
+  const formatAmountToCents = (value: any) => {
+    if (!value) return;
+    const amountFormatted = (value / 100).toFixed(2).replace('.', '');
+    return amountFormatted;
   };
 
   return (
@@ -67,14 +71,14 @@ export default function SessionCost() {
               <MaskInput
                 isValid={isValid}
                 placeholder="Ex. R$0,00"
-                value={value}
+                value={formatAmountToCents(value)}
                 onBlur={onBlur}
-                error={errors.currency?.message}
+                error={value ? errors.currency?.message : undefined}
                 keyboardType="number-pad"
-                onChangeText={(maskedCurrency, unmaskedCurrency) => {
+                onChangeText={(_, unmaskedCurrency) => {
                   if (unmaskedCurrency === '0' && unmaskedCurrency.length === 1) return;
                   // console.log(maskedCurrency.slice(3));
-                  onChange(maskedCurrency);
+                  onChange(unmaskedCurrency);
                   setCurrency(Number(unmaskedCurrency));
                 }}
                 mask={Masks.BRL_CURRENCY}
