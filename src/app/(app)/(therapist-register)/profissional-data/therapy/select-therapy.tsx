@@ -1,6 +1,6 @@
 import { Link } from 'expo-router';
 import ContentLoader, { Rect } from 'react-content-loader/native';
-import { ScrollView, Text, View, useWindowDimensions } from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/Button';
@@ -76,8 +76,9 @@ export default function SelectTherapy() {
           <ScrollView className="mt-4 flex-1 px-6" showsVerticalScrollIndicator={false}>
             {formattedTherapies?.map((therapy) => (
               <View key={therapy.name} className="py-2">
-                <Button
-                  className={`h-[72px] w-full ${selectedTherapy?.id === therapy.id && 'opacity-70'}`}
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  className={`w-full ${selectedTherapy?.id === therapy.id && 'opacity-70'}`}
                   onPress={() => handleOnPressTherapy(therapy)}>
                   <Card.Root>
                     <Card.Content
@@ -87,7 +88,7 @@ export default function SelectTherapy() {
                       }}
                     />
                   </Card.Root>
-                </Button>
+                </TouchableOpacity>
               </View>
             ))}
           </ScrollView>

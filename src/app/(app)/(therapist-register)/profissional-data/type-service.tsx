@@ -1,6 +1,6 @@
 import { Link } from 'expo-router';
 import React, { useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/Button';
@@ -104,8 +104,11 @@ export default function TypesOfService() {
 
         <ScrollView className="mt-4 flex-1 px-6" showsVerticalScrollIndicator={false}>
           {services.map((service) => (
-            <View key={service.name} className="my-5 flex-1">
-              <Button className="h-[72px] w-full" onPress={() => handleOnPressTherapy(service)}>
+            <View key={service.name} className="mb-2 flex-1">
+              <TouchableOpacity
+                className="w-full"
+                activeOpacity={0.7}
+                onPress={() => handleOnPressTherapy(service)}>
                 <Card.Root>
                   <Card.Content
                     className="p-2"
@@ -118,12 +121,13 @@ export default function TypesOfService() {
                     }}
                   />
                   <Card.CheckBox
+                    setChecked={() => handleOnPressTherapy(service)}
                     isChecked={selectedServices.some(
                       (selectedService) => selectedService.name === service.name
                     )}
                   />
                 </Card.Root>
-              </Button>
+              </TouchableOpacity>
             </View>
           ))}
         </ScrollView>
