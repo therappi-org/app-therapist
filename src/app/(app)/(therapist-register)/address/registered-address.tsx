@@ -1,13 +1,13 @@
 import { Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
 import { useAuth } from '@/contexts/useAuth';
 import { AddressQueries } from '@/queries/address';
 import { useTherapyStore } from '@/stories/useTherapyStore';
+import colors from '@/theme/colors';
 import { Address } from '@/types/address';
 
 export default function RegisteredAddress() {
@@ -50,26 +50,30 @@ export default function RegisteredAddress() {
           Selecione um endereço para continuar
         </Text>
 
-        <ScrollView className="mt-4 flex-1 gap-4 px-6" showsVerticalScrollIndicator={false}>
-          {registeredAddress?.map((address) => (
-            <View key={address.id} className="flex-1">
-              <Button className="h-[72px] w-full" onPress={() => handleOnPressAddress(address)}>
-                <Card.Root>
-                  <Card.Content
-                    className="p-2"
-                    title={`${address?.sStreet ?? ''}${address?.nBuildNumber ? ', ' + address?.nBuildNumber : ''}`}
-                    subtitle={`${address?.sCity ?? ''}${address?.sState ? ' - ' + address?.sState : ''}${address?.sZipcode ? ' - ' + transformZipcode(address?.sZipcode) : ''}`}
-                    image={{
-                      source: require('@/assets/images/map-pin.svg'),
-                      className: 'h-8 w-8',
-                    }}
-                  />
+        <ScrollView className="mt-4 h-full flex-1 gap-4 px-6" showsVerticalScrollIndicator={false}>
+          {registeredAddress
+            ?.filter((address) => !address.bVirtual)
+            ?.map((address) => (
+              <View key={address.id} className="mb-2 flex-1">
+                <TouchableOpacity
+                  className="h-full w-full"
+                  activeOpacity={0.7}
+                  onPress={() => handleOnPressAddress(address)}>
+                  <Card.Root>
+                    <Card.Content
+                      title={`${address?.sStreet ?? ''}${address?.nBuildNumber ? ', ' + address?.nBuildNumber : ''}`}
+                      subtitle={`${address?.sCity ?? ''}${address?.sState ? ' - ' + address?.sState : ''}${address?.sZipcode ? ' - ' + transformZipcode(address?.sZipcode) : ''}`}
+                      image={{
+                        source: require('@/assets/images/map-pin.svg'),
+                        className: 'h-8 w-8',
+                      }}
+                    />
 
-                  <Feather name="chevron-right" size={24} color="black" />
-                </Card.Root>
-              </Button>
-            </View>
-          ))}
+                    <Feather name="chevron-right" size={24} color={colors.brand.DEFAULT} />
+                  </Card.Root>
+                </TouchableOpacity>
+              </View>
+            ))}
         </ScrollView>
       </View>
     </View>
