@@ -171,7 +171,7 @@ export default function FullAddress() {
                   className={cn(watchFields.street && 'border-brand')}
                 />
               </View>
-              <View className="w-full flex-row">
+              <View className="w-full flex-row gap-2">
                 <View>
                   {watchFields.number && (
                     <Text className="px-2 font-MontserratBold text-xs text-gray-600">
@@ -198,7 +198,6 @@ export default function FullAddress() {
                 <View className="flex-row items-center gap-2">
                   <CardCheckbox
                     isChecked={hasNoHouseNumber}
-                    className="h-5 w-5 rounded-md border-[1px] border-gray-500 bg-white"
                     setChecked={(value) => {
                       setHasNumber(value);
                       setValue('hasNoHouseNumber', !!value);
