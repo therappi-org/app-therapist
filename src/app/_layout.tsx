@@ -6,6 +6,7 @@ import { Image } from 'expo-image';
 import { Slot, useNavigationContainerRef } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { cssInterop } from 'nativewind';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -26,17 +27,19 @@ export default function Root() {
 
   return (
     <>
-      <StatusBar style="light" />
-      <SafeAreaProvider>
-        <QueryClientProvider client={queryClient}>
-          <RootSiblingParent>
-            <InterceptorError />
-            <AuthProvider>
-              <Slot />
-            </AuthProvider>
-          </RootSiblingParent>
-        </QueryClientProvider>
-      </SafeAreaProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <StatusBar style="light" />
+        <SafeAreaProvider>
+          <QueryClientProvider client={queryClient}>
+            <RootSiblingParent>
+              <InterceptorError />
+              <AuthProvider>
+                <Slot />
+              </AuthProvider>
+            </RootSiblingParent>
+          </QueryClientProvider>
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
     </>
   );
 }
