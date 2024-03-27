@@ -13,23 +13,28 @@ export default function StepOne() {
   return (
     <View className="w-full flex-1 items-center justify-center">
       <CardStack>
-        <View className="flex-1 items-center rounded-3xl bg-white px-4 pb-8 pt-10">
+        <View className="flex-1 items-center justify-center rounded-3xl bg-white px-4 pb-8 pt-10">
           <SkipButton />
 
-          <Image className="h-52 w-52" source={require('@/assets/images/walkthrough-step-1.svg')} />
-          <View className="mt-2">
-            <StepSphere step={1} />
-          </View>
+          <View className="flex-1 items-center justify-center">
+            <Image
+              className="h-52 w-52"
+              source={require('@/assets/images/walkthrough-step-1.svg')}
+            />
+            <View className="mt-2">
+              <StepSphere step={1} />
+            </View>
 
-          <View className="mt-6 gap-2">
-            <Text className="text-center font-MontserratBold text-xl">
-              1º Passo{'\n'}
-              Dados pessoais
-            </Text>
-            <Text className="text-center font-MontserratMedium text-base">
-              Informe seus dados. Eles estão seguros e usados somente para validação do perfil na
-              plataforma.
-            </Text>
+            <View className="mt-6 gap-2">
+              <Text className="text-center font-MontserratBold text-xl">
+                1º Passo{'\n'}
+                Dados pessoais
+              </Text>
+              <Text className="text-center font-MontserratMedium text-base">
+                Informe seus dados. Eles estão seguros e usados somente para validação do perfil na
+                plataforma.
+              </Text>
+            </View>
           </View>
 
           <View className="mt-auto w-full flex-row justify-between">

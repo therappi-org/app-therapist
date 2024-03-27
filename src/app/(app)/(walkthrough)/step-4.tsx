@@ -16,19 +16,24 @@ export default function StepFour() {
         <View className="flex-1 items-center rounded-3xl bg-white px-4 pb-8 pt-10">
           <SkipButton />
 
-          <Image className="h-52 w-52" source={require('@/assets/images/walkthrough-step-4.svg')} />
-          <View className="mt-2">
-            <StepSphere step={4} />
-          </View>
+          <View className="flex-1 items-center justify-center">
+            <Image
+              className="h-52 w-52"
+              source={require('@/assets/images/walkthrough-step-4.svg')}
+            />
+            <View className="mt-2">
+              <StepSphere step={4} />
+            </View>
 
-          <View className="mt-6 gap-2">
-            <Text className="text-center font-MontserratBold text-xl">
-              4º Passo{'\n'}
-              Defina horários e valores
-            </Text>
-            <Text className="text-center font-MontserratMedium text-base">
-              Informe horários e valores dos seus serviços.
-            </Text>
+            <View className="mt-6 gap-2">
+              <Text className="text-center font-MontserratBold text-xl">
+                4º Passo{'\n'}
+                Defina horários e valores
+              </Text>
+              <Text className="text-center font-MontserratMedium text-base">
+                Informe horários e valores dos seus serviços.
+              </Text>
+            </View>
           </View>
 
           <View className="mt-auto w-full flex-row justify-between">

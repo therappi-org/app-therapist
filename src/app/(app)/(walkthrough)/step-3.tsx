@@ -16,19 +16,24 @@ export default function StepThree() {
         <View className="flex-1 items-center rounded-3xl bg-white px-4 pb-8 pt-10">
           <SkipButton />
 
-          <Image className="h-52 w-52" source={require('@/assets/images/walkthrough-step-3.svg')} />
-          <View className="mt-2">
-            <StepSphere step={3} />
-          </View>
+          <View className="flex-1 items-center justify-center">
+            <Image
+              className="h-52 w-52"
+              source={require('@/assets/images/walkthrough-step-3.svg')}
+            />
+            <View className="mt-2">
+              <StepSphere step={3} />
+            </View>
 
-          <View className="mt-6 gap-2">
-            <Text className="text-center font-MontserratBold text-xl">
-              3º Passo{'\n'}
-              Terapias e endereços
-            </Text>
-            <Text className="text-center font-MontserratMedium text-base">
-              Informe as terapias e respectivos endereços que você atende.
-            </Text>
+            <View className="mt-6 gap-2">
+              <Text className="text-center font-MontserratBold text-xl">
+                3º Passo{'\n'}
+                Terapias e endereços
+              </Text>
+              <Text className="text-center font-MontserratMedium text-base">
+                Informe as terapias e respectivos endereços que você atende.
+              </Text>
+            </View>
           </View>
 
           <View className="mt-auto w-full flex-row justify-between">
