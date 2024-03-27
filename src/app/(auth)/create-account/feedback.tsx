@@ -24,7 +24,7 @@ export default function Feedback() {
         </View>
 
         <View className="w-full flex-row justify-between">
-          <Link asChild replace href="/(auth)/intro">
+          <Link asChild replace href="/(auth)/sign-in">
             <Button className="w-full">
               <Text className="font-MontserratBold text-base text-gray-50">Acessar Conta</Text>
             </Button>

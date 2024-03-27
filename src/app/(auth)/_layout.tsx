@@ -1,4 +1,4 @@
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { View } from 'react-native';
@@ -48,6 +48,7 @@ export default function Layout() {
             name="sign-in"
             options={{
               title: 'Utilizar email cadastrado',
+              headerLeft: () => <BackButton onPress={() => router.navigate('/(auth)/intro')} />,
             }}
           />
           <Stack.Screen
