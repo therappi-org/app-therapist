@@ -14,7 +14,7 @@ const services: Services[] = [
     name: 'Atendimento remoto',
     id: 'remote',
     subtitle: 'Através de videoconferências',
-    image: require('@/assets/images/computer.png'),
+    image: require('@/assets/images/computer.svg'),
   },
   // {
   //   name: 'Atendimento domiciliar',
@@ -26,7 +26,7 @@ const services: Services[] = [
     name: 'Atendimento presencial',
     id: 'inPerson',
     subtitle: 'Atendimento em consultório',
-    image: require('@/assets/images/hospital.png'),
+    image: require('@/assets/images/clinic.svg'),
   },
 ];
 
@@ -111,13 +111,13 @@ export default function TypesOfService() {
                 onPress={() => handleOnPressTherapy(service)}>
                 <Card.Root>
                   <Card.Content
-                    className="p-2"
+                    className="gap-4 p-2"
                     title={service.name}
                     subtitle={service.subtitle}
                     image={{
                       source: service.image,
                       alt: service.name,
-                      className: 'h-12 w-12 p-2 bg-gray-100 rounded-full',
+                      className: 'h-10 w-10',
                     }}
                   />
                   <Card.CheckBox
