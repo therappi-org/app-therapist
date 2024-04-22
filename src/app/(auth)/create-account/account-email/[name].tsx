@@ -3,11 +3,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useLocalSearchParams } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
+import Animated from 'react-native-reanimated';
 import { z } from 'zod';
 
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { ProgressBar } from '@/components/ProgressBar';
+import { useAnimatedKeyboardAwareStyle } from '@/hooks/useAnimatedKeyboardAwareStyle';
 import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout';
 
 const emailAccountSchema = z.object({
@@ -21,6 +23,7 @@ type EmailAccountFormValues = z.infer<typeof emailAccountSchema>;
 
 export default function EmailAccount() {
   const { name } = useLocalSearchParams<{ name: string }>();
+  const animatedStyle = useAnimatedKeyboardAwareStyle();
 
   const {
     control,
@@ -59,11 +62,13 @@ export default function EmailAccount() {
       </View>
 
       <View className="absolute bottom-12 right-4">
-        <Link asChild href={`/(auth)/create-account/account-password/${name}/${watchEmail}`}>
-          <Button disabled={!isValid} variant="rounded">
-            <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
-          </Button>
-        </Link>
+        <Animated.View style={animatedStyle}>
+          <Link asChild href={`/(auth)/create-account/account-password/${name}/${watchEmail}`}>
+            <Button disabled={!isValid} variant="rounded">
+              <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
+            </Button>
+          </Link>
+        </Animated.View>
       </View>
     </KeyBoardAvoidingViewLayout>
   );

@@ -5,12 +5,14 @@ import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 import { Masks } from 'react-native-mask-input';
+import Animated from 'react-native-reanimated';
 import { z } from 'zod';
 
 import { Button } from '@/components/Button';
 import { MaskInput } from '@/components/MaskInput';
 import { ProgressBar } from '@/components/ProgressBar';
 import { useAuth } from '@/contexts/useAuth';
+import { useAnimatedKeyboardAwareStyle } from '@/hooks/useAnimatedKeyboardAwareStyle';
 import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout';
 import { AddressQueries } from '@/queries/address';
 import { useTherapyStore } from '@/stories/useTherapyStore';
@@ -27,6 +29,7 @@ type cepAddressFormValues = z.infer<typeof cepAddressSchema>;
 export default function CepAddress() {
   const [cep, setCep] = useState('');
   const { userData } = useAuth();
+  const animatedStyle = useAnimatedKeyboardAwareStyle();
   const { selectedTherapy } = useTherapyStore((state) => ({
     selectedTherapy: state.selectedTherapy,
   }));
@@ -80,7 +83,9 @@ export default function CepAddress() {
         />
       </View>
 
-      <View className="absolute bottom-12 w-full flex-row items-center justify-between px-4">
+      <Animated.View
+        style={animatedStyle}
+        className="absolute bottom-10 w-full flex-row items-center justify-between px-4">
         <View>
           {!!hasRegisteredAddress && (
             <Button
@@ -96,7 +101,7 @@ export default function CepAddress() {
             <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
           </Button>
         </Link>
-      </View>
+      </Animated.View>
     </KeyBoardAvoidingViewLayout>
   );
 }

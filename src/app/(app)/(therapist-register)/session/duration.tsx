@@ -4,12 +4,14 @@ import { router } from 'expo-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
+import Animated from 'react-native-reanimated';
 import { z } from 'zod';
 
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { ProgressBar } from '@/components/ProgressBar';
 import { useAuth } from '@/contexts/useAuth';
+import { useAnimatedKeyboardAwareStyle } from '@/hooks/useAnimatedKeyboardAwareStyle';
 import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout';
 import { UserTherapyQuery } from '@/queries/userTherapy';
 import { useTherapyStore } from '@/stories/useTherapyStore';
@@ -25,6 +27,7 @@ type sessionDurationFormValues = z.infer<typeof sessionDurationSchema>;
 
 export default function SessionDuration() {
   const { userData } = useAuth();
+  const animatedStyle = useAnimatedKeyboardAwareStyle();
   const { selectedTherapy, address, typeOfService, currency } = useTherapyStore((state) => ({
     selectedTherapy: state.selectedTherapy,
     address: state.address,
@@ -107,7 +110,7 @@ export default function SessionDuration() {
         />
       </View>
 
-      <View className="absolute bottom-12 right-4">
+      <Animated.View style={animatedStyle} className="absolute bottom-10 right-4">
         <Button
           onPress={handleSubmit(onSubmit)}
           disabled={!isValid}
@@ -115,7 +118,7 @@ export default function SessionDuration() {
           variant="rounded">
           <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
         </Button>
-      </View>
+      </Animated.View>
     </KeyBoardAvoidingViewLayout>
   );
 }

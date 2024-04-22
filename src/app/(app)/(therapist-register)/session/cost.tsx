@@ -5,11 +5,13 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 import { Masks } from 'react-native-mask-input';
+import Animated from 'react-native-reanimated';
 import { z } from 'zod';
 
 import { Button } from '@/components/Button';
 import { MaskInput } from '@/components/MaskInput';
 import { ProgressBar } from '@/components/ProgressBar';
+import { useAnimatedKeyboardAwareStyle } from '@/hooks/useAnimatedKeyboardAwareStyle';
 import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout';
 import { useTherapyStore } from '@/stories/useTherapyStore';
 
@@ -26,6 +28,7 @@ const sessionCostSchema = z.object({
 type sessionCostFormValues = z.infer<typeof sessionCostSchema>;
 
 export default function SessionCost() {
+  const animatedStyle = useAnimatedKeyboardAwareStyle();
   const { selectedTherapy, setCurrency } = useTherapyStore((state) => ({
     selectedTherapy: state.selectedTherapy,
     setCurrency: state.setCurrency,
@@ -88,11 +91,11 @@ export default function SessionCost() {
         />
       </View>
 
-      <View className="absolute bottom-12 right-4">
+      <Animated.View style={animatedStyle} className="absolute bottom-10 right-4">
         <Button onPress={handleSubmit(onSubmit)} disabled={!isValid} variant="rounded">
           <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
         </Button>
-      </View>
+      </Animated.View>
     </KeyBoardAvoidingViewLayout>
   );
 }

@@ -5,12 +5,14 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 import { Masks } from 'react-native-mask-input';
+import Animated from 'react-native-reanimated';
 import { z } from 'zod';
 
 import { Button } from '@/components/Button';
 import { MaskInput } from '@/components/MaskInput';
 import { ProgressBar } from '@/components/ProgressBar';
 import { useAuth } from '@/contexts/useAuth';
+import { useAnimatedKeyboardAwareStyle } from '@/hooks/useAnimatedKeyboardAwareStyle';
 import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout';
 import { UserQuery } from '@/queries/user';
 
@@ -26,6 +28,7 @@ type PhoneRegisterFormValues = z.infer<typeof dateOfBirthSchema>;
 export default function DateOfBirthRegister() {
   const { phoneNumber } = useLocalSearchParams<{ phoneNumber: string }>();
   const { userData } = useAuth();
+  const animatedStyle = useAnimatedKeyboardAwareStyle();
   const { mutate: updateUserData, isLoading } = UserQuery.Update({
     onSuccess: () => {
       router.push('/(app)/(therapist-register)/photo');
@@ -85,7 +88,7 @@ export default function DateOfBirthRegister() {
         />
       </View>
 
-      <View className="absolute bottom-12 right-4">
+      <Animated.View style={animatedStyle} className="absolute bottom-10 right-4">
         <Button
           isLoading={isLoading}
           onPress={handleSubmit(onSubmit)}
@@ -93,7 +96,7 @@ export default function DateOfBirthRegister() {
           variant="rounded">
           <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
         </Button>
-      </View>
+      </Animated.View>
     </KeyBoardAvoidingViewLayout>
   );
 }

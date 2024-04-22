@@ -5,11 +5,13 @@ import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 import { Masks } from 'react-native-mask-input';
+import Animated from 'react-native-reanimated';
 import { z } from 'zod';
 
 import { Button } from '@/components/Button';
 import { MaskInput } from '@/components/MaskInput';
 import { ProgressBar } from '@/components/ProgressBar';
+import { useAnimatedKeyboardAwareStyle } from '@/hooks/useAnimatedKeyboardAwareStyle';
 import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout';
 
 const phoneRegisterSchema = z.object({
@@ -23,6 +25,7 @@ type PhoneRegisterFormValues = z.infer<typeof phoneRegisterSchema>;
 
 export default function PhoneRegister() {
   const [phoneNumber, setPhoneNumber] = useState('');
+  const animatedStyle = useAnimatedKeyboardAwareStyle();
 
   const {
     control,
@@ -67,13 +70,13 @@ export default function PhoneRegister() {
         />
       </View>
 
-      <View className="absolute bottom-12 right-4">
+      <Animated.View style={animatedStyle} className="absolute bottom-10 right-4">
         <Link asChild href={`/(app)/(therapist-register)/date-birth/${phoneNumber}`}>
           <Button disabled={!isValid} variant="rounded">
             <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
           </Button>
         </Link>
-      </View>
+      </Animated.View>
     </KeyBoardAvoidingViewLayout>
   );
 }

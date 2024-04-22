@@ -4,11 +4,13 @@ import { router, useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
+import Animated from 'react-native-reanimated';
 import { z } from 'zod';
 
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { ProgressBar } from '@/components/ProgressBar';
+import { useAnimatedKeyboardAwareStyle } from '@/hooks/useAnimatedKeyboardAwareStyle';
 import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout';
 import { UserQuery } from '@/queries/user';
 
@@ -27,6 +29,8 @@ export default function PasswordAccount() {
   const [showPassword, setShowPassword] = useState(false);
   const { user } = useLocalSearchParams<{ user: User }>();
   const [name, email] = user;
+  const animatedStyle = useAnimatedKeyboardAwareStyle();
+
   const { mutate: createUser, isLoading } = UserQuery.Create({
     onSuccess() {
       router.replace('/(auth)/create-account/feedback');
@@ -75,7 +79,9 @@ export default function PasswordAccount() {
         />
       </View>
 
-      <View className="absolute bottom-12 w-full flex-row items-center justify-between px-4">
+      <Animated.View
+        style={animatedStyle}
+        className="absolute bottom-10 w-full flex-row items-center justify-between px-4">
         <View>
           <Button
             className="w-full"
@@ -93,7 +99,7 @@ export default function PasswordAccount() {
           variant="rounded">
           <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
         </Button>
-      </View>
+      </Animated.View>
     </KeyBoardAvoidingViewLayout>
   );
 }
