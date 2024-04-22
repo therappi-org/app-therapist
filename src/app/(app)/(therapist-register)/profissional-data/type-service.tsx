@@ -1,13 +1,16 @@
 import { Link } from 'expo-router';
 import React, { useState } from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
 import { ProgressBar } from '@/components/ProgressBar';
+import { useAuth } from '@/contexts/useAuth';
+import { AddressQueries } from '@/queries/address';
 import { useTherapyStore } from '@/stories/useTherapyStore';
 import { Services } from '@/types/therapy';
+import { cn } from '@/utils/lib';
 
 const services: Services[] = [
   {
@@ -33,11 +36,20 @@ const services: Services[] = [
 export default function TypesOfService() {
   const [selectedServices, setSelectedServices] = useState<Services[]>([]);
   const insets = useSafeAreaInsets();
+  const { userData } = useAuth();
+  const { height } = Dimensions.get('window');
+  const isSmallDevice = height <= 700;
   const { selectedTherapy, typeOfService, setTypeOfService } = useTherapyStore((state) => ({
     selectedTherapy: state.selectedTherapy,
     typeOfService: state.typeOfService,
     setTypeOfService: state.setTypeOfService,
   }));
+
+  const { data: registeredAddress } = AddressQueries.GetRegisteredAddress({
+    userId: userData!.id,
+  });
+
+  const hasRegisteredAddress = registeredAddress?.length;
 
   const handleRedirect = () => {
     const isHomeOrInPerson = selectedServices.some(
@@ -45,6 +57,10 @@ export default function TypesOfService() {
     );
 
     if (isHomeOrInPerson) {
+      if (hasRegisteredAddress) {
+        return '/(app)/(therapist-register)/address/registered-address';
+      }
+
       return '/(app)/(therapist-register)/address/cep';
     }
 
@@ -92,17 +108,28 @@ export default function TypesOfService() {
         <Text className="font-MontserratSemiBold text-base text-white">
           {selectedTherapy?.name}
         </Text>
-        <Text className="font-MontserratSemiBold text-base text-white">
+        <Text
+          className={cn(
+            'font-MontserratSemiBold text-base text-white',
+            isSmallDevice && 'text-sm'
+          )}>
           Preferências no atendimento
         </Text>
       </View>
 
       <View className="mt-8 flex-1">
-        <Text className="px-6 font-MontserratBold text-base text-white">
+        <Text
+          className={cn(
+            'px-6 font-MontserratSemiBold text-base text-white',
+            isSmallDevice && 'text-sm'
+          )}>
           Marque as opções de atendimento para essa terapia
         </Text>
 
-        <ScrollView className="mt-4 flex-1 px-6" showsVerticalScrollIndicator={false}>
+        <ScrollView
+          className="mt-4 flex-1 px-6"
+          scrollEnabled={isSmallDevice}
+          showsVerticalScrollIndicator={false}>
           {services.map((service) => (
             <View key={service.name} className="mb-2 flex-1">
               <TouchableOpacity

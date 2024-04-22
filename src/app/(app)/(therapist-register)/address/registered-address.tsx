@@ -36,7 +36,7 @@ export default function RegisteredAddress() {
 
     router.push(`../`);
 
-    router.push(`/(app)/(therapist-register)/address/full-address/${address.sZipcode}`);
+    router.navigate(`/(app)/(therapist-register)/address/full-address/${address.sZipcode}`);
   };
 
   const transformZipcode = (zipcode: string) => {
@@ -51,6 +51,20 @@ export default function RegisteredAddress() {
         </Text>
 
         <ScrollView className="mt-4 h-full flex-1 gap-4 px-6" showsVerticalScrollIndicator={false}>
+          <TouchableOpacity
+            className="mb-2 w-full"
+            activeOpacity={0.7}
+            onPress={() => {
+              router.push(`../`);
+
+              router.navigate('/(app)/(therapist-register)/address/cep');
+            }}>
+            <Card.Root>
+              <Card.Content className="gap-4 p-2" title="Adicionar novo endereço" />
+              <Feather name="plus" size={24} color={colors.brand.DEFAULT} />
+            </Card.Root>
+          </TouchableOpacity>
+
           {registeredAddress
             ?.filter((address) => !address.bVirtual)
             ?.map((address) => (

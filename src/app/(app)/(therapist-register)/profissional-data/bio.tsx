@@ -3,13 +3,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { router } from 'expo-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Text, View } from 'react-native';
+import { Dimensions, ScrollView, Text, View } from 'react-native';
+import Animated from 'react-native-reanimated';
 import { z } from 'zod';
 
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { ProgressBar } from '@/components/ProgressBar';
 import { useAuth } from '@/contexts/useAuth';
+import { useAnimatedKeyboardAwareStyle } from '@/hooks/useAnimatedKeyboardAwareStyle';
 import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout';
 import { UserQuery } from '@/queries/user';
 
@@ -24,6 +26,9 @@ type BioFormValues = z.infer<typeof bioSchema>;
 
 export default function Bio() {
   const { userData } = useAuth();
+  const { height } = Dimensions.get('window');
+  const isSmallDevice = height <= 700;
+  const animatedStyle = useAnimatedKeyboardAwareStyle();
   const { mutate: updateUserData, isLoading } = UserQuery.Update({
     onSuccess: () => {
       router.push('/(app)/(therapist-register)/profissional-data/therapy');
@@ -56,25 +61,29 @@ export default function Bio() {
           </Text>
         </View>
       }>
-      <View className="mt-6 items-center gap-4">
-        <Text className="font-MontserratBold text-lg">Breve descrição profissional</Text>
-        <Input
-          control={control}
-          name="bio"
-          textAlign="center"
-          placeholder="Digite sua bio"
-          isValid={isValid}
-          className="min-h-[100px]"
-          textBreakStrategy="highQuality"
-          multiline
-          numberOfLines={4}
-          variant="unstyled"
-          autoCapitalize="none"
-          error={errors.bio?.message}
-        />
-      </View>
+      <ScrollView
+        scrollEnabled={isSmallDevice}
+        contentContainerStyle={{ flexGrow: 1 }}
+        showsVerticalScrollIndicator={false}>
+        <View className="mt-6 items-center gap-2">
+          <Text className="font-MontserratBold text-lg">Breve descrição profissional</Text>
+          <Input
+            control={control}
+            name="bio"
+            textAlign="center"
+            placeholder="Digite sua bio"
+            isValid={isValid}
+            textBreakStrategy="highQuality"
+            multiline
+            numberOfLines={4}
+            variant="unstyled"
+            autoCapitalize="none"
+            error={errors.bio?.message}
+          />
+        </View>
+      </ScrollView>
 
-      <View className="absolute bottom-12 right-4">
+      <Animated.View style={animatedStyle} className="absolute bottom-10 right-4">
         <Button
           onPress={handleSubmit(onSubmit)}
           isLoading={isLoading}
@@ -82,7 +91,7 @@ export default function Bio() {
           variant="rounded">
           <Feather name="arrow-right" size={24} color="#fff" backgroundColor="transparent" />
         </Button>
-      </View>
+      </Animated.View>
     </KeyBoardAvoidingViewLayout>
   );
 }

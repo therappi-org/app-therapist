@@ -1,6 +1,6 @@
 import { Link } from 'expo-router';
 import ContentLoader, { Rect } from 'react-content-loader/native';
-import { ScrollView, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
+import { Dimensions, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/Button';
@@ -10,11 +10,13 @@ import { useAuth } from '@/contexts/useAuth';
 import { UserTherapyQuery } from '@/queries/userTherapy';
 import { useTherapyStore } from '@/stories/useTherapyStore';
 import { Therapy } from '@/types/therapy';
+import { cn } from '@/utils/lib';
 
 export default function SelectTherapy() {
   const { userData } = useAuth();
   const insets = useSafeAreaInsets();
-  const { width, height } = useWindowDimensions();
+  const { height, width } = Dimensions.get('window');
+  const isSmallDevice = height <= 700;
   const { selectedTherapy, setSelectedTherapy } = useTherapyStore((state) => ({
     selectedTherapy: state.selectedTherapy,
     setSelectedTherapy: state.setSelectedTherapy,
@@ -42,12 +44,22 @@ export default function SelectTherapy() {
     <View className="flex-1 bg-brand" style={{ paddingBottom: insets.bottom }}>
       <View className="mt-4 gap-4 px-6">
         <ProgressBar progress={70} />
-        <Text className="font-MontserratSemiBold text-base text-white">Habilitar serviços</Text>
+        <Text
+          className={cn(
+            'font-MontserratSemiBold text-base text-white',
+            isSmallDevice && 'text-sm'
+          )}>
+          Habilitar serviços
+        </Text>
       </View>
 
       <View className="mt-6 flex-1">
         <View className="gap-2">
-          <Text className="px-6 font-MontserratBold text-base text-white">
+          <Text
+            className={cn(
+              'px-6 font-MontserratSemiBold text-base text-white',
+              isSmallDevice && 'text-sm'
+            )}>
             Escolha a terapia que você deseja habilitar
           </Text>
 
