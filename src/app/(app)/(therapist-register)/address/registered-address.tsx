@@ -36,7 +36,7 @@ export default function RegisteredAddress() {
 
     router.push(`../`);
 
-    router.navigate(`/(app)/(therapist-register)/address/full-address/${address.sZipcode}`);
+    router.navigate('/(app)/(therapist-register)/session/cost');
   };
 
   const transformZipcode = (zipcode: string) => {
