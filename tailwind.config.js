@@ -14,6 +14,9 @@ module.exports = {
         MontserratSemiBold: ['Montserrat_600SemiBold'],
         MontserratBold: ['Montserrat_700Bold'],
       },
+      boxShadow: {
+        'custom-light': '0 0 40px 0 rgba(49, 48, 51, 0.1)',
+      },
     },
   },
   plugins: [],
