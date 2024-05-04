@@ -1,5 +1,5 @@
 import { axiosConfig } from '@/api/axiosConfig';
-import { UpdateUserData, User } from '@/types/user';
+import { UpdateUserData, User, WarningData } from '@/types/user';
 
 type CreateUserData = {
   s_name: string;
@@ -46,6 +46,12 @@ export const UserService = {
         'Content-Type': 'multipart/form-data',
       },
     });
+
+    return response?.data;
+  },
+
+  warnings: async ({ userId }: { userId: number | undefined }) => {
+    const response = await axiosConfig.get<WarningData[]>(`${baseUrl}/${userId}/warnings`);
 
     return response?.data;
   },

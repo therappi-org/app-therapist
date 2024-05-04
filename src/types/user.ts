@@ -37,3 +37,9 @@ export type UpdateUserData = {
   s_cellphone?: string;
   s_short_bio?: string;
 };
+
+export type WarningData = {
+  s_warning: string;
+  s_status: 'P' | 'I' | 'A' | 'R'; // "P" = "Pending", "I" = "Incomplete", "A" = "Approved", "R" = "Rejected
+  s_reason: string | null;
+};
