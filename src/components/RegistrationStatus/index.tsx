@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 
 import colors from '@/theme/colors';
 import { WarningData } from '@/types/user';
-import { hexToRGBA } from '@/utils/hextorgba';
+import { hexToRGBA } from '@/utils/hexToRGBA';
 
 type RegistrationStatusProps = {
   registrationWarningData: WarningData[] | undefined;
