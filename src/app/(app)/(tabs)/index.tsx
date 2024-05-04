@@ -3,11 +3,15 @@ import { Image } from 'expo-image';
 import { ScrollView, Text, View } from 'react-native';
 
 import { Button } from '@/components/Button';
+import { RegistrationStatus } from '@/components/RegistrationStatus';
 import { useAuth } from '@/contexts/useAuth';
+import { UserQuery } from '@/queries/user';
 import colors from '@/theme/colors';
 
 export default function Home() {
   const { userData } = useAuth();
+
+  const { data: registrationWarningData } = UserQuery.Warnings({ userId: userData?.id });
 
   return (
     <View className="flex-1 bg-gray-100">
@@ -72,89 +76,9 @@ export default function Home() {
 
             <View className="mt-8 gap-4">
               <Text className="font-MontserratBold text-base text-gray-600">Pra ficar de olho</Text>
-
-              <View
-                className="flex-1 shadow-custom-light"
-                style={{
-                  shadowColor: colors.gray['500'],
-                  shadowOpacity: 0.1,
-                }}>
-                <View className="rounded-t-lg bg-white px-5 py-8">
-                  <View className="flex-row items-center justify-between">
-                    <Text className="font-MontserratBold text-base text-gray-600">
-                      Status do seu cadastro
-                    </Text>
-
-                    <View className="h-14 w-14 items-center justify-center rounded-full bg-gray-100">
-                      <Text className="font-MontserratBold text-base text-brand-100">65%</Text>
-                    </View>
-                  </View>
-
-                  <View className="flex-1 gap-4">
-                    <View className="flex-row items-center gap-4">
-                      <View className="h-8 w-8 items-center justify-center rounded-full bg-gray-100">
-                        <Feather
-                          name="check"
-                          size={16}
-                          color={colors.brand['DEFAULT']}
-                          backgroundColor="transparent"
-                        />
-                      </View>
-                      <Text className="font-MontserratSemiBold text-sm text-gray-600">
-                        Cadastro aprovado
-                      </Text>
-                    </View>
-
-                    <View className="flex-row items-center gap-4">
-                      <View className="h-8 w-8 items-center justify-center rounded-full bg-gray-100">
-                        <Feather
-                          name="check"
-                          size={16}
-                          color={colors.brand['DEFAULT']}
-                          backgroundColor="transparent"
-                        />
-                      </View>
-                      <Text className="font-MontserratSemiBold text-sm text-gray-600">
-                        Dados técnicos aprovados
-                      </Text>
-                    </View>
-
-                    <View className="flex-row items-center gap-4">
-                      <View className="h-8 w-8 items-center justify-center rounded-full bg-feedback-success/10">
-                        <Feather
-                          name="clipboard"
-                          size={16}
-                          color={colors.feedback['success']}
-                          backgroundColor="transparent"
-                        />
-                      </View>
-                      <Text className="font-MontserratSemiBold text-sm text-gray-600">
-                        Cadastro aprovado
-                      </Text>
-                    </View>
-
-                    <View className="flex-row items-center gap-4">
-                      <View className="h-8 w-8 items-center justify-center rounded-full bg-gray-600/10">
-                        <Feather
-                          name="star"
-                          size={16}
-                          color={colors.gray['500']}
-                          backgroundColor="transparent"
-                        />
-                      </View>
-                      <Text className="font-MontserratSemiBold text-sm text-gray-600">
-                        Cadastro aprovado
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-
-                <View className="min-h-16 items-center justify-center rounded-b-lg bg-gray-100 py-5">
-                  <Text className="font-MontserratBold text-base text-brand">
-                    Completar meu cadastro
-                  </Text>
-                </View>
-              </View>
+              {registrationWarningData && (
+                <RegistrationStatus registrationWarningData={registrationWarningData} />
+              )}
             </View>
           </View>
         </View>
