@@ -58,10 +58,6 @@ export const RegistrationStatus = ({ registrationWarningData }: RegistrationStat
     console.log(WarningData);
   }, []);
 
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log('handleSheetChanges', index);
-  }, []);
-
   return (
     <View className="flex-1 shadow-custom-light">
       <View className="rounded-t-lg bg-white px-5 py-8">
