@@ -42,4 +42,5 @@ export type WarningData = {
   s_warning: string;
   s_status: 'P' | 'I' | 'A' | 'R'; // "P" = "Pending", "I" = "Incomplete", "A" = "Approved", "R" = "Rejected
   s_reason: string | null;
+  s_module: 'SC' | 'BA' | 'TH' | 'PE'; // "SC" = "ScheduleConfig", "BA" = "BankAccountConfig", "TH" = "TherapyConfig", "PE" = "PersonalConfig"
 };
