@@ -58,7 +58,8 @@
             "node_modules/@expo-google-fonts/montserrat/Montserrat_700Bold.ttf"
           ]
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "extra": {
       "router": {
