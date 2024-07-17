@@ -5,10 +5,9 @@ import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { BackButton } from '@/components/BackButton';
+import colors from '@/theme/colors';
 import { getData } from '@/utils/asyncStoreData';
 import { THERAPIST_REGISTERED_KEY } from '@/utils/constants';
-
-const colors = require('@/theme/colors');
 
 export default function Layout() {
   const insets = useSafeAreaInsets();
@@ -35,11 +34,9 @@ export default function Layout() {
       <View
         style={{
           flex: 1,
-          paddingTop: insets.top,
           paddingLeft: insets.left,
           paddingRight: insets.right,
-        }}
-        className="bg-brand">
+        }}>
         <Stack
           screenOptions={{
             animation: 'slide_from_right',
@@ -152,6 +149,18 @@ export default function Layout() {
               headerShown: false,
             }}
             name="session/feedback"
+          />
+
+          <Stack.Screen
+            options={{
+              title: 'Configurar atendimento',
+              headerStyle: {
+                backgroundColor: colors.gray[100],
+              },
+              headerTintColor: colors.dark[200],
+              headerLeft: () => <BackButton iconColor={colors.dark[200]} />,
+            }}
+            name="attendance/index"
           />
         </Stack>
       </View>
