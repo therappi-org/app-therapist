@@ -1,12 +1,12 @@
 import { Feather, FontAwesome } from '@expo/vector-icons';
-import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { Image } from 'expo-image';
 import * as Linking from 'expo-linking';
 import React, { useCallback, useRef } from 'react';
 import { View, Text, Dimensions } from 'react-native';
 
-import { Button } from '../Button';
-
+import { BottomSheet } from '@/components/BottomSheet';
+import { Button } from '@/components/Button';
 import colors from '@/theme/colors';
 import { WarningData } from '@/types/user';
 import { hexToRGBA } from '@/utils/hexToRGBA';
@@ -47,7 +47,6 @@ const statusIndicatorConfig = {
 } as const;
 
 export const RegistrationStatus = ({ registrationWarningData }: RegistrationStatusProps) => {
-  console.log(registrationWarningData);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const { height } = Dimensions.get('window');
   const isSmallDevice = height <= 700;
@@ -105,51 +104,38 @@ export const RegistrationStatus = ({ registrationWarningData }: RegistrationStat
                     />
                   </Button>
 
-                  <View>
-                    <BottomSheetModal ref={bottomSheetModalRef} snapPoints={['60%']}>
-                      <BottomSheetView className="flex-1 px-4 pt-8">
-                        <View className="flex-row items-center justify-between">
-                          <Text className="flex-1 font-MontserratBold text-lg text-gray-600">
-                            Revisar cadastro
+                  <BottomSheet
+                    bottomSheetModalRef={bottomSheetModalRef}
+                    title="Revisão de informação">
+                    <View className="flex-1 items-center">
+                      <Image
+                        source={require('@/assets/images/error.svg')}
+                        className={cn('h-52 w-52', isSmallDevice && 'h-40 w-40')}
+                      />
+
+                      <Text className="font-MontserratSemiBold text-base text-gray-600">
+                        Por favor, revise a informação abaixo:
+                      </Text>
+
+                      <Text className="font-MontserratBold text-base text-feedback-error">
+                        {status?.s_reason}
+                      </Text>
+
+                      <Button
+                        className="mt-auto"
+                        onPress={() => {
+                          Linking.openURL('https://wa.link/cuqaa0');
+                          bottomSheetModalRef?.current?.dismiss();
+                        }}>
+                        <View className="mt-auto flex-row items-center gap-2">
+                          <Text className="text-bas font-MontserratBold text-white">
+                            Falar com o atendimento
                           </Text>
-                          <Button
-                            variant="rounded"
-                            className="mr-2 h-10 w-10 bg-gray-100"
-                            onPress={() => bottomSheetModalRef?.current?.dismiss()}>
-                            <Feather name="x" size={24} color={colors.brand['DEFAULT']} />
-                          </Button>
+                          <FontAwesome name="whatsapp" size={16} color="white" />
                         </View>
-                        <View className="mb-4 flex-1 items-center">
-                          <Image
-                            source={require('@/assets/images/error.svg')}
-                            className={cn('h-52 w-52', isSmallDevice && 'h-40 w-40')}
-                          />
-
-                          <Text className="font-MontserratSemiBold text-base text-gray-600">
-                            Por favor, revise a informação abaixo:
-                          </Text>
-
-                          <Text className="font-MontserratBold text-base text-feedback-error">
-                            {status?.s_reason}
-                          </Text>
-
-                          <Button
-                            className="mt-auto"
-                            onPress={() => {
-                              Linking.openURL('https://wa.link/cuqaa0');
-                              bottomSheetModalRef?.current?.dismiss();
-                            }}>
-                            <View className="mt-auto flex-row items-center gap-2">
-                              <Text className="text-bas font-MontserratBold text-white">
-                                Falar com o atendimento
-                              </Text>
-                              <FontAwesome name="whatsapp" size={16} color="white" />
-                            </View>
-                          </Button>
-                        </View>
-                      </BottomSheetView>
-                    </BottomSheetModal>
-                  </View>
+                      </Button>
+                    </View>
+                  </BottomSheet>
                 </View>
               )}
             </View>
