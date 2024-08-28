@@ -18,7 +18,8 @@ export default function Layout() {
         const didWalkthrough = await getData(THERAPIST_STORE_WALKTHROUGH_KEY);
 
         if (didWalkthrough) {
-          router.replace('/(app)/(therapist-register)/phoneNumber');
+          // router.replace('/(app)/(therapist-register)/phoneNumber');
+          router.push('/(app)/(therapist-register)/attendance');
         }
       } catch (error) {
         console.log(error);
