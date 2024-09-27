@@ -9,6 +9,14 @@ type WarningQueriesArgs = QueryArgs & {
   userId: number | undefined;
 };
 
+type UpdateWorkingDaysArgs = QueryArgs & {
+  idUser: number;
+};
+
+type GetWorkingDaysArgs = QueryArgs & {
+  userId: number;
+};
+
 export const UserQuery = {
   Create: ({ onError, onSuccess }: QueryArgs<User> = {}) => {
     return useMutation({
@@ -58,17 +66,31 @@ export const UserQuery = {
     });
   },
 
-  Warnings: ({ onError, onSuccess, userId }: WarningQueriesArgs) => {
+  Warnings: ({ userId }: WarningQueriesArgs) => {
     return useQuery({
       queryKey: ['get-user-warnings', userId],
       queryFn: () => UserService.warnings({ userId }),
       enabled: !!userId,
+    });
+  },
+
+  UpdateWorkingDays: ({ onError, onSuccess }: UpdateWorkingDaysArgs) => {
+    return useMutation({
+      mutationFn: UserService.updateWorkingDays,
       onSuccess: (data) => {
         onSuccess?.(data);
       },
       onError: (error: AxiosError) => {
         onError?.(error);
       },
+    });
+  },
+
+  GetWorkingDays: ({ userId }: GetWorkingDaysArgs) => {
+    return useQuery({
+      queryKey: ['get-user-working-days', userId],
+      queryFn: () => UserService.getWorkingDays(userId),
+      enabled: !!userId,
     });
   },
 };

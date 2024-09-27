@@ -41,3 +41,13 @@ export const HOURS_ATTENDED = [
   '23:00',
   '23:30',
 ];
+
+export const WEEK_DAYS = {
+  SUNDAY: 0,
+  MONDAY: 1,
+  TUESDAY: 2,
+  WEDNESDAY: 3,
+  THURSDAY: 4,
+  FRIDAY: 5,
+  SATURDAY: 6,
+};

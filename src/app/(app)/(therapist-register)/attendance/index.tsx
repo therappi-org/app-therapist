@@ -18,8 +18,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { BottomSheet } from '@/components/BottomSheet';
 import { Button } from '@/components/Button';
+import { useAuth } from '@/contexts/useAuth';
+import { UserQuery } from '@/queries/user';
 import colors from '@/theme/colors';
-import { HOURS_ATTENDED } from '@/utils/constants';
+import { HOURS_ATTENDED, WEEK_DAYS } from '@/utils/constants';
 import { hexToRGBA } from '@/utils/hexToRGBA';
 import { cn } from '@/utils/lib';
 
@@ -38,7 +40,7 @@ type SwitchButtonProps = {
   setIsEnabled: (value: React.SetStateAction<boolean>) => void;
 };
 
-const weekend = ['Sábado', 'Domingo'];
+const weekend = ['SATURDAY', 'SUNDAY'] as const;
 
 const HourButton = ({
   hour,
@@ -104,10 +106,18 @@ export default function Attendance() {
   const [scrollPositionStartTime, setScrollPositionStartTime] = useState(0);
   const [scrollPositionEndTime, setScrollPositionEndTime] = useState(0);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-
   const insets = useSafeAreaInsets();
   const scrollViewRefAttendanceStartTime = useRef<ScrollView>(null);
   const scrollViewRefAttendanceEndTime = useRef<ScrollView>(null);
+  const { userData } = useAuth();
+
+  const { mutate: updateWorkingDays } = UserQuery.UpdateWorkingDays({
+    idUser: userData!.id,
+  });
+
+  const { data: workingDays } = UserQuery.GetWorkingDays({
+    userId: userData!.id,
+  });
 
   const getAttendanceMessage = () => {
     if (isWeekend && isHoliday) {
@@ -160,6 +170,45 @@ export default function Attendance() {
     bottomSheetModalRef.current?.dismiss();
   }, []);
 
+  const handleSaveSchedule = () => {
+    let days = [];
+
+    const weekdays = Object.entries(WEEK_DAYS).filter(
+      ([day]) => !weekend.includes(day as (typeof weekend)[number])
+    );
+    days = weekdays.map(([_, index]) => ({
+      nWeekDay: index,
+      dStartTime: attendanceStartTime,
+      dStopTime: attendanceEndTime,
+    }));
+
+    if (isWeekend) {
+      const weekendDays = Object.entries(WEEK_DAYS).filter(([day]) =>
+        weekend.includes(day as (typeof weekend)[number])
+      );
+      let selectedWeekendDays = weekendDays;
+
+      if (weekendAttendance.length > 0) {
+        selectedWeekendDays = weekendDays.filter(([day]) => weekendAttendance.includes(day));
+      }
+
+      const weekendWorkingDays = selectedWeekendDays.map(([day, index]) => ({
+        nWeekDay: index,
+        dStartTime: attendanceStartTime,
+        dStopTime: attendanceEndTime,
+      }));
+
+      days = [...days, ...weekendWorkingDays];
+    }
+
+    updateWorkingDays({
+      idUser: userData!.id,
+      days,
+    });
+
+    handleDismissModal();
+  };
+
   return (
     <BottomSheetModalProvider>
       <TouchableWithoutFeedback onPress={handleDismissModal}>
@@ -170,7 +219,7 @@ export default function Attendance() {
             backgroundColor: colors.gray[100],
           }}>
           <StatusBar style="dark" />
-          <ScrollView showsVerticalScrollIndicator={false} className="flex-1 bg-gray-100 px-6">
+          <ScrollView showsVerticalScrollIndicator={false} className="mx-6 flex-1 bg-gray-100">
             <Button className="mt-4 h-14 w-full rounded-2xl bg-white">
               <View className="w-full flex-row items-center justify-between px-6">
                 <Text className="font-MontserratBold text-sm text-gray-600">
@@ -330,7 +379,7 @@ export default function Attendance() {
                                 'font-MontserratBold text-lg text-gray-600',
                                 weekendAttendance.includes(day) && 'text-white'
                               )}>
-                              {day}
+                              {day === 'SATURDAY' ? 'Sábado' : 'Domingo'}
                             </Text>
                           </View>
                         </Button>
@@ -339,12 +388,12 @@ export default function Attendance() {
                   )}
                 </View>
 
-                <SwitchButton
+                {/* <SwitchButton
                   title="Feriados"
                   description={isHoliday ? 'Aceitar atendimentos' : 'Não aceitar atendimentos'}
                   isEnabled={isHoliday}
                   setIsEnabled={setIsHoliday}
-                />
+                /> */}
 
                 <SwitchButton
                   title="Horários de intervalo"
@@ -364,6 +413,7 @@ export default function Attendance() {
                   className="mb-12 mt-4">
                   {HOURS_ATTENDED.map((hour, index) => (
                     <Button
+                      key={hour}
                       onPress={() => {
                         if (attendanceInterval.includes(hour)) {
                           setAttendanceInterval(attendanceInterval.filter((item) => item !== hour));
@@ -389,17 +439,16 @@ export default function Attendance() {
                   ))}
                 </ScrollView>
               )}
-
-              <View className={cn('mb-10', !hasInterval && 'mt-10')}>
-                <Button
-                  className="w-full"
-                  onPress={handlePresentModalPress}
-                  disabled={!attendanceStartTime || !attendanceEndTime}>
-                  <Text className="font-MontserratBold text-base text-gray-50">Revisar agenda</Text>
-                </Button>
-              </View>
             </View>
           </ScrollView>
+          <View className={cn('top-auto mx-6', !hasInterval && 'mt-10')}>
+            <Button
+              className="w-full"
+              onPress={handlePresentModalPress}
+              disabled={!attendanceStartTime || !attendanceEndTime}>
+              <Text className="font-MontserratBold text-base text-gray-50">Revisar agenda</Text>
+            </Button>
+          </View>
         </View>
       </TouchableWithoutFeedback>
 
@@ -416,7 +465,8 @@ export default function Attendance() {
           </View>
 
           <View>
-            <Text className="font-MontserratMedium text-base">Feriados e finais de semana</Text>
+            {/* <Text className="font-MontserratMedium text-base">Feriados e finais de semana</Text> */}
+            <Text className="font-MontserratMedium text-base">Finais de semana</Text>
             <Text className="font-MontserratBold text-base">{getAttendanceMessage()}</Text>
           </View>
 
@@ -439,11 +489,7 @@ export default function Attendance() {
             </Text>
           </View>
           <View className="items-center gap-4">
-            <Button
-              onPress={() => {
-                bottomSheetModalRef?.current?.dismiss();
-              }}
-              className="h-[56px] w-full">
+            <Button onPress={handleSaveSchedule} className="h-[56px] w-full">
               <Text className="text-bas font-MontserratBold text-white">Criar atendimento</Text>
             </Button>
 

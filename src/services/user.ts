@@ -12,6 +12,18 @@ type UpdateAvatarData = {
   formData: FormData;
 };
 
+type WorkingDay = {
+  id: number;
+  nWeekDay: number;
+  dStartTime: string;
+  dStopTime: string;
+};
+
+type UpdateWorkingDaysData = {
+  idUser: number;
+  days: Omit<WorkingDay, 'id'>[];
+};
+
 const baseUrl = '/user';
 
 export const UserService = {
@@ -53,6 +65,17 @@ export const UserService = {
   warnings: async ({ userId }: { userId: number | undefined }) => {
     const response = await axiosConfig.get<WarningData[]>(`${baseUrl}/${userId}/warnings`);
 
+    return response?.data;
+  },
+
+  updateWorkingDays: async (data: UpdateWorkingDaysData) => {
+    console.log('data', data);
+    const response = await axiosConfig.post<WorkingDay[]>(`/userworkingday`, data);
+    return response?.data;
+  },
+
+  getWorkingDays: async (userId: number) => {
+    const response = await axiosConfig.get<WorkingDay[]>(`/userworkingday/${userId}`);
     return response?.data;
   },
 };
