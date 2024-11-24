@@ -2,8 +2,9 @@ import { Feather, FontAwesome } from '@expo/vector-icons';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { Image } from 'expo-image';
 import * as Linking from 'expo-linking';
+import { router } from 'expo-router';
 import React, { useCallback, useRef } from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
 
 import { BottomSheet } from '@/components/BottomSheet';
 import { Button } from '@/components/Button';
@@ -59,7 +60,7 @@ export const RegistrationStatus = ({ registrationWarningData }: RegistrationStat
 
   return (
     <View className="flex-1 shadow-custom-light">
-      <View className="rounded-t-lg bg-white px-5 py-8">
+      <View className="flex-1 rounded-t-lg bg-white px-5 py-8">
         <View className="mb-4 flex-row items-center justify-between">
           <Text className="font-MontserratBold text-base text-gray-600">
             Status do seu cadastro
@@ -72,7 +73,9 @@ export const RegistrationStatus = ({ registrationWarningData }: RegistrationStat
 
         <View className="flex-1 gap-4">
           {registrationWarningData?.map((status) => (
-            <View key={status?.s_warning} className="flex-row items-center justify-between">
+            <View
+              key={status.s_warning + status.s_status + status.s_reason}
+              className="flex-1 flex-row items-center justify-between">
               <View className="flex-row items-center gap-4">
                 <View
                   className="h-8 w-8 items-center justify-center rounded-full bg-gray-100"
@@ -142,10 +145,14 @@ export const RegistrationStatus = ({ registrationWarningData }: RegistrationStat
           ))}
         </View>
       </View>
-
-      <View className="min-h-16 items-center justify-center rounded-b-lg bg-gray-100 py-5">
-        <Text className="font-MontserratBold text-base text-brand">Completar meu cadastro</Text>
-      </View>
+      {registrationWarningData?.some((status) => status?.s_status === 'I') && (
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => router.push('/(app)/(tabs)/profile')}
+          className="min-h-16 items-center justify-center rounded-b-lg bg-gray-100 py-5">
+          <Text className="font-MontserratBold text-base text-brand">Completar meu cadastro</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
