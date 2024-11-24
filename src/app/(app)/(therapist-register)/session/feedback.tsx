@@ -31,13 +31,11 @@ export default function TherapyFeedback() {
         </View>
 
         <View className="w-full flex-col justify-between gap-2">
-          <Link asChild replace href="/(app)/(tabs)">
-            <Button
-              onPress={async () => {
-                await storeData(THERAPIST_REGISTERED_KEY, JSON.stringify(true));
-              }}
-              className="w-full">
-              <Text className="font-MontserratBold text-base text-gray-50">Acessar a Home</Text>
+          <Link asChild replace href="/(app)/(therapist-register)/attendance">
+            <Button className="w-full">
+              <Text className="font-MontserratBold text-base text-gray-50">
+                Configurar atendimento
+              </Text>
             </Button>
           </Link>
           <Link
