@@ -4,6 +4,7 @@ import {
   BottomSheetModalProvider,
   TouchableWithoutFeedback,
 } from '@gorhom/bottom-sheet';
+import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useCallback, useRef, useState } from 'react';
 import {
@@ -21,7 +22,8 @@ import { Button } from '@/components/Button';
 import { useAuth } from '@/contexts/useAuth';
 import { UserQuery } from '@/queries/user';
 import colors from '@/theme/colors';
-import { HOURS_ATTENDED, WEEK_DAYS } from '@/utils/constants';
+import { storeData } from '@/utils/asyncStoreData';
+import { HOURS_ATTENDED, THERAPIST_REGISTERED_KEY, WEEK_DAYS } from '@/utils/constants';
 import { hexToRGBA } from '@/utils/hexToRGBA';
 import { cn } from '@/utils/lib';
 
@@ -111,13 +113,15 @@ export default function Attendance() {
   const scrollViewRefAttendanceEndTime = useRef<ScrollView>(null);
   const { userData } = useAuth();
 
-  const { mutate: updateWorkingDays } = UserQuery.UpdateWorkingDays({
-    idUser: userData!.id,
-  });
-
-  const { data: workingDays } = UserQuery.GetWorkingDays({
-    userId: userData!.id,
-  });
+  const { mutate: updateWorkingDays, isLoading: isUpdatingWorkingDays } =
+    UserQuery.UpdateWorkingDays({
+      idUser: userData!.id,
+      onSuccess: async () => {
+        router.replace('/(app)/(tabs)');
+        await storeData(THERAPIST_REGISTERED_KEY, JSON.stringify(true));
+        handleDismissModal();
+      },
+    });
 
   const getAttendanceMessage = () => {
     if (isWeekend && isHoliday) {
@@ -205,8 +209,6 @@ export default function Attendance() {
       idUser: userData!.id,
       days,
     });
-
-    handleDismissModal();
   };
 
   return (
@@ -387,15 +389,13 @@ export default function Attendance() {
                     </View>
                   )}
                 </View>
-
                 {/* <SwitchButton
                   title="Feriados"
                   description={isHoliday ? 'Aceitar atendimentos' : 'Não aceitar atendimentos'}
                   isEnabled={isHoliday}
                   setIsEnabled={setIsHoliday}
                 /> */}
-
-                <SwitchButton
+                {/* <SwitchButton
                   title="Horários de intervalo"
                   description="Adicione pausas no dia"
                   isEnabled={hasInterval}
@@ -403,7 +403,7 @@ export default function Attendance() {
                     setHasInterval(value);
                     if (value) setAttendanceInterval([]);
                   }}
-                />
+                /> */}
               </View>
 
               {hasInterval && (
@@ -470,7 +470,7 @@ export default function Attendance() {
             <Text className="font-MontserratBold text-base">{getAttendanceMessage()}</Text>
           </View>
 
-          <View>
+          {/* <View>
             <Text className="font-MontserratMedium text-base">Horários de intervalo</Text>
             <Text className="font-MontserratBold text-base">
               {hasInterval
@@ -479,7 +479,7 @@ export default function Attendance() {
                   attendanceInterval.sort()[attendanceInterval.length - 1]
                 : 'Sem atendimentos'}
             </Text>
-          </View>
+          </View> */}
         </View>
 
         <View className="flex-1 justify-between">
@@ -489,12 +489,17 @@ export default function Attendance() {
             </Text>
           </View>
           <View className="items-center gap-4">
-            <Button onPress={handleSaveSchedule} className="h-[56px] w-full">
+            <Button
+              onPress={handleSaveSchedule}
+              className="h-[56px] w-full"
+              disabled={isUpdatingWorkingDays}
+              isLoading={isUpdatingWorkingDays}>
               <Text className="text-bas font-MontserratBold text-white">Criar atendimento</Text>
             </Button>
 
             <Button
               variant="outline"
+              disabled={isUpdatingWorkingDays}
               onPress={() => {
                 bottomSheetModalRef?.current?.dismiss();
               }}
