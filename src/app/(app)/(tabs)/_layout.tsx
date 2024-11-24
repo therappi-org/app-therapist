@@ -1,8 +1,8 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import Feather from '@expo/vector-icons/Feather';
 import { Tabs, router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { SplashScreen } from '@/components/SplashScreen';
@@ -58,14 +58,30 @@ export default function Layout() {
             name="index"
             options={{
               title: 'Home',
-              tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
+              tabBarLabel: ({ color }) => (
+                <Text style={{ color, fontWeight: 'bold', fontSize: 11 }}>Home</Text>
+              ),
+              tabBarIcon: ({ color }) => <Feather size={24} name="home" color={color} />,
+            }}
+          />
+          <Tabs.Screen
+            name="profile"
+            options={{
+              title: 'Meu Perfil',
+              tabBarLabel: ({ color }) => (
+                <Text style={{ color, fontWeight: 'bold', fontSize: 11 }}>Meu Perfil</Text>
+              ),
+              tabBarIcon: ({ color }) => <Feather size={24} name="user" color={color} />,
             }}
           />
           <Tabs.Screen
             name="settings"
             options={{
-              title: 'Settings',
-              tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
+              title: 'Configurações',
+              tabBarLabel: ({ color }) => (
+                <Text style={{ color, fontWeight: 'bold', fontSize: 11 }}>Configurações</Text>
+              ),
+              tabBarIcon: ({ color }) => <Feather size={24} name="settings" color={color} />,
             }}
           />
         </Tabs>
