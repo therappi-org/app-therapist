@@ -23,7 +23,9 @@ export const Button = forwardRef<TouchableOpacity, ButtonProps>(
           disabled && 'opacity-40'
         } ${isLoading && 'h-14'}`,
       variant === 'outline' &&
-        `w-80 max-w-full items-center justify-center rounded-full border border-brand py-4`,
+        `w-80 max-w-full items-center justify-center rounded-full border border-gray-500 py-4 ${
+          disabled && 'opacity-40'
+        }`,
       variant === 'rounded' &&
         `h-14 w-14 items-center justify-center rounded-full bg-brand ${
           disabled ? 'opacity-40' : 'bg-brand'
