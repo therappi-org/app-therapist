@@ -10,7 +10,7 @@ import { BottomSheet } from '@/components/BottomSheet';
 import { Button } from '@/components/Button';
 import colors from '@/theme/colors';
 import { WarningData } from '@/types/user';
-import { hexToRGBA } from '@/utils/hexToRGBA';
+import { hexToRGBA } from '@/utils/hexToRgba';
 import { cn } from '@/utils/lib';
 
 type RegistrationStatusProps = {

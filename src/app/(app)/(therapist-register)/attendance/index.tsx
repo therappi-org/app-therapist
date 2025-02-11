@@ -24,7 +24,7 @@ import { UserQuery } from '@/queries/user';
 import colors from '@/theme/colors';
 import { storeData } from '@/utils/asyncStoreData';
 import { HOURS_ATTENDED, THERAPIST_REGISTERED_KEY, WEEK_DAYS } from '@/utils/constants';
-import { hexToRGBA } from '@/utils/hexToRGBA';
+import { hexToRGBA } from '@/utils/hexToRgba';
 import { cn } from '@/utils/lib';
 
 type HourButtonProps = {
