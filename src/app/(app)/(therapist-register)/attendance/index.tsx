@@ -1,9 +1,5 @@
 import { Feather } from '@expo/vector-icons';
-import {
-  BottomSheetModal,
-  BottomSheetModalProvider,
-  TouchableWithoutFeedback,
-} from '@gorhom/bottom-sheet';
+import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useCallback, useRef, useState } from 'react';
@@ -213,189 +209,182 @@ export default function Attendance() {
 
   return (
     <BottomSheetModalProvider>
-      <TouchableWithoutFeedback onPress={handleDismissModal}>
-        <View
-          style={{
-            flex: 1,
-            paddingBottom: insets.bottom,
-            backgroundColor: colors.gray[100],
-          }}>
-          <StatusBar style="dark" />
-          <ScrollView showsVerticalScrollIndicator={false} className="mx-6 flex-1 bg-gray-100">
-            <Button className="mt-4 h-14 w-full rounded-2xl bg-white">
-              <View className="w-full flex-row items-center justify-between px-6">
-                <Text className="font-MontserratBold text-sm text-gray-600">
-                  Agenda com horário único
-                </Text>
-                <Feather
-                  name="chevron-down"
-                  size={24}
-                  color={colors.brand['DEFAULT']}
-                  backgroundColor="transparent"
-                />
-              </View>
-            </Button>
+      <View
+        style={{
+          flex: 1,
+          paddingBottom: insets.bottom,
+          backgroundColor: colors.gray[100],
+        }}>
+        <StatusBar style="dark" />
+        <ScrollView showsVerticalScrollIndicator={false} className="mx-6 flex-1 bg-gray-100">
+          <Button className="mt-4 h-14 w-full rounded-2xl bg-white">
+            <View className="w-full flex-row items-center justify-between px-6">
+              <Text className="font-MontserratBold text-sm text-gray-600">
+                Agenda com horário único
+              </Text>
+              <Feather
+                name="chevron-down"
+                size={24}
+                color={colors.brand['DEFAULT']}
+                backgroundColor="transparent"
+              />
+            </View>
+          </Button>
 
-            <View className="mt-6">
-              <View className="flex-row items-center justify-between">
-                <Text className="font-MontserratBold text-base text-gray-600">
-                  Início do atendimento
-                </Text>
+          <View className="mt-6">
+            <View className="flex-row items-center justify-between">
+              <Text className="font-MontserratBold text-base text-gray-600">
+                Início do atendimento
+              </Text>
 
-                <View className="flex-row items-center gap-4">
-                  <Button
-                    onPress={() =>
-                      scrollLeft(scrollViewRefAttendanceStartTime, scrollPositionStartTime)
-                    }
-                    className="h-8 w-8 bg-white"
-                    variant="rounded">
-                    <Feather
-                      name="chevron-left"
-                      size={19}
-                      color={colors.brand['DEFAULT']}
-                      backgroundColor="transparent"
-                    />
-                  </Button>
-
-                  <Button
-                    onPress={() =>
-                      scrollRight(scrollViewRefAttendanceStartTime, scrollPositionStartTime)
-                    }
-                    className="h-8 w-8 bg-white"
-                    variant="rounded">
-                    <Feather
-                      name="chevron-right"
-                      size={19}
-                      color={colors.brand['DEFAULT']}
-                      backgroundColor="transparent"
-                    />
-                  </Button>
-                </View>
-              </View>
-
-              <ScrollView
-                ref={scrollViewRefAttendanceStartTime}
-                onScroll={(event) => onScroll(event, setScrollPositionStartTime)}
-                scrollEventThrottle={16}
-                showsHorizontalScrollIndicator={false}
-                horizontal
-                className="mt-4">
-                {HOURS_ATTENDED.map((hour, index) => (
-                  <HourButton
-                    key={hour}
-                    hour={hour}
-                    index={index}
-                    attendanceTime={attendanceStartTime}
-                    setAttendanceTime={setAttendanceStartTime}
+              <View className="flex-row items-center gap-4">
+                <Button
+                  onPress={() =>
+                    scrollLeft(scrollViewRefAttendanceStartTime, scrollPositionStartTime)
+                  }
+                  className="h-8 w-8 bg-white"
+                  variant="rounded">
+                  <Feather
+                    name="chevron-left"
+                    size={19}
+                    color={colors.brand['DEFAULT']}
+                    backgroundColor="transparent"
                   />
-                ))}
-              </ScrollView>
+                </Button>
+
+                <Button
+                  onPress={() =>
+                    scrollRight(scrollViewRefAttendanceStartTime, scrollPositionStartTime)
+                  }
+                  className="h-8 w-8 bg-white"
+                  variant="rounded">
+                  <Feather
+                    name="chevron-right"
+                    size={19}
+                    color={colors.brand['DEFAULT']}
+                    backgroundColor="transparent"
+                  />
+                </Button>
+              </View>
             </View>
 
-            <View className="mt-6">
-              <View className="flex-row items-center justify-between">
-                <Text className="font-MontserratBold text-base text-gray-600">
-                  Fim do atendimento
-                </Text>
+            <ScrollView
+              ref={scrollViewRefAttendanceStartTime}
+              onScroll={(event) => onScroll(event, setScrollPositionStartTime)}
+              scrollEventThrottle={16}
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              className="mt-4">
+              {HOURS_ATTENDED.map((hour, index) => (
+                <HourButton
+                  key={hour}
+                  hour={hour}
+                  index={index}
+                  attendanceTime={attendanceStartTime}
+                  setAttendanceTime={setAttendanceStartTime}
+                />
+              ))}
+            </ScrollView>
+          </View>
 
-                <View className="flex-row items-center gap-4">
-                  <Button
-                    onPress={() =>
-                      scrollLeft(scrollViewRefAttendanceEndTime, scrollPositionEndTime)
-                    }
-                    className="h-8 w-8 bg-white"
-                    variant="rounded">
-                    <Feather
-                      name="chevron-left"
-                      size={19}
-                      color={colors.brand['DEFAULT']}
-                      backgroundColor="transparent"
-                    />
-                  </Button>
+          <View className="mt-6">
+            <View className="flex-row items-center justify-between">
+              <Text className="font-MontserratBold text-base text-gray-600">
+                Fim do atendimento
+              </Text>
 
-                  <Button
-                    onPress={() =>
-                      scrollRight(scrollViewRefAttendanceEndTime, scrollPositionEndTime)
-                    }
-                    className="h-8 w-8 bg-white"
-                    variant="rounded">
-                    <Feather
-                      name="chevron-right"
-                      size={19}
-                      color={colors.brand['DEFAULT']}
-                      backgroundColor="transparent"
-                    />
-                  </Button>
-                </View>
+              <View className="flex-row items-center gap-4">
+                <Button
+                  onPress={() => scrollLeft(scrollViewRefAttendanceEndTime, scrollPositionEndTime)}
+                  className="h-8 w-8 bg-white"
+                  variant="rounded">
+                  <Feather
+                    name="chevron-left"
+                    size={19}
+                    color={colors.brand['DEFAULT']}
+                    backgroundColor="transparent"
+                  />
+                </Button>
+
+                <Button
+                  onPress={() => scrollRight(scrollViewRefAttendanceEndTime, scrollPositionEndTime)}
+                  className="h-8 w-8 bg-white"
+                  variant="rounded">
+                  <Feather
+                    name="chevron-right"
+                    size={19}
+                    color={colors.brand['DEFAULT']}
+                    backgroundColor="transparent"
+                  />
+                </Button>
               </View>
+            </View>
 
-              <ScrollView
-                ref={scrollViewRefAttendanceEndTime}
-                onScroll={(event) => onScroll(event, setScrollPositionEndTime)}
-                scrollEventThrottle={16}
-                showsHorizontalScrollIndicator={false}
-                horizontal
-                className="mt-4">
-                {HOURS_ATTENDED.map((hour, index) => (
-                  <HourButton
-                    key={hour}
-                    hour={hour}
-                    index={index}
-                    attendanceTime={attendanceEndTime}
-                    setAttendanceTime={setAttendanceEndTime}
-                  />
-                ))}
-              </ScrollView>
+            <ScrollView
+              ref={scrollViewRefAttendanceEndTime}
+              onScroll={(event) => onScroll(event, setScrollPositionEndTime)}
+              scrollEventThrottle={16}
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              className="mt-4">
+              {HOURS_ATTENDED.map((hour, index) => (
+                <HourButton
+                  key={hour}
+                  hour={hour}
+                  index={index}
+                  attendanceTime={attendanceEndTime}
+                  setAttendanceTime={setAttendanceEndTime}
+                />
+              ))}
+            </ScrollView>
 
-              <View className="mt-9 gap-4">
-                <View>
-                  <SwitchButton
-                    title="Finais de semana"
-                    description={isWeekend ? 'Aceitar atendimentos' : 'Não aceitar atendimentos'}
-                    isEnabled={isWeekend}
-                    setIsEnabled={setIsWeekend}
-                  />
+            <View className="mt-9 gap-4">
+              <View>
+                <SwitchButton
+                  title="Finais de semana"
+                  description={isWeekend ? 'Aceitar atendimentos' : 'Não aceitar atendimentos'}
+                  isEnabled={isWeekend}
+                  setIsEnabled={setIsWeekend}
+                />
 
-                  {isWeekend && (
-                    <View className="flex-row">
-                      {weekend.map((day, index) => (
-                        <Button
-                          key={day}
-                          onPress={() => {
-                            if (weekendAttendance.includes(day)) {
-                              setWeekendAttendance(
-                                weekendAttendance.filter((item) => item !== day)
-                              );
-                              return;
-                            }
-                            setWeekendAttendance([...weekendAttendance, day]);
-                          }}
-                          className={cn(
-                            'mt-4 h-16 w-[86px] rounded-2xl bg-white',
-                            index !== 0 && 'ml-3',
-                            weekendAttendance.includes(day) && 'bg-brand'
-                          )}>
-                          <View className="w-full items-center justify-between">
-                            <Text
-                              className={cn(
-                                'font-MontserratBold text-lg text-gray-600',
-                                weekendAttendance.includes(day) && 'text-white'
-                              )}>
-                              {day === 'SATURDAY' ? 'Sábado' : 'Domingo'}
-                            </Text>
-                          </View>
-                        </Button>
-                      ))}
-                    </View>
-                  )}
-                </View>
-                {/* <SwitchButton
+                {isWeekend && (
+                  <View className="flex-row">
+                    {weekend.map((day, index) => (
+                      <Button
+                        key={day}
+                        onPress={() => {
+                          if (weekendAttendance.includes(day)) {
+                            setWeekendAttendance(weekendAttendance.filter((item) => item !== day));
+                            return;
+                          }
+                          setWeekendAttendance([...weekendAttendance, day]);
+                        }}
+                        className={cn(
+                          'mt-4 h-16 w-[86px] rounded-2xl bg-white',
+                          index !== 0 && 'ml-3',
+                          weekendAttendance.includes(day) && 'bg-brand'
+                        )}>
+                        <View className="w-full items-center justify-between">
+                          <Text
+                            className={cn(
+                              'font-MontserratBold text-lg text-gray-600',
+                              weekendAttendance.includes(day) && 'text-white'
+                            )}>
+                            {day === 'SATURDAY' ? 'Sábado' : 'Domingo'}
+                          </Text>
+                        </View>
+                      </Button>
+                    ))}
+                  </View>
+                )}
+              </View>
+              {/* <SwitchButton
                   title="Feriados"
                   description={isHoliday ? 'Aceitar atendimentos' : 'Não aceitar atendimentos'}
                   isEnabled={isHoliday}
                   setIsEnabled={setIsHoliday}
                 /> */}
-                {/* <SwitchButton
+              {/* <SwitchButton
                   title="Horários de intervalo"
                   description="Adicione pausas no dia"
                   isEnabled={hasInterval}
@@ -404,53 +393,49 @@ export default function Attendance() {
                     if (value) setAttendanceInterval([]);
                   }}
                 /> */}
-              </View>
-
-              {hasInterval && (
-                <ScrollView
-                  showsHorizontalScrollIndicator={false}
-                  horizontal
-                  className="mb-12 mt-4">
-                  {HOURS_ATTENDED.map((hour, index) => (
-                    <Button
-                      key={hour}
-                      onPress={() => {
-                        if (attendanceInterval.includes(hour)) {
-                          setAttendanceInterval(attendanceInterval.filter((item) => item !== hour));
-                          return;
-                        }
-                        setAttendanceInterval([...attendanceInterval, hour]);
-                      }}
-                      className={cn(
-                        'mt-4 h-16 w-[86px] rounded-2xl bg-white',
-                        index !== 0 && 'ml-3',
-                        attendanceInterval.includes(hour) && 'bg-feedback-error'
-                      )}>
-                      <View className="w-full items-center justify-between">
-                        <Text
-                          className={cn(
-                            'font-MontserratBold text-lg text-gray-600',
-                            attendanceInterval.includes(hour) && 'text-white'
-                          )}>
-                          {hour}
-                        </Text>
-                      </View>
-                    </Button>
-                  ))}
-                </ScrollView>
-              )}
             </View>
-          </ScrollView>
-          <View className={cn('top-auto mx-6', !hasInterval && 'mt-10')}>
-            <Button
-              className="w-full"
-              onPress={handlePresentModalPress}
-              disabled={!attendanceStartTime || !attendanceEndTime}>
-              <Text className="font-MontserratBold text-base text-gray-50">Revisar agenda</Text>
-            </Button>
+
+            {hasInterval && (
+              <ScrollView showsHorizontalScrollIndicator={false} horizontal className="mb-12 mt-4">
+                {HOURS_ATTENDED.map((hour, index) => (
+                  <Button
+                    key={hour}
+                    onPress={() => {
+                      if (attendanceInterval.includes(hour)) {
+                        setAttendanceInterval(attendanceInterval.filter((item) => item !== hour));
+                        return;
+                      }
+                      setAttendanceInterval([...attendanceInterval, hour]);
+                    }}
+                    className={cn(
+                      'mt-4 h-16 w-[86px] rounded-2xl bg-white',
+                      index !== 0 && 'ml-3',
+                      attendanceInterval.includes(hour) && 'bg-feedback-error'
+                    )}>
+                    <View className="w-full items-center justify-between">
+                      <Text
+                        className={cn(
+                          'font-MontserratBold text-lg text-gray-600',
+                          attendanceInterval.includes(hour) && 'text-white'
+                        )}>
+                        {hour}
+                      </Text>
+                    </View>
+                  </Button>
+                ))}
+              </ScrollView>
+            )}
           </View>
+        </ScrollView>
+        <View className={cn('top-auto mx-6 mb-2', !hasInterval && 'mt-10')}>
+          <Button
+            className="w-full"
+            onPress={handlePresentModalPress}
+            disabled={!attendanceStartTime || !attendanceEndTime}>
+            <Text className="font-MontserratBold text-base text-gray-50">Revisar agenda</Text>
+          </Button>
         </View>
-      </TouchableWithoutFeedback>
+      </View>
 
       <BottomSheet
         bottomSheetModalRef={bottomSheetModalRef}
@@ -488,7 +473,7 @@ export default function Attendance() {
               Caso faça alterações com atendimentos marcados, eles serão cancelados
             </Text>
           </View>
-          <View className="items-center gap-4">
+          <View className="mb-2 items-center gap-4">
             <Button
               onPress={handleSaveSchedule}
               className="h-[56px] w-full"
