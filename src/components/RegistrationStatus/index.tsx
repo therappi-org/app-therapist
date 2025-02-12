@@ -54,8 +54,6 @@ export const RegistrationStatus = ({ registrationWarningData }: RegistrationStat
 
   const handlePresentModalPress = useCallback((WarningData: WarningData) => {
     bottomSheetModalRef.current?.present();
-
-    console.log(WarningData);
   }, []);
 
   return (

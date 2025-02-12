@@ -8,8 +8,6 @@ import colors from '@/theme/colors';
 export default function Profile() {
   const { userData } = useAuth();
 
-  console.log(userData);
-
   return (
     <View className="flex-1 bg-gray-100 px-6">
       <View>

@@ -141,17 +141,8 @@ export default function Attendance() {
     setScrollPosition: React.Dispatch<React.SetStateAction<number>>
   ) => {
     const offset = event.nativeEvent.contentOffset.x;
-    const width = event.nativeEvent.layoutMeasurement.width;
-    const contentWidth = event.nativeEvent.contentSize.width;
 
     setScrollPosition(offset);
-
-    if (offset === 0) {
-      console.log('At start');
-    }
-    if (Math.abs(offset + width - contentWidth) < 1) {
-      console.log('At end');
-    }
   };
 
   const scrollLeft = (scrollViewRef: React.RefObject<ScrollView>, scrollPosition: number) => {

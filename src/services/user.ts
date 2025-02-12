@@ -69,7 +69,6 @@ export const UserService = {
   },
 
   updateWorkingDays: async (data: UpdateWorkingDaysData) => {
-    console.log('data', data);
     const response = await axiosConfig.post<WorkingDay[]>(`/userworkingday`, data);
     return response?.data;
   },

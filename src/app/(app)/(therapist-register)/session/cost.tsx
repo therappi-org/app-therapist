@@ -80,7 +80,6 @@ export default function SessionCost() {
                 keyboardType="number-pad"
                 onChangeText={(_, unmaskedCurrency) => {
                   if (unmaskedCurrency === '0' && unmaskedCurrency.length === 1) return;
-                  // console.log(maskedCurrency.slice(3));
                   onChange(unmaskedCurrency);
                   setCurrency(Number(unmaskedCurrency));
                 }}
