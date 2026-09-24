@@ -1,7 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { Image } from 'expo-image';
-import { ScrollView, Text, View } from 'react-native';
+import { RefreshControl, ScrollView, Text, View } from 'react-native';
 
 import { Button } from '@/components/Button';
 import { RegistrationStatus } from '@/components/RegistrationStatus';
@@ -11,12 +11,26 @@ import colors from '@/theme/colors';
 
 export default function Home() {
   const { userData } = useAuth();
-  const { data: registrationWarningData } = UserQuery.Warnings({ userId: userData?.id });
+  const {
+    data: registrationWarningData,
+    refetch: refetchWarnings,
+    isRefetching: isRefetchingWarnings,
+  } = UserQuery.Warnings({ userId: userData?.id });
 
   return (
     <BottomSheetModalProvider>
       <View className="flex-1 bg-gray-100">
-        <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          className="flex-1"
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefetchingWarnings}
+              onRefresh={refetchWarnings}
+              tintColor={colors.brand.DEFAULT}
+              colors={[colors.brand.DEFAULT]}
+            />
+          }>
           <View className="px-4 pb-4">
             <View className="mt-8 flex-row justify-between">
               <View>

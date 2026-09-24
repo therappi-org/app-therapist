@@ -34,16 +34,29 @@ This is the **therapist-facing** Expo app of the Therappi platform. The companio
 
 ```
 src/app/
-  _layout.tsx               — root: providers (QueryClient, Auth, GestureHandler, SafeArea)
-  (auth)/                   — unauthenticated screens (sign-in, create-account, forgot-password)
+  _layout.tsx                   — root: providers (QueryClient, Auth, GestureHandler, SafeArea)
+  (auth)/                       — unauthenticated screens
+    intro.tsx                   — landing/welcome
+    sign-in.tsx
+    create-account/             — multi-step: index → account-email/[name] → account-password/[...user] → feedback
+    forgot-password/            — [email] → feedback
   (app)/
-    _layout.tsx             — checks auth; redirects to (auth)/intro if not authenticated
-    (tabs)/                 — main app tabs: Home, Meu Perfil, Configurações
-    (walkthrough)/          — onboarding intro steps shown after first login
-    (therapist-register)/   — multi-step registration wizard (phone → address → photo → profile → session pricing)
+    _layout.tsx                 — auth gate: redirects to /(auth)/intro if not authenticated; shows custom SplashScreen while fonts load (3s delay)
+    (tabs)/                     — main app: Home, Meu Perfil (profile/), Configurações
+      profile/
+        index.tsx
+        registration-data.tsx
+    (walkthrough)/              — onboarding: intro → step-1 through step-5
+    (therapist-register)/       — registration wizard (see flow below)
 ```
 
-The `(app)/_layout.tsx` gate: if `isAuthenticated` is false → redirect to `/(auth)/intro`. The `(tabs)/_layout.tsx` gate: checks `THERAPIST_REGISTERED_KEY` in AsyncStorage; if missing → redirect to walkthrough or registration wizard.
+**Registration wizard flow** (`(therapist-register)/`):
+`phoneNumber` → `date-birth/[phoneNumber]` → `photo/` → `photo/addPhoto/` → `profissional-data/` → `profissional-data/bio` → `profissional-data/therapy/` → `profissional-data/therapy/select-therapy` → `profissional-data/therapy/feedbackTherapy` → `profissional-data/type-service` → `address/cep` → `address/full-address/[cep]` → `session/cost` → `session/duration` → `session/feedback`
+
+**Navigation gates:**
+- `(app)/_layout.tsx`: if `isAuthenticated` is false → redirect to `/(auth)/intro`
+- `(tabs)/_layout.tsx`: checks `THERAPIST_REGISTERED_KEY` in AsyncStorage; if missing → redirect to `/(app)/(walkthrough)/intro`
+- `(therapist-register)/_layout.tsx`: if `THERAPIST_REGISTERED_KEY` is set → redirect to `/(app)/(tabs)`
 
 ### Data Layer
 
@@ -59,17 +72,28 @@ The `(app)/_layout.tsx` gate: if `isAuthenticated` is false → redirect to `/(a
 
 `src/contexts/useAuth.tsx` — Context + Provider. Session token stored in `expo-secure-store` with a 30-day expiry. User object stored in `expo-secure-store`. Walkthrough/registration flags stored in `AsyncStorage`. On app load, the provider reads SecureStore; if token is expired it calls `signOut()` which clears all storage.
 
-Storage keys are in `src/utils/constants.ts`.
+Storage keys (in `src/utils/constants.ts`):
+- `therappi.therapist.token` — SecureStore: JWT
+- `therappi.therapist.user` — SecureStore: user object
+- `therappi.therapist.walkthrough` — AsyncStorage: walkthrough seen flag
+- `therappi.therapist.registered` — AsyncStorage: registration complete flag
 
 ### Client State
 
-`src/stories/useTherapyStore.ts` — Zustand store used during the therapist registration wizard to accumulate multi-screen form data (selected therapy, address, type of service, session price) before a final submit.
+`src/stories/useTherapyStore.ts` — Zustand store used during the registration wizard to accumulate form data (`selectedTherapy`, `address`, `typeOfService`, `currency`) before a final submit. Reset between wizard runs.
+
+### Layout Components
+
+- `src/layout/CardStack/` — branded full-screen wrapper (brand-color background + stacked white cards visual). Used on auth/onboarding screens.
+- `src/layout/KeyboardAvoidingViewLayout/` — scrollable layout with a branded header slot; used on form screens.
+- `src/hooks/useKeyboardStatus.tsx` — returns `'active' | 'inactive'`.
+- `src/hooks/useAnimatedKeyboardAwareStyle.tsx` — Reanimated `translateY` for Android small-screen keyboard avoidance (height < 700px).
 
 ### Styling
 
 NativeWind v4 (Tailwind CSS for React Native). Config in `tailwind.config.js`. Custom theme:
 - Colors: `brand`, `gray`, `dark`, `feedback` — defined in `src/theme/colors.js`
-- Fonts: `Montserrat{Light|Regular|Medium|SemiBold|Bold}` — loaded via `@expo-google-fonts/montserrat`
+- Fonts: `Montserrat{Light|Regular|Medium|SemiBold|Bold}` — loaded via `@expo-google-fonts/montserrat`; use class names like `font-MontserratSemiBold`
 - Helper: `src/utils/lib/index.tsx` exports `cn()` (clsx + tailwind-merge)
 
 ### Path Aliases
@@ -78,11 +102,11 @@ NativeWind v4 (Tailwind CSS for React Native). Config in `tailwind.config.js`. C
 
 ### API Field Naming Convention
 
-Backend uses Hungarian notation: `s_` prefix for strings, `d_` for dates, `n_` for numbers. Response objects (TypeScript types in `src/types/`) use camelCase equivalents (e.g., `sName`, `dBirthDate`). Keep this pattern when adding new API interactions.
+Backend uses Hungarian notation: `s_` prefix for strings, `d_` for dates, `n_` for numbers. TypeScript types in `src/types/` use camelCase equivalents (e.g., `sName`, `dBirthDate`). Request bodies sent to the API keep the original `s_`/`d_`/`n_` snake_case keys. Keep this pattern when adding new API interactions.
 
 ### Forms
 
-React Hook Form + Zod. Schema defined inline or colocated with the screen file.
+React Hook Form + Zod. Schema defined inline or colocated with the screen file. Validation mode is typically `'all'`.
 
 ### User Registration Status
 
