@@ -1,5 +1,5 @@
 import { ReactNode, forwardRef } from 'react';
-import { ActivityIndicator, TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import { ActivityIndicator, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
 
 import { Loading } from '../Loading';
 
@@ -12,7 +12,7 @@ type ButtonProps = TouchableOpacityProps & {
   isLoading?: boolean;
 };
 
-export const Button = forwardRef<TouchableOpacity, ButtonProps>(
+export const Button = forwardRef<View, ButtonProps>(
   (
     { disabled = false, children, variant = 'default', isLoading = false, className, ...props },
     ref

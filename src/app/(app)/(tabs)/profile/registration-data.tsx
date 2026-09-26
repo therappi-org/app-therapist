@@ -61,7 +61,8 @@ export default function RegistrationData() {
       return true;
     } catch (error) {
       if (error instanceof z.ZodError) {
-        setValidationErrors((prev) => ({ ...prev, [field]: error.errors[0].message }));
+        const message = error.errors[0].message;
+        setValidationErrors((prev) => ({ ...prev, [field]: message }));
       }
       return false;
     }
