@@ -44,7 +44,7 @@ export default function SessionDuration() {
     resolver: zodResolver(sessionDurationSchema),
   });
 
-  const { mutate: createTherapy, isLoading } = UserTherapyQuery.CreateTherapy({
+  const { mutate: createTherapy, isPending: isLoading } = UserTherapyQuery.CreateTherapy({
     onSuccess() {
       router.push('/(app)/(therapist-register)/session/feedback');
     },

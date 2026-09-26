@@ -42,7 +42,7 @@ export default function RegistrationData() {
     {}
   );
 
-  const { mutate: updateUser, isLoading: isUpdatingUser } = UserQuery.Update();
+  const { mutate: updateUser, isPending: isUpdatingUser } = UserQuery.Update();
 
   const phoneMask = Masks.BRL_PHONE;
   const { masked: maskedPhone } = formatWithMask({

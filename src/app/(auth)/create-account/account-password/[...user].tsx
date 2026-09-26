@@ -31,7 +31,7 @@ export default function PasswordAccount() {
   const [name, email] = user;
   const animatedStyle = useAnimatedKeyboardAwareStyle();
 
-  const { mutate: createUser, isLoading } = UserQuery.Create({
+  const { mutate: createUser, isPending: isLoading } = UserQuery.Create({
     onSuccess() {
       router.replace('/(auth)/create-account/feedback');
     },

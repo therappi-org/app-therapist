@@ -34,7 +34,7 @@ export default function ForgotPassword() {
   const insets = useSafeAreaInsets();
   const { email } = useLocalSearchParams<{ email: string }>();
   const animatedStyle = useAnimatedKeyboardAwareStyle();
-  const { mutate: forgotPassword, isLoading } = UserQuery.ForgotPassword({
+  const { mutate: forgotPassword, isPending: isLoading } = UserQuery.ForgotPassword({
     onSuccess: () => {
       router.push('/(auth)/forgot-password/feedback');
     },

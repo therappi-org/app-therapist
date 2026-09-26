@@ -109,7 +109,7 @@ export default function Attendance() {
   const scrollViewRefAttendanceEndTime = useRef<ScrollView>(null);
   const { userData } = useAuth();
 
-  const { mutate: updateWorkingDays, isLoading: isUpdatingWorkingDays } =
+  const { mutate: updateWorkingDays, isPending: isUpdatingWorkingDays } =
     UserQuery.UpdateWorkingDays({
       idUser: userData!.id,
       onSuccess: async () => {

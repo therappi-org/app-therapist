@@ -29,7 +29,7 @@ export default function DateOfBirthRegister() {
   const { phoneNumber } = useLocalSearchParams<{ phoneNumber: string }>();
   const { userData } = useAuth();
   const animatedStyle = useAnimatedKeyboardAwareStyle();
-  const { mutate: updateUserData, isLoading } = UserQuery.Update({
+  const { mutate: updateUserData, isPending: isLoading } = UserQuery.Update({
     onSuccess: () => {
       router.push('/(app)/(therapist-register)/photo');
     },

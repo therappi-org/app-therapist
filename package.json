@@ -16,7 +16,7 @@
     "@gorhom/bottom-sheet": "^5.2.14",
     "@hookform/resolvers": "^3.1.1",
     "@react-native-async-storage/async-storage": "2.2.0",
-    "@tanstack/react-query": "^4.36.1",
+    "@tanstack/react-query": "^5",
     "axios": "^1.6.7",
     "clsx": "^2.1.0",
     "date-fns": "^4.1.0",
@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.23.9",
-    "@tanstack/eslint-plugin-query": "^4.36.1",
+    "@tanstack/eslint-plugin-query": "^5",
     "@types/react": "~19.2.10",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^8.10.0",

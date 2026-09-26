@@ -15,7 +15,7 @@ import colors from '@/theme/colors';
 export default function AddPhoto() {
   const [profileImage, setProfileImage] = useState<ImagePicker.ImagePickerAsset | null>(null);
   const { userData } = useAuth();
-  const { mutate: updateUserAvatar, isLoading } = UserQuery.UpdateAvatar({
+  const { mutate: updateUserAvatar, isPending: isLoading } = UserQuery.UpdateAvatar({
     onSuccess() {
       router.push('/(app)/(therapist-register)/profissional-data');
     },
