@@ -2,6 +2,7 @@ import { Feather } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { Link, router } from 'expo-router';
 import { Dimensions, Text, View } from 'react-native';
+import { useShallow } from 'zustand/react/shallow';
 
 import { Button } from '@/components/Button';
 import { CardStack } from '@/layout/CardStack';
@@ -12,9 +13,11 @@ import { cn } from '@/utils/lib';
 export default function FeedbackTherapy() {
   const { height } = Dimensions.get('window');
   const isSmallDevice = height <= 700;
-  const { selectedTherapy } = useTherapyStore((state) => ({
-    selectedTherapy: state.selectedTherapy,
-  }));
+  const { selectedTherapy } = useTherapyStore(
+    useShallow((state) => ({
+      selectedTherapy: state.selectedTherapy,
+    }))
+  );
 
   return (
     <View className="w-full flex-1 items-center justify-center">

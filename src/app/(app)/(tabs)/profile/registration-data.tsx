@@ -14,18 +14,18 @@ type UserData = Pick<User, 'sName' | 'sEmail' | 'sCellphone' | 'dBirthDate'>;
 
 const validationSchema = {
   sName: z
-    .string({ required_error: 'Campo obrigatório' })
+    .string({ error: 'Campo obrigatório' })
     .min(3, 'O nome deve ter no mínimo 3 caracteres')
     .trim(),
   dBirthDate: z
-    .string({ required_error: 'Campo obrigatório' })
+    .string({ error: 'Campo obrigatório' })
     .regex(/^\d{2}\/\d{2}\/\d{4}$/, { message: 'Data de nascimento inválida' }),
   sEmail: z
-    .string({ required_error: 'Campo obrigatório' })
+    .string({ error: 'Campo obrigatório' })
     .email({ message: 'O email informado não é válido' })
     .trim(),
   sCellphone: z
-    .string({ required_error: 'Campo obrigatório' })
+    .string({ error: 'Campo obrigatório' })
     .regex(/^\([0-9]{2}\) [0-9]{5}-[0-9]{4}$/, { message: 'Telefone inválido' }),
 };
 
@@ -61,7 +61,7 @@ export default function RegistrationData() {
       return true;
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const message = error.errors[0].message;
+        const message = error.issues[0].message;
         setValidationErrors((prev) => ({ ...prev, [field]: message }));
       }
       return false;

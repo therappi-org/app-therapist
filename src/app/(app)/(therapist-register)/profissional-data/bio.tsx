@@ -17,7 +17,7 @@ import { UserQuery } from '@/queries/user';
 
 const bioSchema = z.object({
   bio: z
-    .string({ required_error: 'Campo obrigatório' })
+    .string({ error: 'Campo obrigatório' })
     .min(1, { message: 'Campo obrigatório' })
     .max(200, { message: 'A bio não pode ter mais de 200 caracteres' }),
 });

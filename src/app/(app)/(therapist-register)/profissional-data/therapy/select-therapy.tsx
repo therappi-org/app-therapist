@@ -2,6 +2,7 @@ import { Link } from 'expo-router';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { Dimensions, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useShallow } from 'zustand/react/shallow';
 
 import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
@@ -17,10 +18,12 @@ export default function SelectTherapy() {
   const insets = useSafeAreaInsets();
   const { height, width } = Dimensions.get('window');
   const isSmallDevice = height <= 700;
-  const { selectedTherapy, setSelectedTherapy } = useTherapyStore((state) => ({
-    selectedTherapy: state.selectedTherapy,
-    setSelectedTherapy: state.setSelectedTherapy,
-  }));
+  const { selectedTherapy, setSelectedTherapy } = useTherapyStore(
+    useShallow((state) => ({
+      selectedTherapy: state.selectedTherapy,
+      setSelectedTherapy: state.setSelectedTherapy,
+    }))
+  );
 
   const { data: notAttendedTherapyData, isLoading } = UserTherapyQuery.FindNotAttendedTherapy({
     userId: userData?.id,

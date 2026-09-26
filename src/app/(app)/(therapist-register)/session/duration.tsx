@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { z } from 'zod';
+import { useShallow } from 'zustand/react/shallow';
 
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
@@ -18,7 +19,7 @@ import { useTherapyStore } from '@/stories/useTherapyStore';
 
 const sessionDurationSchema = z.object({
   duration: z
-    .string({ required_error: 'Campo obrigatório' })
+    .string({ error: 'Campo obrigatório' })
     .min(1, { message: 'Campo obrigatório' })
     .regex(/^[0-9]+$/, { message: 'Valor inválido' }),
 });
@@ -28,12 +29,14 @@ type sessionDurationFormValues = z.infer<typeof sessionDurationSchema>;
 export default function SessionDuration() {
   const { userData } = useAuth();
   const animatedStyle = useAnimatedKeyboardAwareStyle();
-  const { selectedTherapy, address, typeOfService, currency } = useTherapyStore((state) => ({
-    selectedTherapy: state.selectedTherapy,
-    address: state.address,
-    typeOfService: state.typeOfService,
-    currency: state.currency,
-  }));
+  const { selectedTherapy, address, typeOfService, currency } = useTherapyStore(
+    useShallow((state) => ({
+      selectedTherapy: state.selectedTherapy,
+      address: state.address,
+      typeOfService: state.typeOfService,
+      currency: state.currency,
+    }))
+  );
 
   const {
     control,

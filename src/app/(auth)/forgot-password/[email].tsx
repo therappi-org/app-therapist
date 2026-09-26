@@ -23,7 +23,7 @@ import { cn } from '@/utils/lib';
 
 const forgotPasswordSchema = z.object({
   email: z
-    .string({ required_error: 'Campo obrigatório' })
+    .string({ error: 'Campo obrigatório' })
     .min(1, { message: 'Campo obrigatório' })
     .email({ message: 'O email informado não é válido' }),
 });

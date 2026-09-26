@@ -637,10 +637,10 @@
   resolved "https://registry.yarnpkg.com/@expo-google-fonts/material-symbols/-/material-symbols-0.4.48.tgz#f8a00bbcf23a0996286a5558432283663643eac1"
   integrity sha512-aZztj44PyA/sj3TXSwwpLJwqMlTUJ49okbZJYURzEcuERxMQB0KbX7RrLBi8WJnuWz5HFOLlTRxORrJfNnUPNQ==
 
-"@expo-google-fonts/montserrat@^0.2.3":
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/@expo-google-fonts/montserrat/-/montserrat-0.2.3.tgz#e22b337ee6bd2007126b466ddd18f9de59eb3fc6"
-  integrity sha512-9imhwIs6j5uyTkTxoNplC5T8ERES1W98ZgF7kf7OaypnbcoLoIW0wKH6oudecZyiEqoSktC7epkRpj+UEUvzWg==
+"@expo-google-fonts/montserrat@^0.4":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/montserrat/-/montserrat-0.4.2.tgz#2fa3a12ac0c79bf51ff48b5ed7fa71db26057fda"
+  integrity sha512-Xyq7rKJhhZOE1Xk4wKSSVoUeOkFmQEMhtZ3pdFrgYckGZMs115Apmld1AI8Ju+yrl5GzDdfRCCqRr33dvEDYUA==
 
 "@expo/cli@^57.0.27":
   version "57.0.27"
@@ -1046,10 +1046,12 @@
   dependencies:
     nanoid "^3.3.1"
 
-"@hookform/resolvers@^3.1.1":
-  version "3.10.0"
-  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-3.10.0.tgz#7bfd18113daca4e57e27e1205b7d5a2d371aa59a"
-  integrity sha512-79Dv+3mDF7i+2ajj7SkypSKHhl1cbln1OGavqrsF7p6mbUv11xpqpacPsGDCTRvCSjEEIez2ef1NveSVL3b0Ag==
+"@hookform/resolvers@^5":
+  version "5.9.1"
+  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-5.9.1.tgz#2010c1b542ce6fa75fa5d8fee5cc911ece009f5c"
+  integrity sha512-7b7vsbraJxKgjVSA1Nur9tLwj539WGJUBLA7QNvXnFoT2pM5Z7G+6rlukk4B2/QrTZy6huRtH6wKeESPKuIr6w==
+  dependencies:
+    "@standard-schema/utils" "^0.3.0"
 
 "@humanwhocodes/config-array@^0.13.0":
   version "0.13.0"
@@ -1460,6 +1462,11 @@
   version "0.27.12"
   resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.27.12.tgz#0cacd3cff047a32936b1ace47ea7c86eaab60a7f"
   integrity sha512-hhyNJ+nbR6ZR7pToHvllEFun9TL0sbL+tk/ON75lo+Xas054uez98qRbsuNt7MBCyZKK4+8Yli/OAGZhmfBZ/g==
+
+"@standard-schema/utils@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@standard-schema/utils/-/utils-0.3.0.tgz#3d5e608f16c2390c10528e98e59aef6bf73cae7b"
+  integrity sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g==
 
 "@tanstack/eslint-plugin-query@^5":
   version "5.104.0"
@@ -1977,7 +1984,7 @@ available-typed-arrays@^1.0.7:
   dependencies:
     possible-typed-array-names "^1.0.0"
 
-axios@^1.6.7:
+axios@^1.20.0:
   version "1.20.0"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.20.0.tgz#515513445aa60e71d04b6521ca6210829ccb4786"
   integrity sha512-r8aOh8j9cGKpgQAqpzrUHnSIc6a59Y3Xf/cv8sy1DrHCkZHzQGEuoq1tARk6qSyDdtQGSDgpb9kFlruzPvrgwg==
@@ -5504,10 +5511,10 @@ range-parser@~1.2.1:
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
   integrity sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==
 
-react-content-loader@^6.2.1:
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/react-content-loader/-/react-content-loader-6.2.1.tgz#8feb733c2d2495002e1b216f13707f2b5f2a8ead"
-  integrity sha512-6ONbFX+Hi3SHuP66JB8CPvJn372pj+qwltJV0J8z/8MFrq98I1cbFdZuhDWeQXu3CFxiiDTXJn7DFxx2ZvrO7g==
+react-content-loader@^7:
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/react-content-loader/-/react-content-loader-7.1.2.tgz#ca2c2e2f28cafc9595a7c39f30153561e65586e7"
+  integrity sha512-naFG7OERUQNPKQt1QWHyBF0/y6Zmr7dOzqjs1U5yOnu4OZmcE3+b/blp40dEKa9lvYAzOuj5dvfTK1cg5YWJkA==
 
 react-devtools-core@^6.1.5:
   version "6.1.5"
@@ -5527,7 +5534,7 @@ react-freeze@^1.0.0:
   resolved "https://registry.yarnpkg.com/react-freeze/-/react-freeze-1.0.4.tgz#cbbea2762b0368b05cbe407ddc9d518c57c6f3ad"
   integrity sha512-r4F0Sec0BLxWicc7HEyo2x3/2icUTrRmDjaaRyzzn+7aDyFZliszMDOgLVwSnQnYENOlL1o569Ze2HZefk8clA==
 
-react-hook-form@^7.50.0:
+react-hook-form@^7.89.0:
   version "7.89.0"
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.89.0.tgz#16bde1ff233fef58bbbfd5cda47e6df929251e70"
   integrity sha512-vKcoCfy8RKZDrhSdqsRFp0uEOdS1AhLjOL6hR7Wmfzg1akNxEhaPf5WORx8SgEQPVXakdDyDkqQp+KNxVnnPHg==
@@ -6650,11 +6657,6 @@ use-sidecar@^1.1.3:
     detect-node-es "^1.1.0"
     tslib "^2.0.0"
 
-use-sync-external-store@^1.2.2:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.7.0.tgz#6dcb66ef569e02f186af6b3d575f414ce746e18f"
-  integrity sha512-6L+EeigHMQhdaIPNIFUKwfWJSwWFQ8gJbJ2DLOs5sDIegTwR9fRxvnM3uciHKjIZhFz+KAv2emhWMRvDmMcY8A==
-
 util-deprecate@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
@@ -6875,17 +6877,20 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-zod@^3.22.4, zod@^3.25.76:
+zod@^3.25.76:
   version "3.25.76"
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.25.76.tgz#26841c3f6fd22a6a2760e7ccb719179768471e34"
   integrity sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==
 
-zustand@^4.5.0:
-  version "4.5.7"
-  resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.5.7.tgz#7d6bb2026a142415dd8be8891d7870e6dbe65f55"
-  integrity sha512-CHOUy7mu3lbD6o6LJLfllpjkzhHXSBlX8B9+qPddUsIfeF5S/UZ5q0kmCsnRqT1UHFQZchNFDDzMbQsuesHWlw==
-  dependencies:
-    use-sync-external-store "^1.2.2"
+zod@^4:
+  version "4.6.5"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-4.6.5.tgz#e3af3edbdc260239c52f73caad05dbbffe6e82cd"
+  integrity sha512-v5l/aFXZQeai4awLbOpSoHecE9UiMrnfx75tEXLjNonXVARxQ5mOeipTjROUchszUNCqnE+hqAMujRsRHsut2Q==
+
+zustand@^5:
+  version "5.0.15"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-5.0.15.tgz#42bddf35647cb80a818a8943a69f6618c126fcfe"
+  integrity sha512-MpSEjRiBkA9crSYeOUH32rJC7SVqAbm0Fqcqge/bUi2PPoLcBWKOsG+C8mevmpr8TwXHBVkChbbJiyvkE+i/3A==
 
 zxing-wasm@3.1.3:
   version "3.1.3"

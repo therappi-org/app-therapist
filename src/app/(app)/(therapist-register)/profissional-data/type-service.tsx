@@ -2,6 +2,7 @@ import { Link } from 'expo-router';
 import React, { useState } from 'react';
 import { Dimensions, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useShallow } from 'zustand/react/shallow';
 
 import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
@@ -39,11 +40,13 @@ export default function TypesOfService() {
   const { userData } = useAuth();
   const { height } = Dimensions.get('window');
   const isSmallDevice = height <= 700;
-  const { selectedTherapy, typeOfService, setTypeOfService } = useTherapyStore((state) => ({
-    selectedTherapy: state.selectedTherapy,
-    typeOfService: state.typeOfService,
-    setTypeOfService: state.setTypeOfService,
-  }));
+  const { selectedTherapy, typeOfService, setTypeOfService } = useTherapyStore(
+    useShallow((state) => ({
+      selectedTherapy: state.selectedTherapy,
+      typeOfService: state.typeOfService,
+      setTypeOfService: state.setTypeOfService,
+    }))
+  );
 
   const { data: registeredAddress } = AddressQueries.GetRegisteredAddress({
     userId: userData!.id,
