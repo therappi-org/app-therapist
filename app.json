@@ -10,11 +10,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#1E42A1"
-    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -59,7 +54,17 @@
           ]
         }
       ],
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-image",
+      "expo-status-bar",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#1E42A1"
+        }
+      ]
     ],
     "extra": {
       "router": {
