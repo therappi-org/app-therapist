@@ -8,7 +8,7 @@ import { Button } from '@/components/Button';
 import colors from '@/theme/colors';
 
 type BottomSheetProps = {
-  bottomSheetModalRef: React.RefObject<BottomSheetModal>;
+  bottomSheetModalRef: React.RefObject<BottomSheetModal | null>;
   title: string;
   children: React.ReactNode;
   snapPointsPercentage?: string;

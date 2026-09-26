@@ -145,11 +145,11 @@ export default function Attendance() {
     setScrollPosition(offset);
   };
 
-  const scrollLeft = (scrollViewRef: React.RefObject<ScrollView>, scrollPosition: number) => {
+  const scrollLeft = (scrollViewRef: React.RefObject<ScrollView | null>, scrollPosition: number) => {
     scrollViewRef.current?.scrollTo({ x: scrollPosition - 280, animated: true });
   };
 
-  const scrollRight = (scrollViewRef: React.RefObject<ScrollView>, scrollPosition: number) => {
+  const scrollRight = (scrollViewRef: React.RefObject<ScrollView | null>, scrollPosition: number) => {
     scrollViewRef.current?.scrollTo({ x: scrollPosition + 280, animated: true });
   };
 
