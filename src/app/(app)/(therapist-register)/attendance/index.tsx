@@ -2,7 +2,7 @@ import { Feather } from '@expo/vector-icons';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useCallback, useRef, useState } from 'react';
+import { ComponentRef, useCallback, useRef, useState } from 'react';
 import {
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -105,8 +105,8 @@ export default function Attendance() {
   const [scrollPositionEndTime, setScrollPositionEndTime] = useState(0);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const insets = useSafeAreaInsets();
-  const scrollViewRefAttendanceStartTime = useRef<ScrollView>(null);
-  const scrollViewRefAttendanceEndTime = useRef<ScrollView>(null);
+  const scrollViewRefAttendanceStartTime = useRef<ComponentRef<typeof ScrollView>>(null);
+  const scrollViewRefAttendanceEndTime = useRef<ComponentRef<typeof ScrollView>>(null);
   const { userData } = useAuth();
 
   const { mutate: updateWorkingDays, isPending: isUpdatingWorkingDays } =
@@ -145,11 +145,17 @@ export default function Attendance() {
     setScrollPosition(offset);
   };
 
-  const scrollLeft = (scrollViewRef: React.RefObject<ScrollView | null>, scrollPosition: number) => {
+  const scrollLeft = (
+    scrollViewRef: React.RefObject<ComponentRef<typeof ScrollView> | null>,
+    scrollPosition: number
+  ) => {
     scrollViewRef.current?.scrollTo({ x: scrollPosition - 280, animated: true });
   };
 
-  const scrollRight = (scrollViewRef: React.RefObject<ScrollView | null>, scrollPosition: number) => {
+  const scrollRight = (
+    scrollViewRef: React.RefObject<ComponentRef<typeof ScrollView> | null>,
+    scrollPosition: number
+  ) => {
     scrollViewRef.current?.scrollTo({ x: scrollPosition + 280, animated: true });
   };
 

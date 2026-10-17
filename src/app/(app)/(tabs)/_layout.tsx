@@ -61,7 +61,7 @@ export default function Layout() {
               tabBarLabel: ({ color }) => (
                 <Text style={{ color, fontWeight: 'bold', fontSize: 11 }}>Home</Text>
               ),
-              tabBarIcon: ({ color }) => <Feather size={24} name="home" color={color} />,
+              tabBarIcon: ({ color }) => <Feather size={24} name="home" color={color as string} />,
             }}
           />
           <Tabs.Screen
@@ -71,7 +71,7 @@ export default function Layout() {
               tabBarLabel: ({ color }) => (
                 <Text style={{ color, fontWeight: 'bold', fontSize: 11 }}>Meu Perfil</Text>
               ),
-              tabBarIcon: ({ color }) => <Feather size={24} name="user" color={color} />,
+              tabBarIcon: ({ color }) => <Feather size={24} name="user" color={color as string} />,
             }}
           />
           <Tabs.Screen
@@ -81,7 +81,9 @@ export default function Layout() {
               tabBarLabel: ({ color }) => (
                 <Text style={{ color, fontWeight: 'bold', fontSize: 11 }}>Configurações</Text>
               ),
-              tabBarIcon: ({ color }) => <Feather size={24} name="settings" color={color} />,
+              tabBarIcon: ({ color }) => (
+                <Feather size={24} name="settings" color={color as string} />
+              ),
             }}
           />
         </Tabs>

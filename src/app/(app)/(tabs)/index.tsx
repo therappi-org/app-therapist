@@ -26,7 +26,9 @@ export default function Home() {
           refreshControl={
             <RefreshControl
               refreshing={isRefetchingWarnings}
-              onRefresh={refetchWarnings}
+              onRefresh={() => {
+                refetchWarnings();
+              }}
               tintColor={colors.brand.DEFAULT}
               colors={[colors.brand.DEFAULT]}
             />
