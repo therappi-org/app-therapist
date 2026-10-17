@@ -10,11 +10,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#1E42A1"
-    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -51,15 +46,25 @@
         "expo-font",
         {
           "fonts": [
-            "node_modules/@expo-google-fonts/montserrat/Montserrat_300Light.ttf",
-            "node_modules/@expo-google-fonts/montserrat/Montserrat_400Regular.ttf",
-            "node_modules/@expo-google-fonts/montserrat/Montserrat_500Medium.ttf",
-            "node_modules/@expo-google-fonts/montserrat/Montserrat_600SemiBold.ttf",
-            "node_modules/@expo-google-fonts/montserrat/Montserrat_700Bold.ttf"
+            "node_modules/@expo-google-fonts/montserrat/300Light/Montserrat_300Light.ttf",
+            "node_modules/@expo-google-fonts/montserrat/400Regular/Montserrat_400Regular.ttf",
+            "node_modules/@expo-google-fonts/montserrat/500Medium/Montserrat_500Medium.ttf",
+            "node_modules/@expo-google-fonts/montserrat/600SemiBold/Montserrat_600SemiBold.ttf",
+            "node_modules/@expo-google-fonts/montserrat/700Bold/Montserrat_700Bold.ttf"
           ]
         }
       ],
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-image",
+      "expo-status-bar",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#1E42A1"
+        }
+      ]
     ],
     "extra": {
       "router": {

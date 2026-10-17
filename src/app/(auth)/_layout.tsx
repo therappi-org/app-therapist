@@ -25,7 +25,7 @@ export default function Layout() {
         <Stack
           screenOptions={{
             animation: 'slide_from_right',
-            headerBackTitleVisible: false,
+            headerBackButtonDisplayMode: 'minimal',
             headerShadowVisible: false,
             headerTintColor: '#fff',
             headerStyle: {

@@ -2,6 +2,7 @@ import { Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useShallow } from 'zustand/react/shallow';
 
 import { Card } from '@/components/Card';
 import { useAuth } from '@/contexts/useAuth';
@@ -18,9 +19,11 @@ export default function RegisteredAddress() {
     userId: userData!.id,
   });
 
-  const { setAddress } = useTherapyStore((state) => ({
-    setAddress: state.setAddress,
-  }));
+  const { setAddress } = useTherapyStore(
+    useShallow((state) => ({
+      setAddress: state.setAddress,
+    }))
+  );
 
   const handleOnPressAddress = (address: Address) => {
     setAddress({

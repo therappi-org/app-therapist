@@ -17,7 +17,7 @@ import { UserQuery } from '@/queries/user';
 
 const bioSchema = z.object({
   bio: z
-    .string({ required_error: 'Campo obrigatório' })
+    .string({ error: 'Campo obrigatório' })
     .min(1, { message: 'Campo obrigatório' })
     .max(200, { message: 'A bio não pode ter mais de 200 caracteres' }),
 });
@@ -29,7 +29,7 @@ export default function Bio() {
   const { height } = Dimensions.get('window');
   const isSmallDevice = height <= 700;
   const animatedStyle = useAnimatedKeyboardAwareStyle();
-  const { mutate: updateUserData, isLoading } = UserQuery.Update({
+  const { mutate: updateUserData, isPending: isLoading } = UserQuery.Update({
     onSuccess: () => {
       router.push('/(app)/(therapist-register)/profissional-data/therapy');
     },

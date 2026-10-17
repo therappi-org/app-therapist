@@ -16,7 +16,7 @@ import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout'
 
 const phoneRegisterSchema = z.object({
   phone: z
-    .string({ required_error: 'Campo obrigatório' })
+    .string({ error: 'Campo obrigatório' })
     .regex(/^\([0-9]{2}\) [0-9]{5}-[0-9]{4}$/, { message: 'Telefone inválido' })
     .min(1, { message: 'Campo obrigatório' }),
 });

@@ -37,7 +37,7 @@ export default function Profile() {
 
         <View className="mt-4">
           <TouchableOpacity
-            onPress={() => router.push('/(tabs)/profile/registration-data')}
+            onPress={() => router.push('/(app)/(tabs)/profile/registration-data')}
             activeOpacity={0.8}
             className="flex-row items-center justify-between gap-4 overflow-hidden rounded-2xl bg-gray-50 p-4 shadow-custom-light">
             <View className="rounded-full bg-brand-200/5 p-3">

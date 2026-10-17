@@ -16,7 +16,7 @@ import { UserQuery } from '@/queries/user';
 
 const passwordAccountSchema = z.object({
   password: z
-    .string({ required_error: 'Campo obrigatório' })
+    .string({ error: 'Campo obrigatório' })
     .min(6, { message: 'A senha deve ter no mínimo 6 caracteres' })
     .trim(),
 });
@@ -31,7 +31,7 @@ export default function PasswordAccount() {
   const [name, email] = user;
   const animatedStyle = useAnimatedKeyboardAwareStyle();
 
-  const { mutate: createUser, isLoading } = UserQuery.Create({
+  const { mutate: createUser, isPending: isLoading } = UserQuery.Create({
     onSuccess() {
       router.replace('/(auth)/create-account/feedback');
     },

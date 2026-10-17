@@ -23,7 +23,7 @@ import { cn } from '@/utils/lib';
 
 const forgotPasswordSchema = z.object({
   email: z
-    .string({ required_error: 'Campo obrigatório' })
+    .string({ error: 'Campo obrigatório' })
     .min(1, { message: 'Campo obrigatório' })
     .email({ message: 'O email informado não é válido' }),
 });
@@ -34,7 +34,7 @@ export default function ForgotPassword() {
   const insets = useSafeAreaInsets();
   const { email } = useLocalSearchParams<{ email: string }>();
   const animatedStyle = useAnimatedKeyboardAwareStyle();
-  const { mutate: forgotPassword, isLoading } = UserQuery.ForgotPassword({
+  const { mutate: forgotPassword, isPending: isLoading } = UserQuery.ForgotPassword({
     onSuccess: () => {
       router.push('/(auth)/forgot-password/feedback');
     },

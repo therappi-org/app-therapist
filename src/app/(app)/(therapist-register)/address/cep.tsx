@@ -7,6 +7,7 @@ import { Text, View } from 'react-native';
 import { Masks } from 'react-native-mask-input';
 import Animated from 'react-native-reanimated';
 import { z } from 'zod';
+import { useShallow } from 'zustand/react/shallow';
 
 import { Button } from '@/components/Button';
 import { MaskInput } from '@/components/MaskInput';
@@ -19,7 +20,7 @@ import { useTherapyStore } from '@/stories/useTherapyStore';
 
 const cepAddressSchema = z.object({
   cep: z
-    .string({ required_error: 'Campo obrigatório' })
+    .string({ error: 'Campo obrigatório' })
     .min(1, { message: 'Campo obrigatório' })
     .regex(/^\d{5}-\d{3}$/, { message: 'CEP inválido' }),
 });
@@ -30,9 +31,11 @@ export default function CepAddress() {
   const [cep, setCep] = useState('');
   const { userData } = useAuth();
   const animatedStyle = useAnimatedKeyboardAwareStyle();
-  const { selectedTherapy } = useTherapyStore((state) => ({
-    selectedTherapy: state.selectedTherapy,
-  }));
+  const { selectedTherapy } = useTherapyStore(
+    useShallow((state) => ({
+      selectedTherapy: state.selectedTherapy,
+    }))
+  );
 
   const { data: registeredAddress } = AddressQueries.GetRegisteredAddress({
     userId: userData?.id,

@@ -18,7 +18,7 @@ import { UserQuery } from '@/queries/user';
 
 const dateOfBirthSchema = z.object({
   DateOfBirth: z
-    .string({ required_error: 'Campo obrigatório' })
+    .string({ error: 'Campo obrigatório' })
     .min(1, { message: 'Campo obrigatório' })
     .regex(/^\d{2}\/\d{2}\/\d{4}$/, { message: 'Data de nascimento inválida' }),
 });
@@ -29,7 +29,7 @@ export default function DateOfBirthRegister() {
   const { phoneNumber } = useLocalSearchParams<{ phoneNumber: string }>();
   const { userData } = useAuth();
   const animatedStyle = useAnimatedKeyboardAwareStyle();
-  const { mutate: updateUserData, isLoading } = UserQuery.Update({
+  const { mutate: updateUserData, isPending: isLoading } = UserQuery.Update({
     onSuccess: () => {
       router.push('/(app)/(therapist-register)/photo');
     },

@@ -7,6 +7,7 @@ import { Text, View } from 'react-native';
 import { Masks } from 'react-native-mask-input';
 import Animated from 'react-native-reanimated';
 import { z } from 'zod';
+import { useShallow } from 'zustand/react/shallow';
 
 import { Button } from '@/components/Button';
 import { MaskInput } from '@/components/MaskInput';
@@ -16,7 +17,7 @@ import { KeyBoardAvoidingViewLayout } from '@/layout/KeyboardAvoidingViewLayout'
 import { useTherapyStore } from '@/stories/useTherapyStore';
 
 const sessionCostSchema = z.object({
-  currency: z.string({ required_error: 'Campo obrigatório' }).refine(
+  currency: z.string({ error: 'Campo obrigatório' }).refine(
     (value) => {
       const number = Number(value.replace(/[^0-9]/g, ''));
       return number >= 100 && number <= 10000000000;
@@ -29,10 +30,12 @@ type sessionCostFormValues = z.infer<typeof sessionCostSchema>;
 
 export default function SessionCost() {
   const animatedStyle = useAnimatedKeyboardAwareStyle();
-  const { selectedTherapy, setCurrency } = useTherapyStore((state) => ({
-    selectedTherapy: state.selectedTherapy,
-    setCurrency: state.setCurrency,
-  }));
+  const { selectedTherapy, setCurrency } = useTherapyStore(
+    useShallow((state) => ({
+      selectedTherapy: state.selectedTherapy,
+      setCurrency: state.setCurrency,
+    }))
+  );
 
   const {
     control,

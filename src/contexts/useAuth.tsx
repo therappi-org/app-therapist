@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
   const {
-    isLoading: isAuthLoading,
+    isPending: isAuthLoading,
     mutate,
     data: userData,
   } = AuthQuery.Session({

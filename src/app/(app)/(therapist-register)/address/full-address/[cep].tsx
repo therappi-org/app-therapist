@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { z } from 'zod';
+import { useShallow } from 'zustand/react/shallow';
 
 import { Button } from '@/components/Button';
 import { CardCheckbox } from '@/components/Card/CardCheckbox';
@@ -25,24 +26,18 @@ import { cn } from '@/utils/lib';
 const fullAddressSchema = z
   .object({
     street: z
-      .string({ required_error: 'Campo obrigatório' })
+      .string({ error: 'Campo obrigatório' })
       .min(1, { message: 'Campo obrigatório' })
       .trim(),
     hasNoHouseNumber: z.boolean(),
     number: z.string().trim(),
     complement: z.string().trim(),
     neighborhood: z
-      .string({ required_error: 'Campo obrigatório' })
+      .string({ error: 'Campo obrigatório' })
       .min(1, { message: 'Campo obrigatório' })
       .trim(),
-    city: z
-      .string({ required_error: 'Campo obrigatório' })
-      .min(1, { message: 'Campo obrigatório' })
-      .trim(),
-    state: z
-      .string({ required_error: 'Campo obrigatório' })
-      .min(1, { message: 'Campo obrigatório' })
-      .trim(),
+    city: z.string({ error: 'Campo obrigatório' }).min(1, { message: 'Campo obrigatório' }).trim(),
+    state: z.string({ error: 'Campo obrigatório' }).min(1, { message: 'Campo obrigatório' }).trim(),
   })
   .refine((data) => {
     if (!data.hasNoHouseNumber) {
@@ -57,10 +52,12 @@ export default function FullAddress() {
   const [hasNoHouseNumber, setHasNumber] = useState(false);
   const insets = useSafeAreaInsets();
   const { cep } = useLocalSearchParams<{ cep: string }>();
-  const { setAddress, address } = useTherapyStore((state) => ({
-    setAddress: state.setAddress,
-    address: state.address,
-  }));
+  const { setAddress, address } = useTherapyStore(
+    useShallow((state) => ({
+      setAddress: state.setAddress,
+      address: state.address,
+    }))
+  );
 
   const { data: cepData } = ViaCepQueries.GetCepData({
     cep,
