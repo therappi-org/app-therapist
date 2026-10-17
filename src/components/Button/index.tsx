@@ -1,18 +1,19 @@
-import { ReactNode, forwardRef } from 'react';
-import { ActivityIndicator, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import { ComponentRef, ReactNode, forwardRef } from 'react';
+import { ActivityIndicator, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 
 import { Loading } from '../Loading';
 
 import { cn } from '@/utils/lib';
 
-type ButtonProps = TouchableOpacityProps & {
+type ButtonProps = Omit<TouchableOpacityProps, 'onPress'> & {
+  onPress?: () => unknown;
   disabled?: boolean;
   variant?: 'default' | 'outline' | 'rounded' | 'ghost';
   children: ReactNode;
   isLoading?: boolean;
 };
 
-export const Button = forwardRef<View, ButtonProps>(
+export const Button = forwardRef<ComponentRef<typeof TouchableOpacity>, ButtonProps>(
   (
     { disabled = false, children, variant = 'default', isLoading = false, className, ...props },
     ref
