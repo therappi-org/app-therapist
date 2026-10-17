@@ -16,10 +16,6 @@ import { AuthProvider } from '@/contexts/useAuth';
 
 cssInterop(Image, { className: 'style' });
 
-export const unstable_settings = {
-  initialRouteName: 'index',
-};
-
 export default function Root() {
   const navigationRef = useNavigationContainerRef();
   useReactNavigationDevTools(navigationRef);
