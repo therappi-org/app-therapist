@@ -52,6 +52,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     },
   });
 
+  const signOut = async () => {
+    await SecureStore.deleteItemAsync(THERAPIST_STORE_TOKEN_KEY);
+    await SecureStore.deleteItemAsync(THERAPIST_STORE_USER_KEY);
+
+    setIsAuthenticated(false);
+
+    await AsyncStorage.multiRemove([THERAPIST_STORE_WALKTHROUGH_KEY, THERAPIST_REGISTERED_KEY]);
+  };
+
   useEffect(() => {
     (async () => {
       try {
@@ -82,15 +91,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       s_email,
       s_password,
     });
-  };
-
-  const signOut = async () => {
-    await SecureStore.deleteItemAsync(THERAPIST_STORE_TOKEN_KEY);
-    await SecureStore.deleteItemAsync(THERAPIST_STORE_USER_KEY);
-
-    setIsAuthenticated(false);
-
-    await AsyncStorage.multiRemove([THERAPIST_STORE_WALKTHROUGH_KEY, THERAPIST_REGISTERED_KEY]);
   };
 
   return (
